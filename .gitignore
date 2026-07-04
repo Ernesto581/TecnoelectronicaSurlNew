@@ -10,6 +10,7 @@
 /storage/framework/views/*
 /storage/logs/*
 
-# Si usas Node.js en el futuro
 /node_modules
 /public/build
+/public/hot
+/storage/debugbar
