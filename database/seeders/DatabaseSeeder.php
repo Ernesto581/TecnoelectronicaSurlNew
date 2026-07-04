@@ -12,11 +12,19 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database with sample data.
+     *
+     * Creates:
+     * - 1 admin user (admin@example.com)
+     * - 1 customer user (customer@example.com)
+     * - 6 product categories
+     * - 42 products (30 normal + 12 featured)
+     * - 1 active cart for the customer (3 items)
+     * - 1 delivered order for the customer (2 items)
      */
     public function run(): void
     {
-        User::factory()->admin()->create([
+        $admin = User::factory()->admin()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
         ]);

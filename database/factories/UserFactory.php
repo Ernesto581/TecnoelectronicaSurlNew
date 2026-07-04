@@ -34,6 +34,9 @@ class UserFactory extends Factory
         ];
     }
 
+    /**
+     * Set the user's role to admin.
+     */
     public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -41,6 +44,9 @@ class UserFactory extends Factory
         ]);
     }
 
+    /**
+     * Set the user's role to customer.
+     */
     public function customer(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -48,6 +54,9 @@ class UserFactory extends Factory
         ]);
     }
 
+    /**
+     * Indicate that the user's email address should be unverified.
+     */
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [

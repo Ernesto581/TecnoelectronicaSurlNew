@@ -7,10 +7,23 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ */
 class OrderFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     */
     protected $model = Order::class;
 
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $subtotal = fake()->randomFloat(2, 50, 5000);
@@ -29,6 +42,9 @@ class OrderFactory extends Factory
         ];
     }
 
+    /**
+     * Set the order status to cart (acts as a shopping cart).
+     */
     public function cart(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -42,6 +58,9 @@ class OrderFactory extends Factory
         ]);
     }
 
+    /**
+     * Set the order status to pending.
+     */
     public function pending(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -49,6 +68,9 @@ class OrderFactory extends Factory
         ]);
     }
 
+    /**
+     * Set the order status to delivered.
+     */
     public function delivered(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -56,6 +78,9 @@ class OrderFactory extends Factory
         ]);
     }
 
+    /**
+     * Set the order status to cancelled.
+     */
     public function cancelled(): static
     {
         return $this->state(fn (array $attributes) => [

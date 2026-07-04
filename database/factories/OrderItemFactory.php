@@ -7,10 +7,23 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrderItem>
+ */
 class OrderItemFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     */
     protected $model = OrderItem::class;
 
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $quantity = fake()->numberBetween(1, 5);
@@ -25,6 +38,9 @@ class OrderItemFactory extends Factory
         ];
     }
 
+    /**
+     * Use an existing product with a snapshot of its current price.
+     */
     public function forProduct(Product $product, int $quantity = 1): static
     {
         return $this->state(fn (array $attributes) => [

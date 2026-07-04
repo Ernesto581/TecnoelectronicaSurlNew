@@ -8,12 +8,28 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ */
 class ProductFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     */
     protected $model = Product::class;
 
+    /**
+     * Running counter to ensure unique slugs across products.
+     */
     private static int $order = 1;
 
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $name = fake()->unique()->words(3, true);
@@ -38,6 +54,9 @@ class ProductFactory extends Factory
         ];
     }
 
+    /**
+     * Mark the product as featured on the home page.
+     */
     public function featured(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -46,6 +65,9 @@ class ProductFactory extends Factory
         ]);
     }
 
+    /**
+     * Indicate that the product is inactive and hidden from the store.
+     */
     public function inactive(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -53,6 +75,9 @@ class ProductFactory extends Factory
         ]);
     }
 
+    /**
+     * Set stock to zero and badge to SoldOut.
+     */
     public function outOfStock(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -61,6 +86,9 @@ class ProductFactory extends Factory
         ]);
     }
 
+    /**
+     * Assign the product to a specific category (without creating a new one).
+     */
     public function forCategory(Category $category): static
     {
         return $this->state(fn (array $attributes) => [
