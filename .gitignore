@@ -1,0 +1,15 @@
+/vendor
+/.env
+/.env.backup
+/.env.production
+/bootstrap/cache/*
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Si usas Node.js en el futuro
+/node_modules
+/public/build
