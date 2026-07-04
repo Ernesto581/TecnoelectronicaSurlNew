@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Rol;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -46,5 +47,15 @@ class User extends Authenticatable
     public function isCustomer(): bool
     {
         return $this->rol === Rol::Customer;
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function cart(): ?Order
+    {
+        return $this->orders()->cart()->first();
     }
 }
