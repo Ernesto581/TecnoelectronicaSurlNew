@@ -7,35 +7,20 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
  * Handles CRUD operations for products.
  *
- * All mutating actions (create, update, delete) are restricted
- * to administrators via middleware, policy, and form request authorization.
+ * Authorization is handled at the route level via the admin middleware.
  */
 class ProductController extends Controller
 {
     /**
-     * Apply admin middleware to every action in this controller.
-     */
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
-    /**
      * Display a paginated listing of all products.
-     *
-     * Only accessible by administrators.
      */
     public function index(): View
     {
-        Gate::authorize('viewAny', Product::class);
-
         $products = Product::with('category')
             ->latest()
             ->paginate(20);
@@ -45,13 +30,9 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new product.
-     *
-     * Only accessible by administrators.
      */
     public function create(): View
     {
-        Gate::authorize('create', Product::class);
-
         $categories = Category::active()->orderBy('name')->get();
 
         return view('profile.products.create', compact('categories'));
@@ -59,8 +40,6 @@ class ProductController extends Controller
 
     /**
      * Store a newly created product in storage.
-     *
-     * Only accessible by administrators.
      */
     public function store(StoreProductRequest $request): RedirectResponse
     {
@@ -73,13 +52,9 @@ class ProductController extends Controller
 
     /**
      * Display the specified product details.
-     *
-     * Only accessible by administrators.
      */
     public function show(Product $product): View
     {
-        Gate::authorize('view', $product);
-
         $product->load('category');
 
         return view('profile.products.show', compact('product'));
@@ -87,13 +62,9 @@ class ProductController extends Controller
 
     /**
      * Show the form for editing the specified product.
-     *
-     * Only accessible by administrators.
      */
     public function edit(Product $product): View
     {
-        Gate::authorize('update', $product);
-
         $categories = Category::active()->orderBy('name')->get();
 
         return view('profile.products.edit', compact('product', 'categories'));
@@ -101,8 +72,6 @@ class ProductController extends Controller
 
     /**
      * Update the specified product in storage.
-     *
-     * Only accessible by administrators.
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
@@ -115,13 +84,9 @@ class ProductController extends Controller
 
     /**
      * Remove the specified product from storage (soft delete).
-     *
-     * Only accessible by administrators.
      */
     public function destroy(Product $product): RedirectResponse
     {
-        Gate::authorize('delete', $product);
-
         $product->delete();
 
         return redirect()
@@ -132,14 +97,10 @@ class ProductController extends Controller
     /**
      * Restore a soft-deleted product.
      *
-     * Only accessible by administrators.
+     * The route uses withTrashed() so the model is resolved including trashed records.
      */
-    public function restore(int $id): RedirectResponse
+    public function restore(Product $product): RedirectResponse
     {
-        $product = Product::onlyTrashed()->findOrFail($id);
-
-        Gate::authorize('restore', $product);
-
         $product->restore();
 
         return redirect()

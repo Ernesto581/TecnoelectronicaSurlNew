@@ -28,7 +28,7 @@
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('profile.products.restore', $product->id) }}" method="POST">
+                    <form action="{{ route('profile.products.restore', $product) }}" method="POST">
                         @csrf
                         <button type="submit"
                                 class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-green-700 bg-green-50 rounded-full hover:bg-green-100 transition-colors">

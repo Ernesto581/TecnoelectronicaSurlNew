@@ -39,7 +39,7 @@ Route::middleware(['auth', 'admin'])->prefix('profile/productos')->name('profile
     Route::get('/{product}/editar', [ProductController::class, 'edit'])->name('edit');
     Route::patch('/{product}', [ProductController::class, 'update'])->name('update');
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
-    Route::post('/{id}/restaurar', [ProductController::class, 'restore'])->name('restore');
+    Route::post('/{product}/restaurar', [ProductController::class, 'restore'])->withTrashed()->name('restore');
 });
 
 require __DIR__.'/auth.php';
