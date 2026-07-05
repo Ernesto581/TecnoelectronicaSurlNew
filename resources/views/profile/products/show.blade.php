@@ -4,20 +4,20 @@
 <div class="min-h-screen bg-gray-50 pt-28">
     <div class="max-w-[1200px] mx-auto px-4 md:px-8 py-10">
         <div class="mb-6 flex items-center justify-between">
-            <a href="{{ route('admin.products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors">
+            <a href="{{ route('profile.products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors">
                 <x-icon name="chevron-left" class="w-4 h-4" />
                 Volver a productos
             </a>
             <div class="flex items-center gap-3">
                 @unless ($product->trashed())
-                    <a href="{{ route('admin.products.edit', $product) }}"
+                    <a href="{{ route('profile.products.edit', $product) }}"
                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 bg-amber-50 rounded-full hover:bg-amber-100 transition-colors">
                         <x-icon name="edit" class="w-4 h-4" />
                         Editar
                     </a>
                 @endunless
                 @unless ($product->trashed())
-                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST"
+                    <form action="{{ route('profile.products.destroy', $product) }}" method="POST"
                           onsubmit="return confirm('Eliminar este producto?')">
                         @csrf
                         @method('DELETE')
@@ -28,7 +28,7 @@
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('admin.products.restore', $product->id) }}" method="POST">
+                    <form action="{{ route('profile.products.restore', $product->id) }}" method="POST">
                         @csrf
                         <button type="submit"
                                 class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-green-700 bg-green-50 rounded-full hover:bg-green-100 transition-colors">

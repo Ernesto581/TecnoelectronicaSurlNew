@@ -28,10 +28,10 @@ Route::get('/tienda/producto/{product}', [StoreController::class, 'show'])->name
 Route::get('/tienda/categoria/{category}', [StoreController::class, 'category'])->name('store.category.show');
 
 /*
- * Admin product management.
+ * Product management under profile.
  * All routes require authentication AND the admin role.
  */
-Route::middleware(['auth', 'admin'])->prefix('admin/productos')->name('admin.products.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('profile/productos')->name('profile.products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
     Route::get('/crear', [ProductController::class, 'create'])->name('create');
     Route::post('/', [ProductController::class, 'store'])->name('store');

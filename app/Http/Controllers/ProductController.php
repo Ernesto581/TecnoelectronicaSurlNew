@@ -40,7 +40,7 @@ class ProductController extends Controller
             ->latest()
             ->paginate(20);
 
-        return view('admin.products.index', compact('products'));
+        return view('profile.products.index', compact('products'));
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
         $categories = Category::active()->orderBy('name')->get();
 
-        return view('admin.products.create', compact('categories'));
+        return view('profile.products.create', compact('categories'));
     }
 
     /**
@@ -67,7 +67,7 @@ class ProductController extends Controller
         $product = Product::create($request->validated());
 
         return redirect()
-            ->route('admin.products.show', $product)
+            ->route('profile.products.show', $product)
             ->with('success', 'Producto creado correctamente.');
     }
 
@@ -82,7 +82,7 @@ class ProductController extends Controller
 
         $product->load('category');
 
-        return view('admin.products.show', compact('product'));
+        return view('profile.products.show', compact('product'));
     }
 
     /**
@@ -96,7 +96,7 @@ class ProductController extends Controller
 
         $categories = Category::active()->orderBy('name')->get();
 
-        return view('admin.products.edit', compact('product', 'categories'));
+        return view('profile.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -109,7 +109,7 @@ class ProductController extends Controller
         $product->update($request->validated());
 
         return redirect()
-            ->route('admin.products.show', $product)
+            ->route('profile.products.show', $product)
             ->with('success', 'Producto actualizado correctamente.');
     }
 
@@ -125,7 +125,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()
-            ->route('admin.products.index')
+            ->route('profile.products.index')
             ->with('success', 'Producto eliminado correctamente.');
     }
 
@@ -143,7 +143,7 @@ class ProductController extends Controller
         $product->restore();
 
         return redirect()
-            ->route('admin.products.index')
+            ->route('profile.products.index')
             ->with('success', 'Producto restaurado correctamente.');
     }
 }

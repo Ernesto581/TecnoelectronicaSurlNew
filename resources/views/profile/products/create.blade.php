@@ -4,7 +4,7 @@
 <div class="min-h-screen bg-gray-50 pt-28">
     <div class="max-w-[900px] mx-auto px-4 md:px-8 py-10">
         <div class="mb-8">
-            <a href="{{ route('admin.products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-4">
+            <a href="{{ route('profile.products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-4">
                 <x-icon name="chevron-left" class="w-4 h-4" />
                 Volver a productos
             </a>
@@ -12,7 +12,7 @@
             <p class="text-gray-600 mt-1">Completa los datos para registrar un nuevo producto en el catalogo.</p>
         </div>
 
-        <form action="{{ route('admin.products.store') }}" method="POST" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+        <form action="{{ route('profile.products.store') }}" method="POST" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -159,7 +159,7 @@
             </div>
 
             <div class="mt-8 flex items-center justify-end gap-4">
-                <a href="{{ route('admin.products.index') }}"
+                <a href="{{ route('profile.products.index') }}"
                    class="px-5 py-3 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
                     Cancelar
                 </a>
