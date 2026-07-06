@@ -35,10 +35,10 @@
                     </div>
                 </section>
 
-                <section class="bg-gradient-to-r from-[#eef2ff] to-[#e0e7ff] rounded-3xl border border-indigo-200 shadow-sm p-6">
+                <section class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-3xl border border-indigo-200 shadow-sm p-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-indigo-500 flex items-center justify-center shrink-0">
+                            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center shrink-0">
                                 <x-icon name="users" class="w-6 h-6 text-white" />
                             </div>
                             <div>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <a href="{{ route('users.index') }}"
-                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-indigo-500 rounded-full hover:bg-indigo-600 transition-colors shrink-0">
+                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors shrink-0">
                             <x-icon name="users" class="w-4 h-4" />
                             Ver usuarios
                         </a>
