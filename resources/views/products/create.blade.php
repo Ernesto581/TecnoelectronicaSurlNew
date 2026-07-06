@@ -4,7 +4,7 @@
 <div class="min-h-screen bg-gray-50 pt-28">
     <div class="max-w-[900px] mx-auto px-4 md:px-8 py-10">
         <div class="mb-8">
-            <a href="{{ route('profile.products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-4">
+            <a href="{{ route('products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-4">
                 <x-icon name="chevron-left" class="w-4 h-4" />
                 Volver a productos
             </a>
@@ -12,7 +12,7 @@
             <p class="text-gray-600 mt-1">Completa los datos para registrar un nuevo producto en el catalogo.</p>
         </div>
 
-        <form action="{{ route('profile.products.store') }}" method="POST" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+        <form action="{{ route('products.store') }}" method="POST" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,24 +108,6 @@
                 </div>
 
                 <div>
-                    <label for="rating" class="block text-sm font-semibold text-gray-900 mb-2">Valoracion</label>
-                    <input type="number" name="rating" id="rating" value="{{ old('rating', 0) }}" step="0.1" min="0" max="5"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('rating') border-red-300 @enderror" />
-                    @error('rating')
-                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="reviews_count" class="block text-sm font-semibold text-gray-900 mb-2">Numero de reseñas</label>
-                    <input type="number" name="reviews_count" id="reviews_count" value="{{ old('reviews_count', 0) }}" min="0"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('reviews_count') border-red-300 @enderror" />
-                    @error('reviews_count')
-                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
                     <label for="image_url" class="block text-sm font-semibold text-gray-900 mb-2">URL de imagen</label>
                     <input type="url" name="image_url" id="image_url" value="{{ old('image_url') }}"
                            class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('image_url') border-red-300 @enderror"
@@ -159,7 +141,7 @@
             </div>
 
             <div class="mt-8 flex items-center justify-end gap-4">
-                <a href="{{ route('profile.products.index') }}"
+                <a href="{{ route('products.index') }}"
                    class="px-5 py-3 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
                     Cancelar
                 </a>

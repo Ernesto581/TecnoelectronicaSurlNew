@@ -8,7 +8,7 @@
                 <h1 class="text-3xl font-bold text-gray-900">Productos</h1>
                 <p class="text-gray-600 mt-1">{{ $products->total() }} productos registrados</p>
             </div>
-            <a href="{{ route('profile.products.create') }}"
+            <a href="{{ route('products.create') }}"
                class="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors">
                 <x-icon name="plus" class="w-4 h-4" />
                 Nuevo producto
@@ -105,33 +105,33 @@
                                 </td>
                                 <td class="py-4 px-6">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('profile.products.show', $product) }}"
-                                           class="rounded-full p-2 text-gray-400 hover:text-[#46A040] hover:bg-gray-100 transition-colors"
-                                           title="Ver detalle">
-                                            <x-icon name="eye" class="w-4 h-4" />
+                                        <a href="{{ route('products.show', $product) }}"
+                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-800 transition-colors">
+                                            <x-icon name="eye" class="w-3.5 h-3.5" />
+                                            Ver
                                         </a>
                                         @unless ($product->trashed())
-                                            <a href="{{ route('profile.products.edit', $product) }}"
-                                               class="rounded-full p-2 text-gray-400 hover:text-amber-600 hover:bg-gray-100 transition-colors"
-                                               title="Editar">
-                                                <x-icon name="edit" class="w-4 h-4" />
+                                            <a href="{{ route('products.edit', $product) }}"
+                                               class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors">
+                                                <x-icon name="edit" class="w-3.5 h-3.5" />
+                                                Editar
                                             </a>
-                                            <form action="{{ route('profile.products.destroy', $product) }}" method="POST"
-                                                  onsubmit="return confirm('Eliminar este producto?')">
+                                            <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                                  onsubmit="return confirm('Eliminar este producto?')" class="inline-flex">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                        class="rounded-full p-2 text-gray-400 hover:text-red-600 hover:bg-gray-100 transition-colors"
-                                                        title="Eliminar">
-                                                    <x-icon name="trash" class="w-4 h-4" />
+                                                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
+                                                    <x-icon name="trash" class="w-3.5 h-3.5" />
+                                                    Eliminar
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ route('profile.products.restore', $product) }}" method="POST">
+                                            <form action="{{ route('products.restore', $product) }}" method="POST" class="inline-flex">
                                                 @csrf
                                                 <button type="submit"
-                                                        class="rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors"
-                                                        title="Restaurar">
+                                                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
+                                                    <x-icon name="refresh-cw" class="w-3.5 h-3.5" />
                                                     Restaurar
                                                 </button>
                                             </form>

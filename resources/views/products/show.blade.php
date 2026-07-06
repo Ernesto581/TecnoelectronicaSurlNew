@@ -4,20 +4,20 @@
 <div class="min-h-screen bg-gray-50 pt-28">
     <div class="max-w-[1200px] mx-auto px-4 md:px-8 py-10">
         <div class="mb-6 flex items-center justify-between">
-            <a href="{{ route('profile.products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors">
+            <a href="{{ route('products.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors">
                 <x-icon name="chevron-left" class="w-4 h-4" />
                 Volver a productos
             </a>
             <div class="flex items-center gap-3">
                 @unless ($product->trashed())
-                    <a href="{{ route('profile.products.edit', $product) }}"
+                    <a href="{{ route('products.edit', $product) }}"
                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-700 bg-amber-50 rounded-full hover:bg-amber-100 transition-colors">
                         <x-icon name="edit" class="w-4 h-4" />
                         Editar
                     </a>
                 @endunless
                 @unless ($product->trashed())
-                    <form action="{{ route('profile.products.destroy', $product) }}" method="POST"
+                    <form action="{{ route('products.destroy', $product) }}" method="POST"
                           onsubmit="return confirm('Eliminar este producto?')">
                         @csrf
                         @method('DELETE')
@@ -28,7 +28,7 @@
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('profile.products.restore', $product) }}" method="POST">
+                    <form action="{{ route('products.restore', $product) }}" method="POST">
                         @csrf
                         <button type="submit"
                                 class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-green-700 bg-green-50 rounded-full hover:bg-green-100 transition-colors">
@@ -85,12 +85,6 @@
                         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Stock</p>
                         <p class="text-sm font-medium mt-1 @if ($product->stock <= 0) text-red-600 @elseif ($product->stock <= 5) text-amber-600 @else text-gray-900 @endif">
                             {{ $product->stock }} {{ $product->stock === 1 ? 'unidad' : 'unidades' }}
-                        </p>
-                    </div>
-                    <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Valoracion</p>
-                        <p class="text-sm font-medium text-gray-900 mt-1">
-                            {{ number_format($product->rating, 1) }} ({{ $product->reviews_count }} reseñas)
                         </p>
                     </div>
                     <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">

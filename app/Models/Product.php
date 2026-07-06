@@ -57,8 +57,6 @@ class Product extends Model
         'badge',
         'is_active',
         'is_featured',
-        'rating',
-        'reviews_count',
     ];
 
     /**
@@ -71,9 +69,7 @@ class Product extends Model
             'original_price' => 'decimal:2',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
-            'rating' => 'decimal:2',
             'stock' => 'integer',
-            'reviews_count' => 'integer',
             'badge' => ProductBadge::class,
         ];
     }

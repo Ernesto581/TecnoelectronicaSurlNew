@@ -40,8 +40,6 @@ class StoreProductRequest extends FormRequest
             'badge' => ['nullable', Rule::enum(ProductBadge::class)],
             'is_active' => ['boolean'],
             'is_featured' => ['boolean'],
-            'rating' => ['numeric', 'min:0', 'max:5'],
-            'reviews_count' => ['integer', 'min:0'],
         ];
     }
 }
