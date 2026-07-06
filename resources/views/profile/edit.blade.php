@@ -35,11 +35,13 @@
                     </div>
                 </section>
 
-                <section class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-3xl border border-indigo-200 shadow-sm p-6">
+                <section class="bg-white rounded-3xl border-2 border-indigo-300 shadow-sm p-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center shrink-0">
-                                <x-icon name="users" class="w-6 h-6 text-white" />
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
                             </div>
                             <div>
                                 <h2 class="text-lg font-semibold text-gray-900">Gestion de usuarios</h2>
@@ -48,7 +50,9 @@
                         </div>
                         <a href="{{ route('users.index') }}"
                            class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors shrink-0">
-                            <x-icon name="users" class="w-4 h-4" />
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
                             Ver usuarios
                         </a>
                     </div>
