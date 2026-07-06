@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,6 +41,15 @@ Route::middleware(['auth', 'admin'])->prefix('product-dashboard')->name('product
     Route::patch('/{product}', [ProductController::class, 'update'])->name('update');
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
     Route::post('/{product}/restaurar', [ProductController::class, 'restore'])->withTrashed()->name('restore');
+});
+
+/*
+ * User management dashboard (read-only).
+ * All routes require authentication AND the admin role.
+ */
+Route::middleware(['auth', 'admin'])->prefix('profile-dashboard')->name('users.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/{user}', [UserController::class, 'show'])->name('show');
 });
 
 require __DIR__.'/auth.php';
