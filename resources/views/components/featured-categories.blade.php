@@ -1,12 +1,9 @@
+@props(['categories' => null])
+
 @php
-$categories = [
-    (object)['id' => 1, 'name' => 'Electrodomésticos', 'slug' => 'electrodomesticos', 'icon' => 'tv'],
-    (object)['id' => 2, 'name' => 'Energía Solar', 'slug' => 'energia-solar', 'icon' => 'sun'],
-    (object)['id' => 3, 'name' => 'Software', 'slug' => 'software', 'icon' => 'code'],
-    (object)['id' => 4, 'name' => 'Sublimación', 'slug' => 'sublimacion', 'icon' => 'shirt'],
-    (object)['id' => 5, 'name' => 'Abarrotes', 'slug' => 'abarrotes', 'icon' => 'shopping-basket'],
-    (object)['id' => 6, 'name' => 'Hogar', 'slug' => 'hogar', 'icon' => 'home'],
-];
+if (!isset($categories) || $categories->isEmpty()) {
+    $categories = \App\Models\Category::all();
+}
 
 $colorClasses = [
     'bg-blue-50 text-blue-600',
@@ -37,7 +34,10 @@ $colorClasses = [
                 $spanClass = $index === 0 ? 'md:col-span-2 lg:col-span-2 row-span-2' : 'md:col-span-1 lg:col-span-2';
                 $color = $colorClasses[$index % count($colorClasses)];
             @endphp
-            <div class="group relative overflow-hidden rounded-2xl bg-gray-100 {{ $spanClass }} min-h-[280px] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
+            @php
+                $bgImage = $cat->image ? "background-image: url({$cat->image}); background-size: cover; background-position: center;" : 'background-color: #f3f4f6;';
+            @endphp
+            <div class="group relative overflow-hidden rounded-2xl {{ $spanClass }} min-h-[280px] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500" style="{{ $bgImage }}">
                 <a href="/tienda/{{ $cat->slug }}" class="absolute inset-0 z-10"></a>
                 <div class="absolute inset-0 bg-gradient-to-br from-gray-900/70 to-gray-900/40 transition-opacity duration-500"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>

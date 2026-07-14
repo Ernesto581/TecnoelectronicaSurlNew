@@ -1,3 +1,5 @@
+@props(['success' => session('newsletter_success')])
+
 <section class="py-24 bg-gray-50 border-t border-gray-100">
     <div class="max-w-[1600px] mx-auto px-4 md:px-8">
         <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative">
@@ -12,14 +14,23 @@
                     <p class="text-lg text-gray-600 max-w-xl mx-auto lg:mx-0">Suscríbete a nuestro boletín para recibir promociones exclusivas, nuevos ingresos de electrodomésticos y actualizaciones de nuestros servicios.</p>
                 </div>
                 <div class="lg:w-1/2 w-full max-w-md">
-                    <form class="flex flex-col sm:flex-row gap-3">
+                    @if($success)
+                    <div class="text-center py-6">
+                        <x-icon name="check-circle" class="w-12 h-12 text-[#46A040] mx-auto mb-3" />
+                        <p class="text-lg font-bold text-gray-900">¡Gracias por suscribirte!</p>
+                        <p class="text-sm text-gray-500 mt-1">Recibirás nuestras novedades en tu correo.</p>
+                    </div>
+                    @else
+                    <form action="/newsletter" method="POST" class="flex flex-col sm:flex-row gap-3">
+                        @csrf
                         <div class="flex-1">
-                            <label for="email-address" class="sr-only">Correo electrónico</label>
-                            <input id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 w-full rounded-full border-0 px-6 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#46A040] sm:text-sm sm:leading-6" placeholder="Tu correo electrónico" />
+                            <input type="email" name="email" required class="min-w-0 w-full rounded-full border-0 px-6 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#46A040] sm:text-sm sm:leading-6" placeholder="Tu correo electrónico" />
+                            @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
-                        <button type="submit" class="flex-none rounded-full bg-[#46A040] px-8 py-4 text-sm font-bold text-white shadow-sm hover:bg-[#3d8c38] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#46A040] transition-colors">Suscribirme</button>
+                        <button type="submit" class="flex-none rounded-full bg-[#46A040] px-8 py-4 text-sm font-bold text-white shadow-sm hover:bg-[#3d8c38] transition-colors">Suscribirme</button>
                     </form>
                     <p class="mt-4 text-sm text-gray-500 text-center lg:text-left">Respetamos tu privacidad. Nunca enviaremos spam.</p>
+                    @endif
                 </div>
             </div>
         </div>

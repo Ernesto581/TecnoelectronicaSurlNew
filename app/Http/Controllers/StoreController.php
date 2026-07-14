@@ -4,61 +4,81 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-/**
- * Public-facing store controller.
- *
- * Provides read-only views of the product catalog.
- * No authentication required.
- */
 class StoreController extends Controller
 {
-    /**
-     * Display the main store page with all active products.
-     */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = Product::active()
-            ->with('category')
-            ->latest()
-            ->paginate(24);
+        $query = Product::with('category')->where('is_active', true);
 
-        $categories = Category::active()
-            ->withCount(['products' => fn ($q) => $q->active()])
-            ->orderBy('name')
-            ->get();
+        if ($q = $request->query('q')) {
+            $query->where(function ($qry) use ($q) {
+                $qry->where('name', 'like', "%{$q}%")
+                    ->orWhere('description', 'like', "%{$q}%");
+            });
+        }
 
-        return view('pages.tienda', compact('products', 'categories'));
+        $products = $query->latest()->get()->map(fn($p) => [
+            'id' => $p->id,
+            'slug' => $p->slug,
+            'name' => $p->name,
+            'description' => $p->description,
+            'price' => $p->price,
+            'original_price' => $p->original_price,
+            'image_url' => $p->image_url,
+            'badge' => $p->badge,
+            'rating' => $p->rating,
+            'reviews_count' => $p->reviews_count,
+            'categoryName' => $p->category->name ?? 'General',
+        ]);
+
+        return view('pages.tienda', [
+            'productsJson' => $products,
+            'categories' => Category::all(),
+            'searchQuery' => $request->query('q', ''),
+        ]);
     }
 
-    /**
-     * Display a single product detail page.
-     *
-     * Automatically resolves the product by its slug via route model binding.
-     */
     public function show(Product $product): View
     {
         $product->load('category');
 
-        return view('pages.tienda-producto', compact('product'));
+        if (!$product->is_active) {
+            abort(404);
+        }
+
+        $discount = $product->original_price
+            ? round((($product->original_price - $product->price) / $product->original_price) * 100)
+            : 0;
+
+        return view('pages.tienda-producto', compact('product', 'discount'));
     }
 
-    /**
-     * Display products belonging to a specific category.
-     *
-     * Automatically resolves the category by its slug via route model binding.
-     */
     public function category(Category $category): View
     {
         $products = $category->products()
-            ->active()
+            ->where('is_active', true)
             ->latest()
-            ->paginate(24);
+            ->get()
+            ->map(fn($p) => [
+                'id' => $p->id,
+                'name' => $p->name,
+                'slug' => $p->slug,
+                'description' => $p->description,
+                'price' => $p->price,
+                'original_price' => $p->original_price,
+                'image_url' => $p->image_url,
+                'badge' => $p->badge,
+                'rating' => $p->rating,
+                'reviews_count' => $p->reviews_count,
+            ]);
 
         return view('pages.tienda-categoria', [
             'products' => $products,
-            'categoria' => $category,
+            'categoria' => $category->name,
+            'category' => $category,
         ]);
     }
 }

@@ -23,21 +23,19 @@
             <div>
                 <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-6">Categorías</h3>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Electrodomésticos</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Alimentos y Víveres</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Software y Soluciones</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Sublimación y Personalizados</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Energía Solar</a></li>
+                    @foreach(\App\Models\Category::take(5)->get() as $cat)
+                    <li><a href="/tienda/{{ $cat->slug }}" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">{{ $cat->name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
 
             <div>
                 <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-6">Información Legal</h3>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Términos y Condiciones</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Condiciones de Venta</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Plazos de Entrega</a></li>
-                    <li><a href="#" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Política de Devoluciones</a></li>
+                    <li><a href="/terminos-y-condiciones" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Términos y Condiciones</a></li>
+                    <li><a href="/condiciones-de-venta" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Condiciones de Venta</a></li>
+                    <li><a href="/plazos-de-entrega" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Plazos de Entrega</a></li>
+                    <li><a href="/politica-de-devoluciones" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">Política de Devoluciones</a></li>
                 </ul>
             </div>
 

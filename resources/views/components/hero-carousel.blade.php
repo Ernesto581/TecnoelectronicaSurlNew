@@ -5,40 +5,50 @@ $slides = [
         'title' => 'Electrodomésticos y Línea Blanca',
         'description' => 'Equipa tu hogar con la mejor tecnología. Refrigeradores, hornos, lavadoras y más de las marcas líderes, con garantía extendida.',
         'image' => '/linea-blanca-y-electrodomesticos.webp',
+        'imageMobile' => '/linea-blanca-y-electrodomesticos-mobile.webp',
         'cta' => 'Ver Catálogo',
         'badge' => 'Nuevo Ingreso',
+        'link' => '/tienda/electrodomesticos',
     ],
     (object)[
         'id' => 2,
         'title' => 'Alimentos y Víveres',
         'description' => 'Encuentra productos frescos, abarrotes y todo lo que necesitas para tu despensa diaria. Calidad y buenos precios.',
         'image' => '/alimentos-y-viveres.webp',
+        'imageMobile' => '/alimentos-y-viveres-mobile.webp',
         'cta' => 'Comprar Ahora',
         'badge' => 'Ofertas',
+        'link' => '/tienda/hogar',
     ],
     (object)[
         'id' => 3,
         'title' => 'Energía Solar y Renovable',
         'description' => 'Paneles solares, inversores y baterías. Transición hacia una energía limpia para reducir tus costos eléctricos.',
         'image' => '/energia-solar-y-renovable.webp',
+        'imageMobile' => '/energia-solar-y-renovable-mobile.webp',
         'cta' => 'Solicitar Cotización',
         'badge' => 'Sostenibilidad',
+        'link' => '/tienda/energia-solar',
     ],
     (object)[
         'id' => 4,
         'title' => 'Sublimación y Personalizados',
         'description' => 'Tazas, jarras y artículos promocionales personalizados. Diseños únicos para regalos o merchandising empresarial.',
         'image' => '/sublimacion-y-personalizados.webp',
+        'imageMobile' => '/sublimacion-y-personalizados-mobile.webp',
         'cta' => 'Personaliza Aquí',
         'badge' => 'Creatividad',
+        'link' => '/tienda/sublimacion',
     ],
     (object)[
         'id' => 5,
         'title' => 'Desarrollo de Software',
         'description' => 'Páginas web, aplicaciones y sistemas personalizados. Transformamos tus ideas en soluciones digitales funcionales.',
         'image' => '/software-y-soluciones.webp',
+        'imageMobile' => '/software-y-soluciones-mobile.webp',
         'cta' => 'Explorar Soluciones',
         'badge' => 'Tecnología',
+        'link' => '/servicios',
     ],
 ];
 @endphp
@@ -61,7 +71,7 @@ $slides = [
         >
             <div class="absolute inset-0 w-full h-full">
                 <img 
-                    :src="slide.image" 
+                    :src="isMobile ? slide.imageMobile : slide.image"
                     :alt="slide.title" 
                     :loading="index === 0 ? 'eager' : 'lazy'" 
                     class="w-full h-full object-cover" 
@@ -82,14 +92,14 @@ $slides = [
                     <p class="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-8" x-text="slide.description"></p>
 
                     <div class="flex flex-wrap gap-4">
-                        <button class="flex items-center justify-center gap-2 px-8 py-4 bg-[#46A040] text-white font-medium rounded-full hover:bg-[#3d8c38] transition-colors shadow-lg shadow-[#46A040]/30 w-full sm:w-auto">
+                        <a :href="slide.link" class="flex items-center justify-center gap-2 px-8 py-4 bg-[#46A040] text-white font-medium rounded-full hover:bg-[#3d8c38] transition-colors shadow-lg shadow-[#46A040]/30 w-full sm:w-auto">
                             <x-icon name="shopping-bag" class="w-5 h-5" />
                             <span x-text="slide.cta"></span>
-                        </button>
-                        <button class="flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 font-medium rounded-full hover:bg-white/20 transition-colors w-full sm:w-auto">
-                            Más Detalles
+                        </a>
+                        <a :href="slide.link" class="flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 font-medium rounded-full hover:bg-white/20 transition-colors w-full sm:w-auto">
+                            M&aacute;s Detalles
                             <x-icon name="arrow-right" class="w-4 h-4 ml-1" />
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -124,7 +134,16 @@ $slides = [
             currentSlide: 0,
             slides: @json($slides),
             timer: null,
+            isMobile: false,
+            checkMobile() {
+                this.isMobile = window.innerWidth < 768;
+            },
+            mobileImage(slide) {
+                return this.isMobile ? slide.imageMobile : slide.image;
+            },
             init() {
+                this.checkMobile();
+                window.addEventListener("resize", () => this.checkMobile());
                 this.startTimer();
             },
             startTimer() {

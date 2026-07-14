@@ -9,11 +9,18 @@
                     <h1 class="text-3xl font-bold text-gray-900">Mi Cuenta</h1>
                     <p class="text-gray-500 mt-2">Administra tu perfil, contraseña y carrito de compras</p>
                 </div>
-                <button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-red-600 bg-red-50 rounded-full hover:bg-red-100 transition-colors">
-                    <x-icon name="log-out" class="w-4 h-4" />
-                    Cerrar sesión
-                </button>
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-red-600 bg-red-50 rounded-full hover:bg-red-100 transition-colors">
+                        <x-icon name="log-out" class="w-4 h-4" />
+                        Cerrar sesión
+                    </button>
+                </form>
             </div>
+
+            @if(session('success'))
+            <div class="mb-6 px-5 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm font-medium">{{ session('success') }}</div>
+            @endif
 
             <div class="flex flex-col lg:flex-row gap-8">
                 <nav class="lg:w-64 shrink-0">
@@ -29,13 +36,11 @@
                         <button @click="activeTab = 'cart'" :class="activeTab === 'cart' ? 'bg-[#46A040] text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all w-full text-left">
                             <x-icon name="shopping-cart" class="w-5 h-5" />
                             <span>Carrito</span>
-                            <span x-show="cartCount > 0" :class="activeTab === 'cart' ? 'bg-white/20 text-white' : 'bg-[#46A040] text-white'" class="ml-auto text-xs font-bold px-2 py-0.5 rounded-full" x-text="cartCount"></span>
                         </button>
                     </div>
                 </nav>
 
                 <div class="flex-1 min-w-0">
-                    {{-- Profile Tab --}}
                     <div x-show="activeTab === 'profile'" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6 md:p-8">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-12 h-12 rounded-full bg-[#ecf8ef] flex items-center justify-center">
@@ -48,13 +53,15 @@
                         </div>
                         <div class="mb-6 p-4 bg-gray-50 rounded-2xl">
                             <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">Correo electrónico</label>
-                            <p class="text-gray-900 font-medium">usuario@ejemplo.com</p>
-                            <p class="text-xs text-gray-400 mt-1">No es posible cambiar el correo electrónico por ahora.</p>
+                            <p class="text-gray-900 font-medium">{{ $user->email }}</p>
                         </div>
-                        <form class="space-y-4">
+                        <form action="/cuenta/profile" method="POST" class="space-y-4">
+                            @csrf
+                            @method('PUT')
                             <div>
                                 <label for="fullName" class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1.5">Nombre completo</label>
-                                <input id="fullName" type="text" value="Usuario Ejemplo" placeholder="Tu nombre completo" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] focus:border-[#46A040] outline-none transition-colors text-gray-900 font-medium" />
+                                <input id="fullName" name="name" type="text" value="{{ old('name', $user->name) }}" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] outline-none transition-colors text-gray-900 font-medium @error('name') border-red-300 bg-red-50 @enderror" />
+                                @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                             <button type="submit" class="flex items-center justify-center gap-2 px-6 py-3 bg-[#46A040] text-white font-bold rounded-xl hover:bg-[#3d8c38] transition-colors shadow-lg shadow-[#46A040]/20">
                                 <x-icon name="save" class="w-4 h-4" />
@@ -63,7 +70,6 @@
                         </form>
                     </div>
 
-                    {{-- Password Tab --}}
                     <div x-show="activeTab === 'password'" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6 md:p-8">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-12 h-12 rounded-full bg-[#ecf8ef] flex items-center justify-center">
@@ -74,18 +80,22 @@
                                 <p class="text-sm text-gray-500">Actualiza tu contraseña de acceso</p>
                             </div>
                         </div>
-                        <form class="space-y-4">
+                        <form action="/cuenta/password" method="POST" class="space-y-4">
+                            @csrf
+                            @method('PUT')
                             <div>
                                 <label for="currentPassword" class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1.5">Contraseña actual</label>
-                                <input id="currentPassword" type="password" placeholder="••••••••" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] focus:border-[#46A040] outline-none transition-colors text-gray-900 font-medium" />
+                                <input id="currentPassword" name="current_password" type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] outline-none transition-colors @error('current_password') border-red-300 bg-red-50 @enderror" />
+                                @error('current_password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                             <div>
                                 <label for="newPassword" class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1.5">Nueva contraseña</label>
-                                <input id="newPassword" type="password" placeholder="••••••••" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] focus:border-[#46A040] outline-none transition-colors text-gray-900 font-medium" />
+                                <input id="newPassword" name="password" type="password" required minlength="6" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] outline-none transition-colors @error('password') border-red-300 bg-red-50 @enderror" />
+                                @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                             <div>
                                 <label for="confirmPassword" class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1.5">Confirmar nueva contraseña</label>
-                                <input id="confirmPassword" type="password" placeholder="••••••••" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] focus:border-[#46A040] outline-none transition-colors text-gray-900 font-medium" />
+                                <input id="confirmPassword" name="password_confirmation" type="password" required minlength="6" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-[#46A040] outline-none transition-colors" />
                             </div>
                             <button type="submit" class="flex items-center justify-center gap-2 px-6 py-3 bg-[#46A040] text-white font-bold rounded-xl hover:bg-[#3d8c38] transition-colors shadow-lg shadow-[#46A040]/20">
                                 <x-icon name="save" class="w-4 h-4" />
@@ -94,7 +104,6 @@
                         </form>
                     </div>
 
-                    {{-- Cart Tab --}}
                     <div x-show="activeTab === 'cart'" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6 md:p-8">
                         <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center gap-3">
