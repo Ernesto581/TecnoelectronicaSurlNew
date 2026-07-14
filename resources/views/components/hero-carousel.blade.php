@@ -53,6 +53,13 @@ $slides = [
 ];
 @endphp
 
+<style>
+    @keyframes heroZoom {
+        from { transform: scale(1); }
+        to { transform: scale(1.15); }
+    }
+</style>
+
 <div
     x-data="carousel()"
     x-init="init()"
@@ -74,7 +81,8 @@ $slides = [
                     :src="isMobile ? slide.imageMobile : slide.image"
                     :alt="slide.title" 
                     :loading="index === 0 ? 'eager' : 'lazy'" 
-                    class="w-full h-full object-cover" 
+                    class="w-full h-full object-cover"
+                    :style="'animation: ' + (currentSlide === index ? 'heroZoom 6s ease-out forwards' : 'none')"
                 />
                 <div class="absolute inset-0 bg-black/30"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
