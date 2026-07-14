@@ -62,10 +62,10 @@
                     <span class="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-[#46A040] text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg" x-text="cartCount > 99 ? '99+' : cartCount"></span>
                 </template>
             </button>
-            <button @click="alert('Próximamente podrás gestionar tu cuenta y pedidos desde aquí.')" :class="scrolled ? 'text-[#46A040] bg-[#ecf8ef] hover:bg-[#d2efdc]' : 'text-white/90 bg-white/10 hover:bg-white/20'" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-all cursor-pointer">
+            <a href="/login" :class="scrolled ? 'text-[#46A040] bg-[#ecf8ef] hover:bg-[#d2efdc]' : 'text-white/90 bg-white/10 hover:bg-white/20'" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-all cursor-pointer">
                 <x-icon name="log-in" class="w-4 h-4" />
                 Cuenta
-            </button>
+            </a>
             <a href="#contacto" :class="scrolled ? 'bg-[#46A040] text-white hover:bg-[#3d8c38] shadow-[#46A040]/20' : 'bg-white text-gray-900 hover:bg-gray-100 shadow-black/10'" class="ml-2 px-6 py-2.5 text-sm font-bold rounded-full transition-all shadow-lg">
                 Contáctenos
             </a>
