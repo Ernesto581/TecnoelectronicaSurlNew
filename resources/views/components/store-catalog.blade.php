@@ -22,7 +22,7 @@
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight mb-4">Nuestra Tienda</h1>
             <p class="text-lg text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">Explora nuestra amplia variedad de productos y encuentra lo que necesitas</p>
             <div class="relative max-w-lg mx-auto">
-                <input type="text" x-model="searchQuery" placeholder="Buscar en el inventario..." class="w-full px-5 pr-14 py-4 bg-white border border-white/20 rounded-2xl focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none text-sm transition-all placeholder:text-gray-400 shadow-lg" />
+                <input type="text" x-model="searchQuery" placeholder="Buscar en el inventario..." class="w-full px-5 py-4 bg-white border border-white/20 rounded-2xl focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none text-sm transition-all placeholder:text-gray-400 shadow-lg" />
             </div>
         </div>
     </div>
@@ -49,7 +49,40 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mt-4 pt-4 border-t border-gray-100">
                 <div class="flex items-center gap-4 flex-wrap">
                     <p class="text-xs text-gray-500 font-medium">Productos <span class="font-bold text-gray-900" x-text="filteredProducts.length"></span></p>
+                    
+                    <!-- Filtro de Precio Min / Max -->
+                    <div class="flex items-center gap-2 bg-gray-50 rounded-xl border border-gray-100 px-3 py-1.5">
+                        <span class="text-[10px] font-mono font-semibold text-gray-400 uppercase tracking-wider">Precio:</span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs text-gray-400 font-mono">$</span>
+                            <input 
+                                type="number" 
+                                min="0" 
+                                x-model.number="minPrice" 
+                                placeholder="M&iacute;n" 
+                                class="w-16 px-2 py-1 bg-white border border-gray-200 rounded-lg text-xs font-mono font-bold text-gray-900 outline-none focus:border-[#46A040] focus:ring-1 focus:ring-[#46A040] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                            />
+                            <span class="text-xs text-gray-300 font-mono">&ndash;</span>
+                            <span class="text-xs text-gray-400 font-mono">$</span>
+                            <input 
+                                type="number" 
+                                min="0" 
+                                x-model.number="maxPrice" 
+                                placeholder="M&aacute;x" 
+                                class="w-16 px-2 py-1 bg-white border border-gray-200 rounded-lg text-xs font-mono font-bold text-gray-900 outline-none focus:border-[#46A040] focus:ring-1 focus:ring-[#46A040] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                            />
+                        </div>
+                        <button 
+                            x-show="minPrice !== null || maxPrice !== null" 
+                            @click="minPrice = null; maxPrice = null" 
+                            class="text-[10px] font-mono font-semibold text-gray-400 hover:text-red-500 transition-colors ml-1"
+                            title="Limpiar precio"
+                        >
+                            &times;
+                        </button>
+                    </div>
                 </div>
+
                 <select x-model="sortBy" class="bg-gray-50 border border-gray-100 px-4 py-2 rounded-xl text-xs font-mono font-semibold uppercase tracking-wider outline-none focus:ring-2 focus:ring-[#46A040] cursor-pointer text-gray-600">
                     <option value="relevance">Relevancia</option>
                     <option value="price-asc">Precio &uarr;</option>
@@ -69,7 +102,7 @@
                 </div>
                 <h3 class="text-xl font-display font-bold text-gray-900 mb-2">No se encontraron productos</h3>
                 <p class="text-gray-500 text-sm mb-6">Intenta ajustando los filtros de b&uacute;squeda.</p>
-                <button @click="activeCategory = 'Todos'; searchQuery = ''" class="inline-flex items-center gap-2 px-6 py-3 bg-[#46A040] text-white font-semibold rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20 font-mono text-xs uppercase tracking-wider">
+                <button @click="activeCategory = 'Todos'; searchQuery = ''; minPrice = null; maxPrice = null" class="inline-flex items-center gap-2 px-6 py-3 bg-[#46A040] text-white font-semibold rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20 font-mono text-xs uppercase tracking-wider">
                     Limpiar filtros
                 </button>
             </div>
@@ -126,6 +159,8 @@
             categories: categories,
             activeCategory: 'Todos',
             searchQuery: initialSearch || '',
+            minPrice: null,
+            maxPrice: null,
             sortBy: 'relevance',
             sticky: false,
             filterBarOffset: null,
@@ -144,10 +179,15 @@
 
             get filteredProducts() {
                 return this.products.filter(p => {
+                    const price = Number(p.price);
                     const matchCategory = this.activeCategory === 'Todos' || p.categoryName === this.activeCategory;
                     const matchSearch = p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                                        (p.description && p.description.toLowerCase().includes(this.searchQuery.toLowerCase()));
-                    return matchCategory && matchSearch;
+                    
+                    const matchMin = this.minPrice === null || this.minPrice === '' || price >= this.minPrice;
+                    const matchMax = this.maxPrice === null || this.maxPrice === '' || price <= this.maxPrice;
+
+                    return matchCategory && matchSearch && matchMin && matchMax;
                 });
             },
 
