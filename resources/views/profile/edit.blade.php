@@ -57,52 +57,73 @@
         @endif
 
         <div class="grid gap-8 lg:grid-cols-2">
-            <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-full bg-[#ecf8ef] flex items-center justify-center">
-                        <x-icon name="user" class="w-5 h-5 text-[#46A040]" />
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-semibold text-gray-900">Informacion de la cuenta</h2>
-                        <p class="text-sm text-gray-500">Actualiza tu nombre y direccion de correo.</p>
-                    </div>
-                </div>
-
-                <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
-                    @csrf
-                    @method('patch')
-
-                    <div>
-                        <label for="name" class="block text-sm font-semibold text-gray-900 mb-2">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
-                               class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('name') border-red-300 @enderror"
-                               required autocomplete="name" />
-                        @error('name')
-                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
+            <div class="space-y-8">
+                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-[#ecf8ef] flex items-center justify-center">
+                            <x-icon name="user" class="w-5 h-5 text-[#46A040]" />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Informacion de la cuenta</h2>
+                            <p class="text-sm text-gray-500">Actualiza tu nombre y direccion de correo.</p>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
-                               class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('email') border-red-300 @enderror"
-                               required autocomplete="username" />
-                        @error('email')
-                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
+                        @csrf
+                        @method('patch')
 
-                    <div class="flex items-center gap-4 pt-2">
-                        <button type="submit"
-                                class="px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors">
-                            Guardar cambios
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-gray-900 mb-2">Nombre</label>
+                            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
+                                   class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('name') border-red-300 @enderror"
+                                   required autocomplete="name" />
+                            @error('name')
+                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">Email</label>
+                            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
+                                   class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('email') border-red-300 @enderror"
+                                   required autocomplete="username" />
+                            @error('email')
+                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="flex items-center gap-4 pt-2">
+                            <button type="submit"
+                                    class="px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors">
+                                Guardar cambios
+                            </button>
+                            @if (session('status') === 'profile-updated')
+                                <p class="text-sm font-medium text-green-700">Guardado.</p>
+                            @endif
+                        </div>
+                    </form>
+                </section>
+
+                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                            <x-icon name="log-out" class="w-5 h-5 text-gray-500" />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Cerrar sesión</h2>
+                            <p class="text-sm text-gray-500">Sal de tu cuenta de forma segura.</p>
+                        </div>
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                            <x-icon name="log-out" class="w-4 h-4" />
+                            Cerrar sesión
                         </button>
-                        @if (session('status') === 'profile-updated')
-                            <p class="text-sm font-medium text-green-700">Guardado.</p>
-                        @endif
-                    </div>
-                </form>
-            </section>
+                    </form>
+                </section>
+            </div>
 
             <div class="space-y-8">
                 <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
@@ -159,25 +180,6 @@
                                 <p class="text-sm font-medium text-green-700">Contraseña actualizada.</p>
                             @endif
                         </div>
-                    </form>
-                </section>
-
-                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                            <x-icon name="log-out" class="w-5 h-5 text-gray-500" />
-                        </div>
-                        <div>
-                            <h2 class="text-xl font-semibold text-gray-900">Cerrar sesión</h2>
-                            <p class="text-sm text-gray-500">Sal de tu cuenta de forma segura.</p>
-                        </div>
-                    </div>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-                            <x-icon name="log-out" class="w-4 h-4" />
-                            Cerrar sesión
-                        </button>
                     </form>
                 </section>
 
