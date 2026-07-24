@@ -62,7 +62,7 @@
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">$</span>
                         <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" min="0"
-                               class="w-full rounded-2xl border border-gray-200 pl-8 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none @error('price') border-red-300 @enderror"
+                               class="w-full rounded-2xl border border-gray-200 pl-8 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('price') border-red-300 @enderror"
                                required />
                     </div>
                     @if ($product->original_price !== null)
@@ -72,7 +72,7 @@
                                 &mdash; descuento actual del {{ $product->discount_percentage }}%
                             @endif
                         </p>
-                        <div class="mt-5 pt-5 border-t border-gray-100">
+                        <div class="mt-6 pt-5 border-t border-gray-100">
                             <label for="discount_percentage" class="block text-sm font-semibold text-gray-900 mb-3">
                                 Aplicar descuento sobre el precio de referencia
                             </label>
@@ -86,7 +86,7 @@
                                            min="0"
                                            max="100"
                                            placeholder="0"
-                                           class="w-full rounded-2xl border border-gray-200 pl-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none @error('discount_percentage') border-red-300 @enderror" />
+                                            class="w-full rounded-2xl border border-gray-200 pl-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('discount_percentage') border-red-300 @enderror" />
                                     <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-gray-400">%</span>
                                 </div>
                                 <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-xl">
@@ -178,6 +178,17 @@
         </form>
     </div>
 </div>
+
+<style>
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
 
 @if ($product->original_price !== null)
 @push('scripts')
