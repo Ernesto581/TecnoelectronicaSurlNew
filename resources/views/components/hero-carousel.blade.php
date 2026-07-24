@@ -104,10 +104,6 @@ $slides = [
                             <x-icon name="shopping-bag" class="w-5 h-5" />
                             <span x-text="slide.cta"></span>
                         </a>
-                        <a :href="slide.link" class="flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 font-medium rounded-full hover:bg-white/20 transition-colors w-full sm:w-auto">
-                            M&aacute;s Detalles
-                            <x-icon name="arrow-right" class="w-4 h-4 ml-1" />
-                        </a>
                     </div>
                 </div>
             </div>
