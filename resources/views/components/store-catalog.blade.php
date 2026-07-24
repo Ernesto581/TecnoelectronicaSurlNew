@@ -33,7 +33,8 @@
         class="bg-white/95 backdrop-blur-md transition-all duration-200"
     >
         <div class="max-w-[1600px] mx-auto px-4 md:px-8 py-4">
-            <div class="flex items-center justify-center gap-2 overflow-x-auto scrollbar-hide pb-1">
+            <!-- Alineación ajustada para móvil (justify-start) y escritorio (md:justify-center) -->
+            <div class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto scrollbar-hide pb-1 px-2">
                 <template x-for="cat in ['Todos', ...categories.map(c => c.name)]" :key="cat">
                     <button @click="activeCategory = cat"
                         :class="activeCategory === cat
@@ -50,7 +51,6 @@
                 <div class="flex items-center gap-4 flex-wrap">
                     <p class="text-xs text-gray-500 font-medium">Productos <span class="font-bold text-gray-900" x-text="filteredProducts.length"></span></p>
                     
-                    <!-- Filtro de Precio Min / Max -->
                     <div class="flex items-center gap-2 bg-gray-50 rounded-xl border border-gray-100 px-3 py-1.5">
                         <span class="text-[10px] font-mono font-semibold text-gray-400 uppercase tracking-wider">Precio:</span>
                         <div class="flex items-center gap-1.5">
