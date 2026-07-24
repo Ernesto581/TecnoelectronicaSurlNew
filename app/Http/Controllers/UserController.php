@@ -14,7 +14,9 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     /**
-     * Display a paginated listing of all users.
+     * Display a paginated listing of all users with placed order counts.
+     *
+     * @return View
      */
     public function index(): View
     {
@@ -26,7 +28,10 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified user's details.
+     * Display the specified user's details and order history.
+     *
+     * @param  User  $user
+     * @return View
      */
     public function show(User $user): View
     {

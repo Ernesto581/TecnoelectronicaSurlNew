@@ -17,7 +17,11 @@ use Illuminate\View\View;
 class NewPasswordController extends Controller
 {
     /**
-     * Display the password reset view.
+     * Display the password reset view, providing the request
+     * so the hidden token and email fields can be pre-filled.
+     *
+     * @param  Request  $request
+     * @return View
      */
     public function create(Request $request): View
     {
@@ -25,7 +29,11 @@ class NewPasswordController extends Controller
     }
 
     /**
-     * Handle an incoming new password request.
+     * Handle an incoming request to set a new password using
+     * a valid password reset token.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
      *
      * @throws ValidationException
      */

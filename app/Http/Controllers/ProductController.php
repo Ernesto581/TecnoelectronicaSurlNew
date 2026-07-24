@@ -22,12 +22,10 @@ class ProductController extends Controller
     /**
      * Display a paginated listing of products with optional filters.
      *
-     * Query parameters:
-     * - search: text search across name, slug, sku, and description
-     * - category: filter by category ID
-     * - status: active (default), inactive, or trashed
-     * - price_min: minimum price
-     * - price_max: maximum price
+     * Query parameters: search, category, status, price_min, price_max.
+     *
+     * @param  Request  $request
+     * @return View
      */
     public function index(Request $request): View
     {
@@ -75,6 +73,8 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new product.
+     *
+     * @return View
      */
     public function create(): View
     {
@@ -85,6 +85,9 @@ class ProductController extends Controller
 
     /**
      * Store a newly created product in storage.
+     *
+     * @param  StoreProductRequest  $request
+     * @return RedirectResponse
      */
     public function store(StoreProductRequest $request): RedirectResponse
     {
@@ -109,6 +112,9 @@ class ProductController extends Controller
 
     /**
      * Display the specified product details.
+     *
+     * @param  Product  $product
+     * @return View
      */
     public function show(Product $product): View
     {
@@ -119,6 +125,9 @@ class ProductController extends Controller
 
     /**
      * Show the form for editing the specified product.
+     *
+     * @param  Product  $product
+     * @return View
      */
     public function edit(Product $product): View
     {
@@ -129,6 +138,10 @@ class ProductController extends Controller
 
     /**
      * Update the specified product in storage.
+     *
+     * @param  UpdateProductRequest  $request
+     * @param  Product               $product
+     * @return RedirectResponse
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
@@ -160,7 +173,12 @@ class ProductController extends Controller
     /**
      * Generate a unique slug from the product name.
      *
-     * Appends a numeric suffix if the slug already exists (ignoring the given product ID).
+     * Appends a numeric suffix if the slug already exists,
+     * ignoring the product with the given ID when updating.
+     *
+     * @param  string    $name       Product name to slugify.
+     * @param  int|null  $excludeId  Product ID to exclude from duplicate check.
+     * @return string
      */
     private function generateUniqueSlug(string $name, ?int $excludeId = null): string
     {
@@ -186,6 +204,9 @@ class ProductController extends Controller
 
     /**
      * Remove the specified product from storage (soft delete).
+     *
+     * @param  Product  $product
+     * @return RedirectResponse
      */
     public function destroy(Product $product): RedirectResponse
     {
@@ -200,6 +221,9 @@ class ProductController extends Controller
      * Restore a soft-deleted product.
      *
      * The route uses withTrashed() so the model is resolved including trashed records.
+     *
+     * @param  Product  $product
+     * @return RedirectResponse
      */
     public function restore(Product $product): RedirectResponse
     {

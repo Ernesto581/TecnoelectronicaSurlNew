@@ -7,8 +7,20 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Public storefront controller.
+ *
+ * Handles product listing, search, detail, and category filtering
+ * for the customer-facing store pages.
+ */
 class StoreController extends Controller
 {
+    /**
+     * Display the full product catalog with optional search.
+     *
+     * @param  Request  $request  Incoming request with optional ?q= search query.
+     * @return View
+     */
     public function index(Request $request): View
     {
         $query = Product::with('category')->where('is_active', true);
@@ -41,6 +53,14 @@ class StoreController extends Controller
         ]);
     }
 
+    /**
+     * Display a single product detail page.
+     *
+     * Aborts with 404 if the product is not active (hidden from public catalog).
+     *
+     * @param  Product  $product  Resolved via route model binding (slug).
+     * @return View
+     */
     public function show(Product $product): View
     {
         $product->load('category');
@@ -56,6 +76,12 @@ class StoreController extends Controller
         return view('pages.tienda-producto', compact('product', 'discount'));
     }
 
+    /**
+     * Display products belonging to a specific category.
+     *
+     * @param  Category  $category  Resolved via route model binding (slug).
+     * @return View
+     */
     public function category(Category $category): View
     {
         $products = $category->products()

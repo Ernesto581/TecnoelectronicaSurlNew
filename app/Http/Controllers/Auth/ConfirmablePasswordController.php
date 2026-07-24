@@ -12,7 +12,9 @@ use Illuminate\View\View;
 class ConfirmablePasswordController extends Controller
 {
     /**
-     * Show the confirm password view.
+     * Show the confirm password view for password-protected actions.
+     *
+     * @return View
      */
     public function show(): View
     {
@@ -20,7 +22,13 @@ class ConfirmablePasswordController extends Controller
     }
 
     /**
-     * Confirm the user's password.
+     * Confirm the user's password before allowing access to a
+     * password-protected area of the application.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
+     *
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
