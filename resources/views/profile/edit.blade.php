@@ -30,7 +30,7 @@
                         <a href="{{ route('products.index') }}"
                            class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
                             <x-icon name="package" class="w-4 h-4" />
-                            Ir al dashboard
+                            Administrar productos
                         </a>
                     </div>
                 </section>
