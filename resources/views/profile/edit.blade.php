@@ -57,8 +57,7 @@
         @endif
 
         <div class="grid gap-8 lg:grid-cols-2">
-            <div class="flex flex-col gap-8">
-                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+            <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 rounded-full bg-[#ecf8ef] flex items-center justify-center">
                             <x-icon name="user" class="w-5 h-5 text-[#46A040]" />
@@ -104,26 +103,6 @@
                         </div>
                     </form>
                 </section>
-
-                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                            <x-icon name="log-out" class="w-5 h-5 text-gray-500" />
-                        </div>
-                        <div>
-                            <h2 class="text-xl font-semibold text-gray-900">Cerrar sesión</h2>
-                            <p class="text-sm text-gray-500">Sal de tu cuenta de forma segura.</p>
-                        </div>
-                    </div>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-                            <x-icon name="log-out" class="w-4 h-4" />
-                            Cerrar sesión
-                        </button>
-                    </form>
-                </section>
-            </div>
 
             <div class="flex flex-col gap-8">
                 <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
@@ -185,21 +164,30 @@
 
                 <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
-                            <x-icon name="alert-triangle" class="w-5 h-5 text-red-500" />
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                            <x-icon name="sliders" class="w-5 h-5 text-gray-500" />
                         </div>
                         <div>
-                            <h2 class="text-xl font-semibold text-gray-900">Eliminar cuenta</h2>
-                            <p class="text-sm text-gray-500">Esta accion no se puede deshacer.</p>
+                            <h2 class="text-xl font-semibold text-gray-900">Acciones de cuenta</h2>
+                            <p class="text-sm text-gray-500">Gestiona tu sesion y datos personales.</p>
                         </div>
                     </div>
-
-                    <button
-                        x-data=""
-                        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-                        class="px-5 py-3 text-sm font-semibold text-red-700 bg-red-50 rounded-full hover:bg-red-100 transition-colors">
-                        Eliminar mi cuenta
-                    </button>
+                    <div class="space-y-3">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
+                                <x-icon name="log-out" class="w-4 h-4" />
+                                Cerrar sesión
+                            </button>
+                        </form>
+                        <button
+                            x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
+                            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-red-700 bg-red-50 rounded-xl hover:bg-red-100 transition-colors">
+                            <x-icon name="trash-2" class="w-4 h-4" />
+                            Eliminar mi cuenta
+                        </button>
+                    </div>
                 </section>
             </div>
         </div>
