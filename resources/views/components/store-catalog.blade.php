@@ -21,12 +21,8 @@
         <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight mb-4">Nuestra Tienda</h1>
             <p class="text-lg text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">Explora nuestra amplia variedad de productos y encuentra lo que necesitas</p>
-            <div class="relative max-w-lg mx-auto">
                 <input type="text" x-model="searchQuery" placeholder="Buscar en el inventario..." class="w-full px-5 pr-14 py-4 bg-white border border-white/20 rounded-2xl focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none text-sm transition-all placeholder:text-gray-400 shadow-lg" />
-                <button x-show="searchQuery" @click="searchQuery = ''" class="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 text-gray-500 transition-colors" x-cloak>
-                    <x-icon name="x" class="w-3.5 h-3.5" />
-                </button>
-            </div>
+
         </div>
     </div>
 
