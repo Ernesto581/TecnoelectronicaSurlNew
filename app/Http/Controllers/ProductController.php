@@ -96,6 +96,9 @@ class ProductController extends Controller
         // Auto-generate unique slug from name
         $data['slug'] = $this->generateUniqueSlug($data['name']);
 
+        // Track when the price was last changed (now, since this is creation)
+        $data['price_changed_at'] = now();
+
         // Handle image upload
         if ($request->hasFile('image')) {
             $data['image_url'] = $request->file('image')->store('products', 'public');
@@ -150,6 +153,16 @@ class ProductController extends Controller
         // Regenerate slug if name changed
         if (isset($data['name'])) {
             $data['slug'] = $this->generateUniqueSlug($data['name'], $product->id);
+        }
+
+        // Track price changes for the 30-day stabilization rule
+        if (isset($data['price']) && $data['price'] != $product->price) {
+            $data['price_changed_at'] = now();
+
+            // Reset original_price if the new price is higher than the current original
+            if ($product->original_price !== null && $data['price'] > $product->original_price) {
+                $data['original_price'] = null;
+            }
         }
 
         // Handle image upload

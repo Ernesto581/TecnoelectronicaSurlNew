@@ -46,9 +46,10 @@ class ProductFactory extends Factory
             'sku' => strtoupper(Str::random(8)),
             'stock' => fake()->numberBetween(0, 100),
             'image_url' => 'https://picsum.photos/seed/product-' . self::$order . '/600/400',
-            'badge' => fake()->optional(0.4)->randomElement(ProductBadge::cases())?->value,
+            'badge' => null,
             'is_active' => true,
             'is_featured' => fake()->boolean(20),
+            'price_changed_at' => now()->subDays(fake()->numberBetween(1, 60)),
             'rating' => fake()->randomFloat(2, 1, 5),
             'reviews_count' => fake()->numberBetween(0, 200),
         ];
@@ -76,13 +77,12 @@ class ProductFactory extends Factory
     }
 
     /**
-     * Set stock to zero and badge to SoldOut.
+     * Set stock to zero.
      */
     public function outOfStock(): static
     {
         return $this->state(fn (array $attributes) => [
             'stock' => 0,
-            'badge' => ProductBadge::SoldOut->value,
         ]);
     }
 

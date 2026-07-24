@@ -51,6 +51,7 @@ class Product extends Model
         'description',
         'price',
         'original_price',
+        'price_changed_at',
         'sku',
         'stock',
         'image_url',
@@ -62,7 +63,10 @@ class Product extends Model
     /**
      * Automatic badge resolution.
      *
-     * Priority: SoldOut > stored badge (Offer) > Featured > New (7 days).
+     * Priority: SoldOut > Offer (price below original) > Featured > New (7 days).
+     *
+     * The "Offer" badge is derived automatically when original_price is set
+     * (after 30-day stabilization) and the current price is lower.
      */
     protected function getBadgeAttribute(): ?ProductBadge
     {
@@ -71,10 +75,9 @@ class Product extends Model
             return ProductBadge::SoldOut;
         }
 
-        // Get the stored badge value from the database
-        $stored = $this->attributes['badge'] ?? null;
-        if ($stored && $badge = ProductBadge::tryFrom($stored)) {
-            return $badge;
+        // Offer: price is lower than the stabilized original price
+        if ($this->original_price !== null && $this->price < $this->original_price) {
+            return ProductBadge::Offer;
         }
 
         // Featured products get the Destacado badge
@@ -106,6 +109,7 @@ class Product extends Model
         return [
             'price' => 'decimal:2',
             'original_price' => 'decimal:2',
+            'price_changed_at' => 'datetime',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'stock' => 'integer',

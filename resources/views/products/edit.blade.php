@@ -62,6 +62,21 @@
                     <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" min="0"
                            class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('price') border-red-300 @enderror"
                            required />
+                    @if ($product->original_price !== null)
+                        <p class="text-xs text-gray-400 mt-1">
+                            Precio de referencia: <span class="font-semibold text-gray-500">${{ number_format($product->original_price, 2) }}</span>
+                            @if ($product->original_price > $product->price)
+                                &mdash; descuento actual del {{ $product->discount_percentage }}%
+                            @endif
+                        </p>
+                    @else
+                        <p class="text-xs text-gray-400 mt-1">
+                            El precio de referencia se establecerá automáticamente tras 30 días sin cambios.
+                            @if ($product->price_changed_at)
+                                · Último cambio: {{ $product->price_changed_at->diffForHumans() }}
+                            @endif
+                        </p>
+                    @endif
                     @error('price')
                         <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                     @enderror
