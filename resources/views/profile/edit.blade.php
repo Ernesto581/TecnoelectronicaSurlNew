@@ -4,14 +4,23 @@
 <div class="min-h-screen bg-gray-50 pt-28">
     <div class="max-w-[1000px] mx-auto px-4 md:px-8 py-10">
 
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Mi perfil</h1>
-            <p class="text-gray-600 mt-1">{{ $user->email }}
-                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 ml-2 text-xs font-semibold
-                    {{ $user->isAdmin() ? 'text-[#23612d] bg-[#ecf8ef]' : 'text-gray-600 bg-gray-100' }}">
-                    {{ $user->isAdmin() ? 'Administrador' : 'Cliente' }}
-                </span>
-            </p>
+        <div class="mb-8 flex items-center justify-between flex-wrap gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Mi perfil</h1>
+                <p class="text-gray-600 mt-1">{{ $user->email }}
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 ml-2 text-xs font-semibold
+                        {{ $user->isAdmin() ? 'text-[#23612d] bg-[#ecf8ef]' : 'text-gray-600 bg-gray-100' }}">
+                        {{ $user->isAdmin() ? 'Administrador' : 'Cliente' }}
+                    </span>
+                </p>
+            </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                    <x-icon name="log-out" class="w-4 h-4" />
+                    Cerrar sesión
+                </button>
+            </form>
         </div>
 
         @if ($user->isAdmin())
@@ -35,13 +44,11 @@
                     </div>
                 </section>
 
-                <section class="bg-white rounded-3xl border-2 border-indigo-300 shadow-sm p-6">
+                <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                                </svg>
+                            <div class="w-12 h-12 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                                <x-icon name="users" class="w-6 h-6 text-white" />
                             </div>
                             <div>
                                 <h2 class="text-lg font-semibold text-gray-900">Gestion de usuarios</h2>
@@ -49,10 +56,8 @@
                             </div>
                         </div>
                         <a href="{{ route('users.index') }}"
-                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
+                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
+                            <x-icon name="users" class="w-4 h-4" />
                             Ver usuarios
                         </a>
                     </div>
@@ -166,7 +171,7 @@
                     </form>
                 </section>
 
-                <section class="bg-white rounded-3xl border border-red-100 shadow-sm p-8">
+                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
                             <x-icon name="alert-triangle" class="w-5 h-5 text-red-500" />
