@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -17,15 +18,57 @@ use Illuminate\View\View;
 class ProductController extends Controller
 {
     /**
-     * Display a paginated listing of all products.
+     * Display a paginated listing of products with optional filters.
+     *
+     * Query parameters:
+     * - search: text search across name, slug, sku, and description
+     * - category: filter by category ID
+     * - status: active (default), inactive, or trashed
+     * - price_min: minimum price
+     * - price_max: maximum price
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = Product::with('category')
-            ->latest()
-            ->paginate(20);
+        $query = Product::with('category');
 
-        return view('products.index', compact('products'));
+        // Text search
+        if ($search = $request->query('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->query('category'));
+        }
+
+        // Price range
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', $request->query('price_min'));
+        }
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', $request->query('price_max'));
+        }
+
+        // Status filter
+        if ($request->query('status') === 'trashed') {
+            $query->onlyTrashed();
+        } elseif ($request->query('status') === 'inactive') {
+            $query->where('is_active', false);
+        } else {
+            // Show only active products by default
+            $query->where('is_active', true);
+        }
+
+        $products = $query->latest()->paginate(20)->withQueryString();
+
+        $categories = Category::active()->orderBy('name')->get();
+
+        return view('products.index', compact('products', 'categories'));
     }
 
     /**

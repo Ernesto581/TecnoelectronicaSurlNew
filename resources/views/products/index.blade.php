@@ -21,6 +21,78 @@
             </div>
         @endif
 
+        <!-- Filter bar -->
+        <form method="GET" action="{{ route('products.index') }}" class="mb-6 bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
+            <div class="flex flex-wrap items-end gap-3">
+                <!-- Search -->
+                <div class="flex-1 min-w-[200px]">
+                    <label for="search" class="block text-xs font-semibold text-gray-500 mb-1">Buscar</label>
+                    <div class="relative">
+                        <x-icon name="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <input type="text" id="search" name="search" value="{{ request('search') }}"
+                               placeholder="Nombre, SKU, descripción..."
+                               class="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none" />
+                    </div>
+                </div>
+
+                <!-- Category -->
+                <div class="w-40">
+                    <label for="category" class="block text-xs font-semibold text-gray-500 mb-1">Categoría</label>
+                    <select id="category" name="category"
+                            class="w-full py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none">
+                        <option value="">Todas</option>
+                        @foreach ($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                                {{ $cat->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Status -->
+                <div class="w-36">
+                    <label for="status" class="block text-xs font-semibold text-gray-500 mb-1">Estado</label>
+                    <select id="status" name="status"
+                            class="w-full py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none">
+                        <option value="active" {{ request('status', 'active') === 'active' ? 'selected' : '' }}>Activos</option>
+                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactivos</option>
+                        <option value="trashed" {{ request('status') === 'trashed' ? 'selected' : '' }}>Eliminados</option>
+                    </select>
+                </div>
+
+                <!-- Price range -->
+                <div class="flex items-end gap-2">
+                    <div class="w-28">
+                        <label for="price_min" class="block text-xs font-semibold text-gray-500 mb-1">Precio min</label>
+                        <input type="number" id="price_min" name="price_min" value="{{ request('price_min') }}" step="0.01" min="0"
+                               placeholder="0.00"
+                               class="w-full py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none" />
+                    </div>
+                    <span class="pb-2 text-gray-400 text-sm">&ndash;</span>
+                    <div class="w-28">
+                        <label for="price_max" class="block text-xs font-semibold text-gray-500 mb-1">Precio max</label>
+                        <input type="number" id="price_max" name="price_max" value="{{ request('price_max') }}" step="0.01" min="0"
+                               placeholder="0.00"
+                               class="w-full py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none" />
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-end gap-2">
+                    <button type="submit"
+                            class="px-4 py-2 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
+                        Filtrar
+                    </button>
+                    @if (request()->hasAny(['search', 'category', 'status', 'price_min', 'price_max']) && request('status') !== 'active')
+                        <a href="{{ route('products.index') }}"
+                           class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
+                            Limpiar
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </form>
+
         <section class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="min-w-full text-left text-sm text-gray-700">
@@ -143,8 +215,13 @@
                             <tr>
                                 <td colspan="7" class="py-16 text-center text-gray-400">
                                     <x-icon name="package" class="w-10 h-10 mx-auto mb-3 text-gray-300" />
-                                    <p class="font-medium">No hay productos registrados</p>
-                                    <p class="text-sm mt-1">Crea el primer producto para empezar.</p>
+                                    @if (request()->hasAny(['search', 'category', 'status', 'price_min', 'price_max']) && request('status') !== 'active')
+                                        <p class="font-medium">Sin resultados</p>
+                                        <p class="text-sm mt-1">No se encontraron productos con los filtros seleccionados.</p>
+                                    @else
+                                        <p class="font-medium">No hay productos registrados</p>
+                                        <p class="text-sm mt-1">Crea el primer producto para empezar.</p>
+                                    @endif
                                 </td>
                             </tr>
                         @endforelse
