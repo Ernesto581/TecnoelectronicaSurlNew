@@ -63,7 +63,7 @@ $slides = [
 <div
     x-data="carousel()"
     x-init="init()"
-    class="relative h-screen min-h-[600px] w-full flex bg-gray-900 overflow-hidden"
+    class="relative h-[75vh] min-h-[420px] max-h-[700px] w-full flex bg-gray-900 overflow-hidden"
 >
     <template x-for="(slide, index) in slides" :key="slide.id">
         <div
@@ -88,20 +88,20 @@ $slides = [
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
             </div>
 
-            <div class="absolute inset-0 flex flex-col justify-end px-6 md:px-12 lg:px-24 pb-32 max-w-[1600px] mx-auto w-full z-10 pointer-events-none">
+            <div class="absolute inset-0 flex flex-col justify-end px-6 md:px-12 lg:px-24 pb-20 max-w-[1600px] mx-auto w-full z-10 pointer-events-none">
                 <div class="max-w-3xl pointer-events-auto">
-                    <div class="mb-6 inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/20">
-                        <span class="w-2 h-2 rounded-full bg-[#4CAF50]"></span>
+                    <div class="mb-4 inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider text-white border border-white/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#4CAF50]"></span>
                         <span x-text="slide.badge"></span>
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-medium text-white tracking-tight leading-[1.05] mb-6" x-text="slide.title"></h1>
+                    <h1 class="text-3xl sm:text-4xl lg:text-6xl font-display font-medium text-white tracking-tight leading-[1.05] mb-4" x-text="slide.title"></h1>
 
-                    <p class="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-8" x-text="slide.description"></p>
+                    <p class="text-base md:text-lg text-white/80 max-w-2xl leading-relaxed mb-6" x-text="slide.description"></p>
 
                     <div class="flex flex-wrap gap-4">
-                        <a :href="slide.link" class="flex items-center justify-center gap-2 px-8 py-4 bg-[#46A040] text-white font-medium rounded-full hover:bg-[#3d8c38] transition-colors shadow-lg shadow-[#46A040]/30 w-full sm:w-auto">
-                            <x-icon name="shopping-bag" class="w-5 h-5" />
+                        <a :href="slide.link" class="flex items-center justify-center gap-2 px-6 py-3 bg-[#46A040] text-white font-medium rounded-full hover:bg-[#3d8c38] transition-colors shadow-lg shadow-[#46A040]/30 w-full sm:w-auto text-sm">
+                            <x-icon name="shopping-bag" class="w-4 h-4" />
                             <span x-text="slide.cta"></span>
                         </a>
                     </div>
@@ -110,7 +110,7 @@ $slides = [
         </div>
     </template>
 
-    <div class="absolute bottom-12 right-6 md:right-12 lg:right-24 flex items-center gap-3 z-20">
+    <div class="absolute bottom-8 right-6 md:right-12 lg:right-24 flex items-center gap-3 z-20">
         <button @click="prevSlide()" class="w-12 h-12 rounded-full border border-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/10 transition-colors" title="Anterior">
             <x-icon name="chevron-left" class="w-5 h-5" />
         </button>
@@ -119,7 +119,7 @@ $slides = [
         </button>
     </div>
 
-    <div class="absolute bottom-16 left-6 md:left-12 lg:left-24 flex gap-2 z-20">
+    <div class="absolute bottom-12 left-6 md:left-12 lg:left-24 flex gap-2 z-20">
         <template x-for="(slide, index) in slides" :key="index">
             <button
                 @click="goToSlide(index)"
