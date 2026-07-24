@@ -156,6 +156,13 @@ class ProductController extends Controller
         }
 
         // Track price changes for the 30-day stabilization rule
+        if ($request->filled('discount_percentage') && $product->original_price !== null) {
+            $discountPct = (float) $request->input('discount_percentage');
+            if ($discountPct > 0) {
+                $data['price'] = round($product->original_price * (1 - $discountPct / 100), 2);
+            }
+        }
+
         if (isset($data['price']) && $data['price'] != $product->price) {
             $data['price_changed_at'] = now();
 
@@ -164,6 +171,9 @@ class ProductController extends Controller
                 $data['original_price'] = null;
             }
         }
+
+        // Remove discount_percentage from data (not a model attribute)
+        unset($data['discount_percentage']);
 
         // Handle image upload
         if ($request->hasFile('image')) {

@@ -69,6 +69,33 @@
                                 &mdash; descuento actual del {{ $product->discount_percentage }}%
                             @endif
                         </p>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <label for="discount_percentage" class="block text-sm font-semibold text-gray-900 mb-2">
+                                Aplicar descuento sobre el precio de referencia
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-1 max-w-[160px]">
+                                    <input type="number"
+                                           name="discount_percentage"
+                                           id="discount_percentage"
+                                           value="{{ old('discount_percentage') }}"
+                                           step="0.01"
+                                           min="0"
+                                           max="100"
+                                           placeholder="0"
+                                           class="w-full rounded-2xl border border-gray-200 pl-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('discount_percentage') border-red-300 @enderror" />
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">%</span>
+                                </div>
+                                <span class="text-sm text-gray-400">
+                                    Precio final:
+                                    <span id="discount-preview" class="font-semibold text-[#046b22]">${{ number_format($product->price, 2) }}</span>
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">Deja vacío para no aplicar descuento.</p>
+                            @error('discount_percentage')
+                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                     @else
                         <p class="text-xs text-gray-400 mt-1">
                             El precio de referencia se establecerá automáticamente tras 30 días sin cambios.
@@ -148,4 +175,37 @@
         </form>
     </div>
 </div>
+
+@if ($product->original_price !== null)
+@push('scripts')
+<script>
+    const priceInput = document.getElementById('price');
+    const discountInput = document.getElementById('discount_percentage');
+    const preview = document.getElementById('discount-preview');
+    const originalPrice = {{ $product->original_price }};
+
+    function updateDiscountPreview() {
+        const pct = parseFloat(discountInput.value) || 0;
+        const discounted = originalPrice * (1 - pct / 100);
+        preview.textContent = '$' + discounted.toFixed(2);
+    }
+
+    discountInput.addEventListener('input', function() {
+        updateDiscountPreview();
+        if (this.value) {
+            const pct = parseFloat(this.value) || 0;
+            const discounted = originalPrice * (1 - pct / 100);
+            priceInput.value = discounted.toFixed(2);
+        }
+    });
+
+    priceInput.addEventListener('input', function() {
+        discountInput.value = '';
+        const pct = ((originalPrice - parseFloat(this.value || originalPrice)) / originalPrice * 100);
+        preview.textContent = '$' + (parseFloat(this.value) || originalPrice).toFixed(2);
+    });
+</script>
+@endpush
+@endif
+
 @endsection
