@@ -59,22 +59,25 @@
                 <!-- Price -->
                 <div>
                     <label for="price" class="block text-sm font-semibold text-gray-900 mb-2">Precio <span class="text-red-500">*</span></label>
-                    <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" min="0"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('price') border-red-300 @enderror"
-                           required />
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">$</span>
+                        <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" min="0"
+                               class="w-full rounded-2xl border border-gray-200 pl-8 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none @error('price') border-red-300 @enderror"
+                               required />
+                    </div>
                     @if ($product->original_price !== null)
-                        <p class="text-xs text-gray-400 mt-1">
+                        <p class="text-xs text-gray-400 mt-1.5">
                             Precio de referencia: <span class="font-semibold text-gray-500">${{ number_format($product->original_price, 2) }}</span>
                             @if ($product->original_price > $product->price)
                                 &mdash; descuento actual del {{ $product->discount_percentage }}%
                             @endif
                         </p>
-                        <div class="mt-4 pt-4 border-t border-gray-100">
-                            <label for="discount_percentage" class="block text-sm font-semibold text-gray-900 mb-2">
+                        <div class="mt-5 pt-5 border-t border-gray-100">
+                            <label for="discount_percentage" class="block text-sm font-semibold text-gray-900 mb-3">
                                 Aplicar descuento sobre el precio de referencia
                             </label>
-                            <div class="flex items-center gap-3">
-                                <div class="relative flex-1 max-w-[160px]">
+                            <div class="flex items-center gap-5">
+                                <div class="relative w-[140px]">
                                     <input type="number"
                                            name="discount_percentage"
                                            id="discount_percentage"
@@ -83,15 +86,15 @@
                                            min="0"
                                            max="100"
                                            placeholder="0"
-                                           class="w-full rounded-2xl border border-gray-200 pl-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('discount_percentage') border-red-300 @enderror" />
-                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">%</span>
+                                           class="w-full rounded-2xl border border-gray-200 pl-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none @error('discount_percentage') border-red-300 @enderror" />
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-gray-400">%</span>
                                 </div>
-                                <span class="text-sm text-gray-400">
-                                    Precio final:
-                                    <span id="discount-preview" class="font-semibold text-[#046b22]">${{ number_format($product->price, 2) }}</span>
-                                </span>
+                                <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-xl">
+                                    <span class="text-sm text-gray-500">Precio final</span>
+                                    <span id="discount-preview" class="text-sm font-bold text-[#046b22]">${{ number_format($product->price, 2) }}</span>
+                                </div>
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">Deja vacío para no aplicar descuento.</p>
+                            <p class="text-xs text-gray-400 mt-2">Deja vacío para no aplicar descuento.</p>
                             @error('discount_percentage')
                                 <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                             @enderror
