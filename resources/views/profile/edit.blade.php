@@ -4,23 +4,14 @@
 <div class="min-h-screen bg-gray-50 pt-28">
     <div class="max-w-[1000px] mx-auto px-4 md:px-8 py-10">
 
-        <div class="mb-8 flex items-center justify-between flex-wrap gap-4">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Mi perfil</h1>
-                <p class="text-gray-600 mt-1">{{ $user->email }}
-                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 ml-2 text-xs font-semibold
-                        {{ $user->isAdmin() ? 'text-[#23612d] bg-[#ecf8ef]' : 'text-gray-600 bg-gray-100' }}">
-                        {{ $user->isAdmin() ? 'Administrador' : 'Cliente' }}
-                    </span>
-                </p>
-            </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-                    <x-icon name="log-out" class="w-4 h-4" />
-                    Cerrar sesión
-                </button>
-            </form>
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Mi perfil</h1>
+            <p class="text-gray-600 mt-1">{{ $user->email }}
+                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 ml-2 text-xs font-semibold
+                    {{ $user->isAdmin() ? 'text-[#23612d] bg-[#ecf8ef]' : 'text-gray-600 bg-gray-100' }}">
+                    {{ $user->isAdmin() ? 'Administrador' : 'Cliente' }}
+                </span>
+            </p>
         </div>
 
         @if ($user->isAdmin())
@@ -168,6 +159,25 @@
                                 <p class="text-sm font-medium text-green-700">Contraseña actualizada.</p>
                             @endif
                         </div>
+                    </form>
+                </section>
+
+                <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                            <x-icon name="log-out" class="w-5 h-5 text-gray-500" />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Cerrar sesión</h2>
+                            <p class="text-sm text-gray-500">Sal de tu cuenta de forma segura.</p>
+                        </div>
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                            <x-icon name="log-out" class="w-4 h-4" />
+                            Cerrar sesión
+                        </button>
                     </form>
                 </section>
 
