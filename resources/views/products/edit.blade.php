@@ -59,12 +59,9 @@
                 <!-- Price -->
                 <div>
                     <label for="price" class="block text-sm font-semibold text-gray-900 mb-2">Precio <span class="text-red-500">*</span></label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">$</span>
-                        <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" min="0"
-                               class="w-full rounded-2xl border border-gray-200 pl-8 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('price') border-red-300 @enderror"
-                               required />
-                    </div>
+                    <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" min="0"
+                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('price') border-red-300 @enderror"
+                           required />
                     @if ($product->original_price !== null)
                         <p class="text-xs text-gray-400 mt-1.5">
                             Precio de referencia: <span class="font-semibold text-gray-500">${{ number_format($product->original_price, 2) }}</span>
