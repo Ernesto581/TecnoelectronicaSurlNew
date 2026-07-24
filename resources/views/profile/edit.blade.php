@@ -14,6 +14,12 @@
             </p>
         </div>
 
+        @if (session('status') && session('status') !== 'profile-updated' && session('status') !== 'password-updated')
+            <div class="mb-6 rounded-2xl border border-green-200 bg-green-50 px-6 py-4 text-sm font-medium text-green-800">
+                {{ session('status') }}
+            </div>
+        @endif
+
         @if ($user->isAdmin())
             <div class="grid gap-4 sm:grid-cols-2 mb-8">
                 <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
