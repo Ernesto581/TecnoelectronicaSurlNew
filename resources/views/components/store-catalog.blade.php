@@ -23,7 +23,6 @@
             <p class="text-lg text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">Explora nuestra amplia variedad de productos y encuentra lo que necesitas</p>
             <div class="relative max-w-lg mx-auto">
                 <input type="text" x-model="searchQuery" placeholder="Buscar en el inventario..." class="w-full px-5 pr-14 py-4 bg-white border border-white/20 rounded-2xl focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none text-sm transition-all placeholder:text-gray-400 shadow-lg" />
-                
             </div>
         </div>
     </div>
@@ -50,11 +49,6 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mt-4 pt-4 border-t border-gray-100">
                 <div class="flex items-center gap-4 flex-wrap">
                     <p class="text-xs text-gray-500 font-medium">Productos <span class="font-bold text-gray-900" x-text="filteredProducts.length"></span></p>
-                    <div class="flex items-center gap-3 bg-gray-50 rounded-xl border border-gray-100 px-4 py-2">
-                        <span class="text-[10px] font-mono font-semibold text-gray-400 uppercase tracking-wider">Precio m&aacute;x:</span>
-                        <input type="range" min="0" max="1000" x-model="priceRange" class="w-24 accent-[#46A040] h-1.5" />
-                        <span class="text-sm font-mono font-bold text-[#46A040] w-14 text-right" x-text="'$' + priceRange"></span>
-                    </div>
                 </div>
                 <select x-model="sortBy" class="bg-gray-50 border border-gray-100 px-4 py-2 rounded-xl text-xs font-mono font-semibold uppercase tracking-wider outline-none focus:ring-2 focus:ring-[#46A040] cursor-pointer text-gray-600">
                     <option value="relevance">Relevancia</option>
@@ -75,7 +69,7 @@
                 </div>
                 <h3 class="text-xl font-display font-bold text-gray-900 mb-2">No se encontraron productos</h3>
                 <p class="text-gray-500 text-sm mb-6">Intenta ajustando los filtros de b&uacute;squeda.</p>
-                <button @click="activeCategory = 'Todos'; searchQuery = ''; priceRange = 1000" class="inline-flex items-center gap-2 px-6 py-3 bg-[#46A040] text-white font-semibold rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20 font-mono text-xs uppercase tracking-wider">
+                <button @click="activeCategory = 'Todos'; searchQuery = ''" class="inline-flex items-center gap-2 px-6 py-3 bg-[#46A040] text-white font-semibold rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20 font-mono text-xs uppercase tracking-wider">
                     Limpiar filtros
                 </button>
             </div>
@@ -132,7 +126,6 @@
             categories: categories,
             activeCategory: 'Todos',
             searchQuery: initialSearch || '',
-            priceRange: 1000,
             sortBy: 'relevance',
             sticky: false,
             filterBarOffset: null,
@@ -154,8 +147,7 @@
                     const matchCategory = this.activeCategory === 'Todos' || p.categoryName === this.activeCategory;
                     const matchSearch = p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                                        (p.description && p.description.toLowerCase().includes(this.searchQuery.toLowerCase()));
-                    const matchPrice = Number(p.price) <= this.priceRange;
-                    return matchCategory && matchSearch && matchPrice;
+                    return matchCategory && matchSearch;
                 });
             },
 
