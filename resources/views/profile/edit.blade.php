@@ -57,7 +57,7 @@
         @endif
 
         <div class="grid gap-8 lg:grid-cols-2">
-            <div class="space-y-8">
+            <div class="flex flex-col gap-8">
                 <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 rounded-full bg-[#ecf8ef] flex items-center justify-center">
@@ -125,7 +125,7 @@
                 </section>
             </div>
 
-            <div class="space-y-8">
+            <div class="flex flex-col gap-8">
                 <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 rounded-full bg-[#ecf8ef] flex items-center justify-center">
