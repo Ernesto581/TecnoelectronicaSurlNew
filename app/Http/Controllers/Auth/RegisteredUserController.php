@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended(route('profile.edit', absolute: false))
+        return redirect()->route('profile.edit')
             ->with('status', 'Cuenta creada correctamente.');
     }
 }
