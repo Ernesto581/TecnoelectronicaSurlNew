@@ -60,6 +60,45 @@ class Product extends Model
     ];
 
     /**
+     * Automatic badge resolution.
+     *
+     * Priority: SoldOut > stored badge (Offer) > Featured > New (7 days).
+     */
+    protected function getBadgeAttribute(): ?ProductBadge
+    {
+        // SoldOut takes priority over everything
+        if ($this->stock <= 0) {
+            return ProductBadge::SoldOut;
+        }
+
+        // Get the stored badge value from the database
+        $stored = $this->attributes['badge'] ?? null;
+        if ($stored && $badge = ProductBadge::tryFrom($stored)) {
+            return $badge;
+        }
+
+        // Featured products get the Destacado badge
+        if ($this->is_featured) {
+            return ProductBadge::Featured;
+        }
+
+        // New products (created within last 7 days)
+        if ($this->created_at?->gt(now()->subDays(7))) {
+            return ProductBadge::New_;
+        }
+
+        return null;
+    }
+
+    /**
+     * Keep the setter so the badge column can still be written directly.
+     */
+    protected function setBadgeAttribute(?ProductBadge $value): void
+    {
+        $this->attributes['badge'] = $value?->value;
+    }
+
+    /**
      * Attributes that should be cast to native types.
      */
     protected function casts(): array
@@ -70,7 +109,6 @@ class Product extends Model
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'stock' => 'integer',
-            'badge' => ProductBadge::class,
         ];
     }
 

@@ -12,10 +12,11 @@
             <p class="text-gray-600 mt-1">Completa los datos para registrar un nuevo producto en el catalogo.</p>
         </div>
 
-        <form action="{{ route('products.store') }}" method="POST" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Name -->
                 <div class="md:col-span-2">
                     <label for="name" class="block text-sm font-semibold text-gray-900 mb-2">Nombre <span class="text-red-500">*</span></label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}"
@@ -26,26 +27,7 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label for="slug" class="block text-sm font-semibold text-gray-900 mb-2">Slug <span class="text-red-500">*</span></label>
-                    <input type="text" name="slug" id="slug" value="{{ old('slug') }}"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('slug') border-red-300 @enderror"
-                           required maxlength="255" />
-                    @error('slug')
-                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="sku" class="block text-sm font-semibold text-gray-900 mb-2">SKU</label>
-                    <input type="text" name="sku" id="sku" value="{{ old('sku') }}"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('sku') border-red-300 @enderror"
-                           maxlength="100" />
-                    @error('sku')
-                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
+                <!-- Category -->
                 <div>
                     <label for="category_id" class="block text-sm font-semibold text-gray-900 mb-2">Categoria</label>
                     <select name="category_id" id="category_id"
@@ -62,6 +44,18 @@
                     @enderror
                 </div>
 
+                <!-- SKU -->
+                <div>
+                    <label for="sku" class="block text-sm font-semibold text-gray-900 mb-2">SKU</label>
+                    <input type="text" name="sku" id="sku" value="{{ old('sku') }}"
+                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('sku') border-red-300 @enderror"
+                           maxlength="100" />
+                    @error('sku')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Price -->
                 <div>
                     <label for="price" class="block text-sm font-semibold text-gray-900 mb-2">Precio <span class="text-red-500">*</span></label>
                     <input type="number" name="price" id="price" value="{{ old('price') }}" step="0.01" min="0"
@@ -72,15 +66,7 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label for="original_price" class="block text-sm font-semibold text-gray-900 mb-2">Precio original</label>
-                    <input type="number" name="original_price" id="original_price" value="{{ old('original_price') }}" step="0.01" min="0"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('original_price') border-red-300 @enderror" />
-                    @error('original_price')
-                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
+                <!-- Stock -->
                 <div>
                     <label for="stock" class="block text-sm font-semibold text-gray-900 mb-2">Stock <span class="text-red-500">*</span></label>
                     <input type="number" name="stock" id="stock" value="{{ old('stock', 0) }}" min="0"
@@ -91,32 +77,17 @@
                     @enderror
                 </div>
 
+                <!-- Image -->
                 <div>
-                    <label for="badge" class="block text-sm font-semibold text-gray-900 mb-2">Etiqueta</label>
-                    <select name="badge" id="badge"
-                            class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('badge') border-red-300 @enderror">
-                        <option value="">Sin etiqueta</option>
-                        @foreach (App\Enums\ProductBadge::cases() as $badge)
-                            <option value="{{ $badge->value }}" @selected(old('badge') == $badge->value)>
-                                {{ $badge->value }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('badge')
+                    <label for="image" class="block text-sm font-semibold text-gray-900 mb-2">Imagen</label>
+                    <input type="file" name="image" id="image" accept="image/*"
+                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ecf8ef] file:text-[#46A040] hover:file:bg-[#d9f2da] @error('image') border-red-300 @enderror" />
+                    @error('image')
                         <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
-                    <label for="image_url" class="block text-sm font-semibold text-gray-900 mb-2">URL de imagen</label>
-                    <input type="url" name="image_url" id="image_url" value="{{ old('image_url') }}"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('image_url') border-red-300 @enderror"
-                           maxlength="2048" />
-                    @error('image_url')
-                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
+                <!-- Description -->
                 <div class="md:col-span-2">
                     <label for="description" class="block text-sm font-semibold text-gray-900 mb-2">Descripcion</label>
                     <textarea name="description" id="description" rows="4"

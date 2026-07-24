@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\ProductBadge;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
  * Validates the creation of a new product.
+ *
+ * Slug is generated automatically in the controller.
+ * Badge is computed automatically by the model accessor.
  */
 class StoreProductRequest extends FormRequest
 {
@@ -30,14 +31,11 @@ class StoreProductRequest extends FormRequest
         return [
             'category_id' => ['nullable', 'exists:categories,id'],
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:products,slug'],
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
-            'original_price' => ['nullable', 'numeric', 'min:0'],
             'sku' => ['nullable', 'string', 'max:100', 'unique:products,sku'],
             'stock' => ['required', 'integer', 'min:0'],
-            'image_url' => ['nullable', 'url', 'max:2048'],
-            'badge' => ['nullable', Rule::enum(ProductBadge::class)],
+            'image' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['boolean'],
             'is_featured' => ['boolean'],
         ];

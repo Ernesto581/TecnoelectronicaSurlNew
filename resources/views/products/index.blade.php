@@ -110,7 +110,7 @@
                                 <td class="py-4 px-6">
                                     <div class="flex items-center gap-3">
                                         @if ($product->image_url)
-                                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
+                                            <img src="{{ Str::startsWith($product->image_url, 'http') ? $product->image_url : Storage::url($product->image_url) }}" alt="{{ $product->name }}"
                                                  class="w-10 h-10 rounded-lg object-cover border border-gray-200" />
                                         @else
                                             <div class="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center">

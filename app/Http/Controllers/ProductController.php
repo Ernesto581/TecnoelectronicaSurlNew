@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -86,7 +88,19 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): RedirectResponse
     {
-        $product = Product::create($request->validated());
+        $data = $request->validated();
+
+        // Auto-generate unique slug from name
+        $data['slug'] = $this->generateUniqueSlug($data['name']);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image_url'] = $request->file('image')->store('products', 'public');
+        }
+
+        unset($data['image']);
+
+        $product = Product::create($data);
 
         return redirect()
             ->route('products.show', $product)
@@ -118,11 +132,56 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated());
+        $data = $request->validated();
+
+        // Regenerate slug if name changed
+        if (isset($data['name'])) {
+            $data['slug'] = $this->generateUniqueSlug($data['name'], $product->id);
+        }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($product->image_url) {
+                Storage::disk('public')->delete($product->image_url);
+            }
+            $data['image_url'] = $request->file('image')->store('products', 'public');
+        }
+
+        unset($data['image']);
+
+        $product->update($data);
 
         return redirect()
             ->route('products.show', $product)
             ->with('success', 'Producto actualizado correctamente.');
+    }
+
+    /**
+     * Generate a unique slug from the product name.
+     *
+     * Appends a numeric suffix if the slug already exists (ignoring the given product ID).
+     */
+    private function generateUniqueSlug(string $name, ?int $excludeId = null): string
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        $query = Product::withTrashed()->where('slug', $slug);
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        while ($query->exists()) {
+            $slug = $originalSlug . '-' . ++$counter;
+            $query = Product::withTrashed()->where('slug', $slug);
+            if ($excludeId) {
+                $query->where('id', '!=', $excludeId);
+            }
+        }
+
+        return $slug;
     }
 
     /**

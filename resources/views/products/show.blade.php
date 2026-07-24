@@ -43,7 +43,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="relative aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm">
                 @if ($product->image_url)
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover" />
+                    <img src="{{ Str::startsWith($product->image_url, 'http') ? $product->image_url : Storage::url($product->image_url) }}" alt="{{ $product->name }}" class="w-full h-full object-cover" />
                 @else
                     <div class="w-full h-full flex items-center justify-center bg-gray-50">
                         <x-icon name="package" class="w-20 h-20 text-gray-300" />
