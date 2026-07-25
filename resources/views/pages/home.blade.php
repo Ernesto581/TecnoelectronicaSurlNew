@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex flex-col gap-16">
     <x-hero-carousel />
-    <x-featured-categories :categories="$categories" />
+    <x-featured-categories />
     <section class="container mx-auto px-4">
         <div class="text-center mb-10">
             <h2 class="text-3xl font-bold italic tracking-tight">Novedades de la tienda</h2>

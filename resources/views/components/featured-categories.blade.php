@@ -2,7 +2,11 @@
 
 @php
 if (!isset($categories) || $categories->isEmpty()) {
-    $categories = \App\Models\Category::all();
+    $categories = \App\Models\Category::active()
+        ->withCount('products')
+        ->orderByDesc('products_count')
+        ->take(5)
+        ->get();
 }
 
 $colorClasses = [
@@ -35,16 +39,22 @@ $colorClasses = [
                 $color = $colorClasses[$index % count($colorClasses)];
             @endphp
             @php
-                $bgImage = $cat->image ? "background-image: url({$cat->image}); background-size: cover; background-position: center;" : 'background-color: #f3f4f6;';
+                $bgStyle = 'background-color: #f3f4f6;';
+                if ($cat->image_url) {
+                    $url = \Illuminate\Support\Str::startsWith($cat->image_url, 'http')
+                        ? $cat->image_url
+                        : \Illuminate\Support\Facades\Storage::url($cat->image_url);
+                    $bgStyle = "background-image: url({$url}); background-size: cover; background-position: center;";
+                }
             @endphp
-            <div class="group relative overflow-hidden rounded-2xl {{ $spanClass }} min-h-[280px] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500" style="{{ $bgImage }}">
+            <div class="group relative overflow-hidden rounded-2xl {{ $spanClass }} min-h-[280px] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500" style="{{ $bgStyle }}">
                 <a href="/tienda/{{ $cat->slug }}" class="absolute inset-0 z-10"></a>
                 <div class="absolute inset-0 bg-gradient-to-br from-gray-900/70 to-gray-900/40 transition-opacity duration-500"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
                 <div class="absolute inset-0 p-8 flex flex-col justify-end">
                     <div class="transform transition-transform duration-500 group-hover:-translate-y-4">
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 {{ $color }} bg-white shadow-lg">
-                            <x-icon name="{{ $cat->icon }}" class="w-6 h-6" />
+                            <x-icon name="shopping-basket" class="w-6 h-6" />
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2">{{ $cat->name }}</h3>
                         <p class="text-white/80 font-medium mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 h-0 group-hover:h-auto overflow-hidden">Explora productos en {{ $cat->name }}</p>
