@@ -16,9 +16,8 @@
             <div>
                 <h2 class="text-[#46A040] font-bold tracking-wider uppercase text-sm mb-3">Nuestra Historia</h2>
                 <h3 class="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-6 tracking-tight">Evolución constante desde 2022</h3>
-                <div class="space-y-4 text-lg text-gray-600 leading-relaxed">
-                    <p>Desde nuestros humildes inicios como un pequeño taller de servicio, Tecnoelectronica SURL se ha transformado en un proveedor integral multicategoría. Hemos crecido para satisfacer las necesidades tecnológicas, prácticas y operativas de hogares y empresas.</p>
-                    <p>Hoy nuestra oferta abarca la comercialización de electrodomésticos, sistemas de energía solar, una sólida rama de software empresarial y suministros para la industria de la sublimación. Adaptarnos es nuestro fuerte para siempre aportar valor al mercado.</p>
+                <div class="text-lg text-gray-600 leading-relaxed">
+                    <p>Descubre la solución definitiva para todas tus necesidades tecnológicas con TecnoElectrónica SURL. Somos tu aliado confiable en la venta y reparación de equipos de computación. TecnoElectrónica SURL te ofrece diagnósticos precisos, reparaciones eficientes y asesoramiento experto para que vuelvas al trabajo sin demoras. Confía en nosotros para mantener tu tecnología en perfectas condiciones, asegurar tu productividad y proporcionarte la mejor experiencia posible. ¡Tu satisfacción es nuestra prioridad!</p>
                 </div>
             </div>
             <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[400px]">
