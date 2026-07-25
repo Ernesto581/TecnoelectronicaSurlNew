@@ -19,7 +19,7 @@ $link = $link ?: '/tienda/producto/' . $product->slug;
 
 <div class="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
     <div class="relative h-60 w-full bg-gray-50 overflow-hidden">
-        <img src="{{ $product->image_url ?? 'https://picsum.photos/seed/default/600/400' }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <img src="{{ $product->image_url ? (\Illuminate\Support\Str::startsWith($product->image_url, 'http') ? $product->image_url : \Illuminate\Support\Facades\Storage::url($product->image_url)) : 'https://picsum.photos/seed/default/600/400' }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         @if($product->badge)
         <div class="absolute top-3 left-3 bg-[#46A040] text-white text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md shadow-lg">{{ $product->badge }}</div>
         @endif

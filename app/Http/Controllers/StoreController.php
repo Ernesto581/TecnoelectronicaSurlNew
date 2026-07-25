@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -39,7 +41,7 @@ class StoreController extends Controller
             'description' => $p->description,
             'price' => $p->price,
             'original_price' => $p->original_price,
-            'image_url' => $p->image_url,
+            'image_url' => $this->resolveImageUrl($p->image_url),
             'badge' => $p->badge,
             'rating' => $p->rating,
             'reviews_count' => $p->reviews_count,
@@ -95,7 +97,7 @@ class StoreController extends Controller
                 'description' => $p->description,
                 'price' => $p->price,
                 'original_price' => $p->original_price,
-                'image_url' => $p->image_url,
+                'image_url' => $this->resolveImageUrl($p->image_url),
                 'badge' => $p->badge,
                 'rating' => $p->rating,
                 'reviews_count' => $p->reviews_count,
@@ -106,5 +108,25 @@ class StoreController extends Controller
             'categoria' => $category->name,
             'category' => $category,
         ]);
+    }
+
+    /**
+     * Resolve an image path to a full URL, supporting both external URLs
+     * and local storage paths.
+     *
+     * @param  string|null  $imageUrl
+     * @return string|null
+     */
+    private function resolveImageUrl(?string $imageUrl): ?string
+    {
+        if (!$imageUrl) {
+            return null;
+        }
+
+        if (Str::startsWith($imageUrl, 'http')) {
+            return $imageUrl;
+        }
+
+        return Storage::url($imageUrl);
     }
 }

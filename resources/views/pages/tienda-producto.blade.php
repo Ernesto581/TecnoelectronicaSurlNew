@@ -16,7 +16,7 @@
                 @if($product->badge)
                 <div class="absolute top-4 left-4 z-10 bg-[#46A040] text-white text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-md">{{ $product->badge }}</div>
                 @endif
-                <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop' }}" alt="{{ $product->name }}" class="w-full h-full object-cover" />
+                <img src="{{ $product->image_url ? (Str::startsWith($product->image_url, 'http') ? $product->image_url : Storage::url($product->image_url)) : 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop' }}" alt="{{ $product->name }}" class="w-full h-full object-cover" />
             </div>
 
             <div class="flex flex-col">
