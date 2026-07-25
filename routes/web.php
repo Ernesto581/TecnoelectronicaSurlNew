@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
@@ -110,6 +111,12 @@ Route::middleware(['auth', 'admin'])->prefix('product-dashboard')->name('product
 Route::middleware(['auth', 'admin'])->prefix('profile-dashboard')->name('users.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/{user}', [UserController::class, 'show'])->name('show');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('order-dashboard')->name('orders.')->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('index');
+    Route::get('/{order}', [OrderController::class, 'show'])->name('show');
+    Route::patch('/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
 });
 
 require __DIR__.'/auth.php';
