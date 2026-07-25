@@ -24,8 +24,9 @@ class OrderController extends Controller
      */
     public function index(Request $request): View
     {
+        // Exclude only carts by default; cancelled orders remain visible
         $query = Order::with('user')
-            ->placed()
+            ->whereNot('status', OrderStatus::Cart)
             ->latest();
 
         // Filter by status
