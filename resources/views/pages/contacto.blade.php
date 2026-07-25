@@ -22,9 +22,9 @@
     {{-- INFORMACIÓN DE CONTACTO + FORMULARIO --}}
     <section class="py-24 bg-gray-50/50">
         <div class="max-w-[1200px] mx-auto px-4 md:px-8">
-            <div class="grid lg:grid-cols-12 gap-10 items-stretch">
+            <div class="grid lg:grid-cols-12 gap-8 items-stretch">
                 
-                {{-- COLUMNA IZQUIERDA: Panel Integrado Elegante --}}
+                {{-- COLUMNA IZQUIERDA: Panel Integrado --}}
                 <div class="lg:col-span-5 bg-white rounded-[32px] p-8 md:p-10 shadow-xl shadow-gray-200/60 border border-gray-100/80 flex flex-col justify-between">
                     <div>
                         <div class="mb-8">
@@ -34,7 +34,7 @@
 
                         <div class="space-y-6">
                             {{-- Dirección --}}
-                            <div class="flex items-start gap-4 p-3 -mx-3 rounded-2xl hover:bg-gray-50 transition-colors">
+                            <div class="flex items-start gap-4 p-2 -mx-2 rounded-2xl hover:bg-gray-50 transition-colors">
                                 <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
                                     <x-icon name="map-pin" class="w-6 h-6 text-[#46A040]" />
                                 </div>
@@ -47,7 +47,7 @@
                             <div class="w-full h-px bg-gray-100"></div>
 
                             {{-- Email --}}
-                            <div class="flex items-start gap-4 p-3 -mx-3 rounded-2xl hover:bg-gray-50 transition-colors">
+                            <div class="flex items-start gap-4 p-2 -mx-2 rounded-2xl hover:bg-gray-50 transition-colors">
                                 <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
                                     <x-icon name="mail" class="w-6 h-6 text-[#46A040]" />
                                 </div>
@@ -62,7 +62,7 @@
                             <div class="w-full h-px bg-gray-100"></div>
 
                             {{-- WhatsApp --}}
-                            <div class="flex items-start gap-4 p-3 -mx-3 rounded-2xl hover:bg-gray-50 transition-colors">
+                            <div class="flex items-start gap-4 p-2 -mx-2 rounded-2xl hover:bg-gray-50 transition-colors">
                                 <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
                                     <x-icon name="message-circle" class="w-6 h-6 text-[#46A040]" />
                                 </div>
@@ -90,7 +90,7 @@
                             <div class="w-full h-px bg-gray-100"></div>
 
                             {{-- Horarios --}}
-                            <div class="flex items-start gap-4 p-3 -mx-3 rounded-2xl hover:bg-gray-50 transition-colors">
+                            <div class="flex items-start gap-4 p-2 -mx-2 rounded-2xl hover:bg-gray-50 transition-colors">
                                 <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
                                     <x-icon name="clock" class="w-6 h-6 text-[#46A040]" />
                                 </div>
@@ -112,45 +112,46 @@
                     </div>
                 </div>
 
-                {{-- COLUMNA DERECHA: Formulario --}}
-                <div class="lg:col-span-7">
-                    <div class="bg-white rounded-[32px] p-8 md:p-10 shadow-xl shadow-gray-200/60 border border-gray-100 relative overflow-hidden h-full flex flex-col justify-between">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-[#46A040]/5 rounded-full blur-[80px] pointer-events-none"></div>
-                        <div class="relative z-10">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-1">Envíanos un mensaje</h2>
-                            <p class="text-gray-500 text-sm mb-8">Completa el formulario y nuestro equipo te contactará a la brevedad.</p>
-
-                            <form action="#" method="POST" class="space-y-5">
-                                @csrf
-                                <div class="grid md:grid-cols-2 gap-5">
-                                    <div class="space-y-1.5">
-                                        <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Nombre completo</label>
-                                        <input type="text" name="name" required placeholder="Ej. Juan Pérez" class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700" />
-                                    </div>
-                                    <div class="space-y-1.5">
-                                        <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Teléfono / Celular</label>
-                                        <input type="tel" name="phone" placeholder="+53 50000000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700" />
-                                    </div>
-                                </div>
-
-                                <div class="space-y-1.5">
-                                    <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Correo electrónico</label>
-                                    <input type="email" name="email" required placeholder="correo@ejemplo.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700" />
-                                </div>
-
-                                <div class="space-y-1.5">
-                                    <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Mensaje o consulta</label>
-                                    <textarea name="message" rows="4" required placeholder="¿En qué podemos ayudarte?..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700 resize-none"></textarea>
-                                </div>
-
-                                <button type="submit" class="w-full flex items-center justify-center gap-2 bg-[#46A040] hover:bg-[#388233] text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#46A040]/25 transition-all hover:-translate-y-0.5 active:scale-[0.98]">
-                                    Enviar Mensaje
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                    </svg>
-                                </button>
-                            </form>
+                {{-- COLUMNA DERECHA: Formulario en Caja Identica --}}
+                <div class="lg:col-span-7 bg-white rounded-[32px] p-8 md:p-10 shadow-xl shadow-gray-200/60 border border-gray-100/80 relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-[#46A040]/5 rounded-full blur-[80px] pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="mb-8">
+                            <span class="text-[#46A040] uppercase tracking-wider font-bold text-xs block mb-1">Escríbenos</span>
+                            <h2 class="text-2xl font-bold text-gray-900">Envíanos un mensaje</h2>
+                            <p class="text-gray-500 text-sm mt-1">Completa el formulario y nuestro equipo te contactará a la brevedad.</p>
                         </div>
+
+                        <form action="#" method="POST" class="space-y-5">
+                            @csrf
+                            <div class="grid md:grid-cols-2 gap-5">
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Nombre completo</label>
+                                    <input type="text" name="name" required placeholder="Ej. Juan Pérez" class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700" />
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Teléfono / Celular</label>
+                                    <input type="tel" name="phone" placeholder="+53 50000000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700" />
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Correo electrónico</label>
+                                <input type="email" name="email" required placeholder="correo@ejemplo.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700" />
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-gray-700 uppercase tracking-wider">Mensaje o consulta</label>
+                                <textarea name="message" rows="4" required placeholder="¿En qué podemos ayudarte?..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200/80 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#46A040]/15 focus:border-[#46A040] outline-none transition-all text-sm text-gray-700 resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full flex items-center justify-center gap-2 bg-[#46A040] hover:bg-[#388233] text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#46A040]/25 transition-all hover:-translate-y-0.5 active:scale-[0.98]">
+                                Enviar Mensaje
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
