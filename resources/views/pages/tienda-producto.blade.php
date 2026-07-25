@@ -50,7 +50,14 @@
                         <div class="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">{{ session('cart_error') }}</div>
                     @endif
                     @if (session('cart_success'))
-                        <div class="mb-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">{{ session('cart_success') }}</div>
+                        <div class="mb-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm flex items-center justify-between flex-wrap gap-2">
+                            <span>{{ session('cart_success') }}</span>
+                            <div class="flex items-center gap-2">
+                                <a href="{{ route('store.index') }}" class="font-semibold hover:underline">Seguir comprando</a>
+                                <span class="text-gray-300">|</span>
+                                <a href="{{ route('cart.index') }}" class="font-semibold hover:underline">Ver carrito</a>
+                            </div>
+                        </div>
                     @endif
 
                     @auth
