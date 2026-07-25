@@ -21,7 +21,7 @@
         @endif
 
         @if ($user->isAdmin())
-            <div class="grid gap-4 sm:grid-cols-3 mb-8">
+            <div class="grid gap-4 sm:grid-cols-4 mb-8">
                 <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-4">
@@ -75,6 +75,25 @@
                            class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
                             <x-icon name="package-check" class="w-4 h-4" />
                             Ver pedidos
+                        </a>
+                    </div>
+                </section>
+
+                <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                                <x-icon name="shopping-basket" class="w-6 h-6 text-white" />
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Categorías</h2>
+                                <p class="text-sm text-gray-600">Organización del catálogo.</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('categories.index') }}"
+                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
+                            <x-icon name="shopping-basket" class="w-4 h-4" />
+                            Gestionar
                         </a>
                     </div>
                 </section>

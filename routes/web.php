@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -123,6 +124,17 @@ Route::middleware('auth')->prefix('pedidos')->name('pedidos.')->group(function (
     Route::get('/', [OrderController::class, 'customerOrders'])->name('index');
     Route::get('/{order}', [OrderController::class, 'customerShow'])->name('show');
     Route::post('/{order}/cancelar', [OrderController::class, 'customerCancel'])->name('cancel');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('category-dashboard')->name('categories.')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
+    Route::get('/crear', [CategoryController::class, 'create'])->name('create');
+    Route::post('/', [CategoryController::class, 'store'])->name('store');
+    Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
+    Route::get('/{category}/editar', [CategoryController::class, 'edit'])->name('edit');
+    Route::patch('/{category}', [CategoryController::class, 'update'])->name('update');
+    Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+    Route::post('/{category}/restaurar', [CategoryController::class, 'restore'])->withTrashed()->name('restore');
 });
 
 require __DIR__.'/auth.php';
