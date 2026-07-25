@@ -46,10 +46,39 @@
                         <span>{{ $product->stock > 0 ? $product->stock . ' unidades disponibles' : 'Agotado' }}</span>
                     </div>
 
-                    <button class="w-full flex items-center justify-center gap-3 bg-[#46A040] text-white font-bold py-4 rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20">
-                        <x-icon name="shopping-cart" class="w-5 h-5" />
-                        Agregar al carrito
-                    </button>
+                    @if (session('cart_error'))
+                        <div class="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">{{ session('cart_error') }}</div>
+                    @endif
+                    @if (session('cart_success'))
+                        <div class="mb-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">{{ session('cart_success') }}</div>
+                    @endif
+
+                    @auth
+                        @if ($product->stock > 0)
+                            <form action="{{ route('cart.add', $product) }}" method="POST" class="flex items-center gap-3">
+                                @csrf
+                                <div class="flex items-center rounded-xl border border-gray-200 bg-white">
+                                    <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}"
+                                           class="w-14 text-center py-3 text-sm font-semibold border-none focus:ring-0 rounded-l-xl" />
+                                </div>
+                                <button type="submit" class="flex-1 flex items-center justify-center gap-3 bg-[#46A040] text-white font-bold py-3 rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20">
+                                    <x-icon name="shopping-cart" class="w-5 h-5" />
+                                    Agregar al carrito
+                                </button>
+                            </form>
+                        @else
+                            <button disabled class="w-full flex items-center justify-center gap-3 bg-gray-200 text-gray-400 font-bold py-4 rounded-xl cursor-not-allowed">
+                                <x-icon name="shopping-cart" class="w-5 h-5" />
+                                Agotado
+                            </button>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}"
+                           class="w-full flex items-center justify-center gap-3 bg-[#46A040] text-white font-bold py-4 rounded-xl hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20">
+                            <x-icon name="log-in" class="w-5 h-5" />
+                            Inicia sesión para comprar
+                        </a>
+                    @endauth
                 </div>
 
                 @if($product->description)

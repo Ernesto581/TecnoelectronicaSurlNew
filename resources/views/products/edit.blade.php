@@ -29,7 +29,7 @@
                         </template>
                         <template x-if="!imagePreview">
                             <div class="flex flex-col items-center gap-1 text-gray-400 group-hover:text-[#46A040] transition-colors">
-                                <x-icon name="image" class="w-8 h-8" />
+                                <x-icon name="package" class="w-8 h-8" />
                                 <span class="text-[11px] font-medium">Sin imagen</span>
                             </div>
                         </template>

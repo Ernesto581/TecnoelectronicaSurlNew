@@ -56,12 +56,12 @@
                 </template>
             </div>
             @endif
-            <button :class="scrolled ? 'text-gray-600 hover:text-[#46A040] hover:bg-gray-100' : 'text-white/80 hover:text-white hover:bg-white/10'" class="p-2 transition-colors rounded-full relative">
+            <a href="/cart" :class="scrolled ? 'text-gray-600 hover:text-[#46A040] hover:bg-gray-100' : 'text-white/80 hover:text-white hover:bg-white/10'" class="p-2 transition-colors rounded-full relative">
                 <x-icon name="shopping-cart" class="w-5 h-5" />
                 <template x-if="cartCount > 0">
                     <span class="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-[#46A040] text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg" x-text="cartCount > 99 ? '99+' : cartCount"></span>
                 </template>
-            </button>
+            </a>
             @auth
                 <a href="{{ route('profile.edit') }}" :class="scrolled ? 'text-[#46A040] bg-[#ecf8ef] hover:bg-[#d2efdc]' : 'text-white/90 bg-white/10 hover:bg-white/20'" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-all cursor-pointer">
                     <x-icon name="user" class="w-4 h-4" />
