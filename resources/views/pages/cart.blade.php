@@ -89,12 +89,31 @@
                 </form>
             </div>
         @else
-            <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-12 text-center">
-                <x-icon name="shopping-cart" class="w-16 h-16 text-gray-200 mx-auto mb-4" />
-                <h2 class="text-lg font-bold text-gray-900 mb-2">Tu carrito está vacío</h2>
-                <p class="text-gray-500 mb-6">Explora nuestros productos y agrega los que más te gusten.</p>
-                <a href="{{ route('store.index') }}" class="inline-flex px-6 py-3 bg-[#46A040] text-white font-bold rounded-full hover:bg-[#3d8c38] transition-colors">
-                    Ir a la tienda
+            <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-10 md:p-16 text-center">
+                <div class="w-24 h-24 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-6">
+                    <x-icon name="shopping-cart" class="w-10 h-10 text-gray-300" />
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Tu carrito está vacío</h2>
+                <p class="text-gray-500 max-w-sm mx-auto mb-8">Aún no has añadido productos. Explora nuestro catálogo y encuentra lo que necesitas.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto mb-8">
+                    <div class="bg-gray-50 rounded-xl p-4 text-center">
+                        <x-icon name="package" class="w-6 h-6 text-[#46A040] mx-auto mb-2" />
+                        <p class="text-xs text-gray-500">Variedad de productos</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 text-center">
+                        <x-icon name="truck" class="w-6 h-6 text-[#46A040] mx-auto mb-2" />
+                        <p class="text-xs text-gray-500">Envío a domicilio</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 text-center">
+                        <x-icon name="shield-check" class="w-6 h-6 text-[#46A040] mx-auto mb-2" />
+                        <p class="text-xs text-gray-500">Compra segura</p>
+                    </div>
+                </div>
+
+                <a href="{{ route('store.index') }}"
+                   class="inline-flex px-8 py-3.5 bg-[#46A040] text-white font-bold rounded-full hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20">
+                    Explorar tienda
                 </a>
             </div>
         @endif
