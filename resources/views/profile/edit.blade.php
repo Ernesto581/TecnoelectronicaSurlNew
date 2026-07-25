@@ -21,82 +21,54 @@
         @endif
 
         @if ($user->isAdmin())
-            <div class="grid gap-4 sm:grid-cols-4 mb-8">
-                <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
-                                <x-icon name="package" class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h2 class="text-lg font-semibold text-gray-900">Gestion de productos</h2>
-                                <p class="text-sm text-gray-600">Catalogo e inventario.</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('products.index') }}"
-                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
-                            <x-icon name="package" class="w-4 h-4" />
-                            Administrar productos
-                        </a>
+            <div class="grid gap-3 sm:grid-cols-2 mb-8">
+                <a href="{{ route('products.index') }}"
+                   class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-2xl border border-[#46A040]/20 shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition-shadow group">
+                    <div class="w-10 h-10 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                        <x-icon name="package" class="w-5 h-5 text-white" />
                     </div>
-                </section>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-sm font-semibold text-gray-900">Gestión de productos</h2>
+                        <p class="text-xs text-gray-500">Catálogo e inventario</p>
+                    </div>
+                    <x-icon name="chevron-right" class="w-4 h-4 text-[#46A040] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </a>
 
-                <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
-                                <x-icon name="users" class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h2 class="text-lg font-semibold text-gray-900">Gestion de usuarios</h2>
-                                <p class="text-sm text-gray-600">Cuentas y historial de pedidos.</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('users.index') }}"
-                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
-                            <x-icon name="users" class="w-4 h-4" />
-                            Ver usuarios
-                        </a>
+                <a href="{{ route('categories.index') }}"
+                   class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-2xl border border-[#46A040]/20 shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition-shadow group">
+                    <div class="w-10 h-10 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                        <x-icon name="shopping-basket" class="w-5 h-5 text-white" />
                     </div>
-                </section>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-sm font-semibold text-gray-900">Categorías</h2>
+                        <p class="text-xs text-gray-500">Organización del catálogo</p>
+                    </div>
+                    <x-icon name="chevron-right" class="w-4 h-4 text-[#46A040] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </a>
 
-                <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
-                                <x-icon name="package-check" class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h2 class="text-lg font-semibold text-gray-900">Gestion de pedidos</h2>
-                                <p class="text-sm text-gray-600">Historial y seguimiento.</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('orders.index') }}"
-                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
-                            <x-icon name="package-check" class="w-4 h-4" />
-                            Ver pedidos
-                        </a>
+                <a href="{{ route('orders.index') }}"
+                   class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-2xl border border-[#46A040]/20 shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition-shadow group">
+                    <div class="w-10 h-10 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                        <x-icon name="package-check" class="w-5 h-5 text-white" />
                     </div>
-                </section>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-sm font-semibold text-gray-900">Gestión de pedidos</h2>
+                        <p class="text-xs text-gray-500">Historial y seguimiento</p>
+                    </div>
+                    <x-icon name="chevron-right" class="w-4 h-4 text-[#46A040] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </a>
 
-                <section class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-3xl border border-[#46A040]/20 shadow-sm p-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
-                                <x-icon name="shopping-basket" class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h2 class="text-lg font-semibold text-gray-900">Categorías</h2>
-                                <p class="text-sm text-gray-600">Organización del catálogo.</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('categories.index') }}"
-                           class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors shrink-0">
-                            <x-icon name="shopping-basket" class="w-4 h-4" />
-                            Gestionar
-                        </a>
+                <a href="{{ route('users.index') }}"
+                   class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-2xl border border-[#46A040]/20 shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition-shadow group">
+                    <div class="w-10 h-10 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                        <x-icon name="users" class="w-5 h-5 text-white" />
                     </div>
-                </section>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-sm font-semibold text-gray-900">Gestión de usuarios</h2>
+                        <p class="text-xs text-gray-500">Cuentas y pedidos</p>
+                    </div>
+                    <x-icon name="chevron-right" class="w-4 h-4 text-[#46A040] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </a>
             </div>
         @endif
 
