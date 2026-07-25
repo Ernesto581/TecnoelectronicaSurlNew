@@ -48,6 +48,7 @@ Route::view('/servicio-domicilio', 'pages.servicio-domicilio');
 Route::view('/quienes-somos', 'pages.quienes-somos');
 Route::view('/terminos-y-condiciones', 'pages.terminos');
 Route::view('/servicios', 'pages.servicios');
+Route::view('/contacto', 'pages.contacto');
 Route::view('/condiciones-de-venta', 'pages.condiciones-venta');
 Route::view('/plazos-de-entrega', 'pages.plazos-entrega');
 Route::view('/politica-de-devoluciones', 'pages.politica-devoluciones');
@@ -65,6 +66,7 @@ Route::get('/sitemap.xml', function () {
         ['loc' => '/tienda', 'priority' => '0.9'],
         ['loc' => '/servicio-domicilio', 'priority' => '0.8'],
         ['loc' => '/quienes-somos', 'priority' => '0.7'],
+        ['loc' => '/contacto', 'priority' => '0.7'],
         ['loc' => '/login', 'priority' => '0.5'],
         ['loc' => '/terminos-y-condiciones', 'priority' => '0.4'],
         ['loc' => '/condiciones-de-venta', 'priority' => '0.4'],

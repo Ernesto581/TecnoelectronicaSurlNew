@@ -73,7 +73,7 @@
                     Cuenta
                 </a>
             @endauth
-            <a href="#contacto" :class="scrolled ? 'bg-[#46A040] text-white hover:bg-[#3d8c38] shadow-[#46A040]/20' : 'bg-white text-gray-900 hover:bg-gray-100 shadow-black/10'" class="ml-2 px-6 py-2.5 text-sm font-bold rounded-full transition-all shadow-lg">
+            <a href="/contacto" :class="scrolled ? 'bg-[#46A040] text-white hover:bg-[#3d8c38] shadow-[#46A040]/20' : 'bg-white text-gray-900 hover:bg-gray-100 shadow-black/10'" class="ml-2 px-6 py-2.5 text-sm font-bold rounded-full transition-all shadow-lg">
                 Contáctenos
             </a>
         </div>
@@ -106,7 +106,7 @@
                 <a href="/servicio-domicilio" @click="mobileOpen = false" class="px-6 py-4 text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-[#46A040] transition-colors border-b border-gray-100">Servicio a Domicilio</a>
             </div>
             <div class="p-6 bg-gray-50 border-t border-gray-100">
-                <a href="#contacto" @click="mobileOpen = false" class="block w-full text-center px-6 py-3.5 bg-[#46A040] text-white font-bold rounded-md">Contáctenos</a>
+                <a href="/contacto" @click="mobileOpen = false" class="block w-full text-center px-6 py-3.5 bg-[#46A040] text-white font-bold rounded-md">Contáctenos</a>
             </div>
         </div>
     </div>
