@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -50,6 +51,13 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = $this->generateUniqueSlug($data['name']);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image_url'] = $request->file('image')->store('categories', 'public');
+        }
+
+        unset($data['image']);
 
         $category = Category::create($data);
 
@@ -96,6 +104,16 @@ class CategoryController extends Controller
         if (isset($data['name'])) {
             $data['slug'] = $this->generateUniqueSlug($data['name'], $category->id);
         }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            if ($category->image_url) {
+                Storage::disk('public')->delete($category->image_url);
+            }
+            $data['image_url'] = $request->file('image')->store('categories', 'public');
+        }
+
+        unset($data['image']);
 
         $category->update($data);
 

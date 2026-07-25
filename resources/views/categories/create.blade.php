@@ -12,7 +12,7 @@
             <p class="text-gray-600 mt-1">Crea una nueva categoría para organizar los productos.</p>
         </div>
 
-        <form action="{{ route('categories.store') }}" method="POST" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+        <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
             @csrf
 
             <div class="space-y-6">
@@ -37,11 +37,10 @@
                 </div>
 
                 <div>
-                    <label for="image_url" class="block text-sm font-semibold text-gray-900 mb-2">URL de imagen</label>
-                    <input type="url" name="image_url" id="image_url" value="{{ old('image_url') }}"
-                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('image_url') border-red-300 @enderror"
-                           maxlength="2048" placeholder="https://..." />
-                    @error('image_url')
+                    <label for="image" class="block text-sm font-semibold text-gray-900 mb-2">Imagen</label>
+                    <input type="file" name="image" id="image" accept="image/*"
+                           class="w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ecf8ef] file:text-[#46A040] hover:file:bg-[#d9f2da] @error('image') border-red-300 @enderror" />
+                    @error('image')
                         <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>

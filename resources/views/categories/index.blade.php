@@ -41,7 +41,7 @@
                                 <td class="py-4 px-6">
                                     <div class="flex items-center gap-3">
                                         @if ($category->image_url)
-                                            <img src="{{ $category->image_url }}" alt="{{ $category->name }}"
+                                            <img src="{{ Str::startsWith($category->image_url, 'http') ? $category->image_url : Storage::url($category->image_url) }}" alt="{{ $category->name }}"
                                                  class="w-10 h-10 rounded-lg object-cover border border-gray-200" />
                                         @else
                                             <div class="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center">

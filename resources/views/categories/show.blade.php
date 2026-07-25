@@ -41,7 +41,7 @@
         <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6 md:p-8">
             <div class="flex flex-col md:flex-row gap-6 mb-8">
                 @if ($category->image_url)
-                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}"
+                    <img src="{{ Str::startsWith($category->image_url, 'http') ? $category->image_url : Storage::url($category->image_url) }}" alt="{{ $category->name }}"
                          class="w-full md:w-48 h-48 rounded-2xl object-cover border border-gray-200" />
                 @else
                     <div class="w-full md:w-48 h-48 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center">

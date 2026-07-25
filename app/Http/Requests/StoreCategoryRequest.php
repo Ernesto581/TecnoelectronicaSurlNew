@@ -30,7 +30,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'image_url' => ['nullable', 'url', 'max:2048'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['boolean'],
         ];
     }
