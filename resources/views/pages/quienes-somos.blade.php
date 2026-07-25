@@ -6,7 +6,7 @@
     <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
     <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight mb-6">Quiénes <span class="text-[#46A040]">Somos</span></h1>
-        <p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">Más de 4 años de experiencia brindando soluciones integrales. Conoce nuestra historia, nuestra misión y los valores que impulsan a Tecnoelectronica SURL.</p>
+        <p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">Descubre la solución definitiva para todas tus necesidades tecnológicas. Somos tu aliado confiable en venta, reparación y asesoramiento experto.</p>
     </div>
 </div>
 
@@ -14,8 +14,8 @@
     <div class="max-w-[1200px] mx-auto px-4 md:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
             <div>
-                <h2 class="text-[#46A040] font-bold tracking-wider uppercase text-sm mb-3">Nuestra Historia</h2>
-                <h3 class="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-6 tracking-tight">Evolución constante desde 2022</h3>
+                <h2 class="text-[#46A040] font-bold tracking-wider uppercase text-sm mb-3">Nuestra Propuesta</h2>
+                <h3 class="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-6 tracking-tight">Soluciones tecnológicas con compromiso y excelencia</h3>
                 <div class="text-lg text-gray-600 leading-relaxed">
                     <p>Descubre la solución definitiva para todas tus necesidades tecnológicas con TecnoElectrónica SURL. Somos tu aliado confiable en la venta y reparación de equipos de computación. TecnoElectrónica SURL te ofrece diagnósticos precisos, reparaciones eficientes y asesoramiento experto para que vuelvas al trabajo sin demoras. Confía en nosotros para mantener tu tecnología en perfectas condiciones, asegurar tu productividad y proporcionarte la mejor experiencia posible. ¡Tu satisfacción es nuestra prioridad!</p>
                 </div>
@@ -30,10 +30,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @php
                 $values = [
-                    (object)['icon' => 'zap', 'title' => 'Innovación', 'desc' => 'Mantenemos nuestro catálogo actualizado con lo último en tecnología.'],
-                    (object)['icon' => 'shield-check', 'title' => 'Confiabilidad', 'desc' => 'Productos con garantía y el mejor soporte post-venta del mercado.'],
-                    (object)['icon' => 'target', 'title' => 'Precisión', 'desc' => 'Evaluamos las necesidades de cada cliente para dar soluciones a medida.'],
-                    (object)['icon' => 'users', 'title' => 'Servicio', 'desc' => 'El cliente y su satisfacción son siempre nuestra prioridad central.'],
+                    (object)['icon' => 'wrench', 'title' => 'Reparación', 'desc' => 'Diagnósticos precisos y reparaciones eficientes para que vuelvas al trabajo sin demoras.'],
+                    (object)['icon' => 'shield-check', 'title' => 'Confiabilidad', 'desc' => 'Equipos de computación de calidad y soporte post-venta que respaldan cada compra.'],
+                    (object)['icon' => 'target', 'title' => 'Asesoría', 'desc' => 'Acompañamiento experto para mantener tu tecnología en perfectas condiciones.'],
+                    (object)['icon' => 'users', 'title' => 'Compromiso', 'desc' => 'Tu satisfacción es nuestra prioridad. Trabajamos para asegurar tu productividad.'],
                 ];
                 @endphp
                 @foreach($values as $value)
