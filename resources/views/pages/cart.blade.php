@@ -49,15 +49,12 @@
                                 @endif
                             </div>
 
-                            <form action="{{ route('cart.update', $item) }}" method="POST" class="flex items-center gap-2"
-                                  x-data="{ updating: false }"
-                                  x-on:submit="updating = true">
+                            <form action="{{ route('cart.update', $item) }}" method="POST" class="flex items-center gap-2">
                                 @csrf
                                 @method('PATCH')
                                 <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="{{ max($item->product->stock, 1) }}"
-                                       class="w-16 text-center py-2 text-sm font-semibold rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none transition-shadow"
-                                       x-on:change="$el.form.submit()" />
-                                <span x-show="updating" class="text-xs text-gray-400 animate-pulse">Actualizando...</span>
+                                       class="w-16 text-center py-2 text-sm font-semibold rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none" />
+                                <button type="submit" class="text-xs text-[#46A040] font-semibold hover:underline whitespace-nowrap">Actualizar</button>
                             </form>
 
                             <span class="text-sm font-bold text-gray-900 w-20 text-right">${{ number_format($item->subtotal, 2) }}</span>
