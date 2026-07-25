@@ -22,70 +22,83 @@
     {{-- INFORMACIÓN DE CONTACTO + FORMULARIO --}}
     <section class="py-24 bg-white">
         <div class="max-w-[1200px] mx-auto px-4 md:px-8">
-            <div class="grid lg:grid-cols-12 gap-10 items-start">
-                {{-- COLUMNA IZQUIERDA: Tarjetas de Información --}}
-                <div class="lg:col-span-5 space-y-5">
-                    <div class="group bg-white rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl hover:border-[#46A040]/30 transition-all duration-300 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <x-icon name="map-pin" class="w-7 h-7 text-[#46A040]" />
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-1">Dirección Física</h3>
-                            <p class="text-gray-500 leading-relaxed text-sm">Calle Cuba, No. 367, Sur, entre Carretera Central y Serafín Sánchez,<br />Santa Clara, Villa Clara.</p>
-                        </div>
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                
+                {{-- COLUMNA IZQUIERDA: Información de Contacto Natural --}}
+                <div class="lg:col-span-5 space-y-8 pr-0 lg:pr-4">
+                    <div class="space-y-2">
+                        <span class="text-[#46A040] uppercase tracking-widest font-bold text-xs block">Contacto Directo</span>
+                        <h2 class="text-3xl font-bold text-gray-900">Información de contacto</h2>
                     </div>
 
-                    <div class="group bg-white rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl hover:border-[#46A040]/30 transition-all duration-300 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <x-icon name="mail" class="w-7 h-7 text-[#46A040]" />
+                    <div class="space-y-7 divide-y divide-gray-100">
+                        {{-- Dirección --}}
+                        <div class="flex items-start gap-4 pt-2">
+                            <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
+                                <x-icon name="map-pin" class="w-6 h-6 text-[#46A040]" />
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900 mb-1">Dirección Física</h3>
+                                <p class="text-gray-600 leading-relaxed text-sm">Calle Cuba, No. 367, Sur, entre Carretera Central y Serafín Sánchez, Santa Clara, Villa Clara.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-1">Correo Electrónico</h3>
-                            <a href="mailto:tecnoelectronicasurl@gmail.com" class="text-gray-500 hover:text-[#46A040] transition-colors text-sm font-medium break-all">
-                                tecnoelectronicasurl@gmail.com
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="group bg-white rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl hover:border-[#46A040]/30 transition-all duration-300 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <x-icon name="message-circle" class="w-7 h-7 text-[#46A040]" />
+                        {{-- Email --}}
+                        <div class="flex items-start gap-4 pt-7">
+                            <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
+                                <x-icon name="mail" class="w-6 h-6 text-[#46A040]" />
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900 mb-1">Correo Electrónico</h3>
+                                <a href="mailto:tecnoelectronicasurl@gmail.com" class="text-gray-600 hover:text-[#46A040] transition-colors text-sm font-medium break-all">
+                                    tecnoelectronicasurl@gmail.com
+                                </a>
+                            </div>
                         </div>
-                        <div class="w-full">
-                            <h3 class="text-lg font-bold text-gray-900 mb-3">Líneas de WhatsApp</h3>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100">
-                                    <div>
-                                        <span class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Ventas y Atención</span>
-                                        <a href="https://wa.me/5350994365" target="_blank" class="text-[#46A040] font-bold hover:underline">+53 50994365</a>
+
+                        {{-- WhatsApp --}}
+                        <div class="flex items-start gap-4 pt-7">
+                            <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
+                                <x-icon name="message-circle" class="w-6 h-6 text-[#46A040]" />
+                            </div>
+                            <div class="w-full">
+                                <h3 class="text-base font-bold text-gray-900 mb-3">Líneas de WhatsApp</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500">Ventas y Atención</span>
+                                        <a href="https://wa.me/5350994365" target="_blank" class="text-[#46A040] font-bold text-sm hover:underline flex items-center gap-1.5">
+                                            +53 50994365
+                                            <x-icon name="phone" class="w-4 h-4 text-[#46A040]/70" />
+                                        </a>
                                     </div>
-                                    <x-icon name="phone" class="w-5 h-5 text-gray-300" />
-                                </div>
-                                <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100">
-                                    <div>
-                                        <span class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-0.5">Soporte Técnico</span>
-                                        <a href="https://wa.me/5350927120" target="_blank" class="text-[#46A040] font-bold hover:underline">+53 50927120</a>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500">Soporte Técnico</span>
+                                        <a href="https://wa.me/5350927120" target="_blank" class="text-[#46A040] font-bold text-sm hover:underline flex items-center gap-1.5">
+                                            +53 50927120
+                                            <x-icon name="wrench" class="w-4 h-4 text-[#46A040]/70" />
+                                        </a>
                                     </div>
-                                    <x-icon name="wrench" class="w-5 h-5 text-gray-300" />
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="group bg-white rounded-3xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl hover:border-[#46A040]/30 transition-all duration-300 flex items-start gap-5">
-                        <div class="w-14 h-14 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <x-icon name="clock" class="w-7 h-7 text-[#46A040]" />
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-lg font-bold text-gray-900 mb-2">Horario de Atención</h3>
-                            <div class="flex justify-between items-center text-sm mb-1">
-                                <span class="text-gray-500">Lunes a Viernes</span>
-                                <span class="font-bold text-gray-800">8:00 AM – 7:00 PM</span>
+                        {{-- Horarios --}}
+                        <div class="flex items-start gap-4 pt-7">
+                            <div class="w-12 h-12 rounded-2xl bg-[#ecf8ef] flex items-center justify-center shrink-0">
+                                <x-icon name="clock" class="w-6 h-6 text-[#46A040]" />
                             </div>
-                            <div class="w-full h-px bg-gray-100 my-2"></div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500">Sábados</span>
-                                <span class="font-bold text-gray-800">8:00 AM – 2:00 PM</span>
+                            <div class="flex-1">
+                                <h3 class="text-base font-bold text-gray-900 mb-3">Horario de Atención</h3>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Lunes a Viernes</span>
+                                        <span class="font-semibold text-gray-800">8:00 AM – 7:00 PM</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Sábados</span>
+                                        <span class="font-semibold text-gray-800">8:00 AM – 2:00 PM</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
