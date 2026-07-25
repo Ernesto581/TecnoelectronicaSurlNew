@@ -166,7 +166,7 @@ class OrderController extends Controller
 
         $order->update(['status' => OrderStatus::Cancelled]);
 
-        return redirect()->route('pedidos.index')
-            ->with('success', 'Pedido cancelado correctamente.');
+        return redirect()->route('profile.edit')
+            ->with('status', 'Pedido cancelado correctamente.');
     }
 }
