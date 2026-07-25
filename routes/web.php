@@ -119,4 +119,10 @@ Route::middleware(['auth', 'admin'])->prefix('order-dashboard')->name('orders.')
     Route::patch('/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
 });
 
+Route::middleware('auth')->prefix('pedidos')->name('pedidos.')->group(function () {
+    Route::get('/', [OrderController::class, 'customerOrders'])->name('index');
+    Route::get('/{order}', [OrderController::class, 'customerShow'])->name('show');
+    Route::post('/{order}/cancelar', [OrderController::class, 'customerCancel'])->name('cancel');
+});
+
 require __DIR__.'/auth.php';

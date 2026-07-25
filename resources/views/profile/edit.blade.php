@@ -216,6 +216,62 @@
                 </section>
             </div>
         </div>
+
+        @php
+            $pedidos = $user->orders()->placed()->withCount('items')->latest()->take(5)->get();
+        @endphp
+
+        @if ($pedidos->isNotEmpty())
+            <div class="mt-8 bg-white rounded-3xl border border-gray-200 shadow-sm p-6 md:p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-[#ecf8ef] flex items-center justify-center">
+                            <x-icon name="package-check" class="w-5 h-5 text-[#46A040]" />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Mis pedidos</h2>
+                            <p class="text-sm text-gray-500">Últimos pedidos realizados.</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('pedidos.index') }}"
+                       class="text-sm font-semibold text-[#46A040] hover:underline">
+                        Ver todos
+                    </a>
+                </div>
+
+                <div class="divide-y divide-gray-100">
+                    @foreach ($pedidos as $pedido)
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-4">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <span class="text-sm font-bold text-gray-900 shrink-0">#{{ $pedido->id }}</span>
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold shrink-0
+                                    @switch($pedido->status)
+                                        @case(App\Enums\OrderStatus::Pending) bg-amber-50 text-amber-700 @break
+                                        @case(App\Enums\OrderStatus::Processing) bg-blue-50 text-blue-700 @break
+                                        @case(App\Enums\OrderStatus::Shipped) bg-purple-50 text-purple-700 @break
+                                        @case(App\Enums\OrderStatus::Delivered) bg-green-50 text-green-700 @break
+                                        @case(App\Enums\OrderStatus::Cancelled) bg-red-50 text-red-700 @break
+                                        @default bg-gray-50 text-gray-700
+                                    @endswitch
+                                ">
+                                    {{ ucfirst($pedido->status->value) }}
+                                </span>
+                                <span class="text-sm text-gray-400 truncate">
+                                    {{ $pedido->created_at->format('d/m/Y') }} &middot; {{ $pedido->items_count }} {{ $pedido->items_count === 1 ? 'item' : 'items' }}
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-bold text-gray-900">${{ number_format($pedido->total, 2) }}</span>
+                                <a href="{{ route('pedidos.show', $pedido) }}"
+                                   class="text-xs font-semibold text-[#46A040] hover:underline">
+                                    Ver detalle
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 

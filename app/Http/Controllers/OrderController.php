@@ -6,6 +6,7 @@ use App\Enums\OrderStatus;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -102,5 +103,70 @@ class OrderController extends Controller
         }
 
         return back()->with('error', 'Acción no válida.');
+    }
+
+    /**
+     * Display the current user's placed orders.
+     *
+     * @return View
+     */
+    public function customerOrders(): View
+    {
+        $orders = Auth::user()->orders()
+            ->placed()
+            ->withCount('items')
+            ->latest()
+            ->paginate(20);
+
+        return view('pedidos.index', compact('orders'));
+    }
+
+    /**
+     * Display a single order belonging to the current user.
+     *
+     * Aborts with 404 if the order does not belong to the authenticated user.
+     *
+     * @param  Order  $order
+     * @return View
+     */
+    public function customerShow(Order $order): View
+    {
+        if ($order->user_id !== Auth::id()) {
+            abort(404);
+        }
+
+        $order->load(['items.product']);
+
+        return view('pedidos.show', compact('order'));
+    }
+
+    /**
+     * Cancel a pending order belonging to the current user.
+     *
+     * Restores stock for all items. Only allowed when status is "pending".
+     *
+     * @param  Order  $order
+     * @return RedirectResponse
+     */
+    public function customerCancel(Order $order): RedirectResponse
+    {
+        if ($order->user_id !== Auth::id()) {
+            abort(404);
+        }
+
+        if ($order->status !== OrderStatus::Pending) {
+            return back()->with('error', 'Solo se pueden cancelar pedidos pendientes.');
+        }
+
+        $order->load('items.product');
+
+        foreach ($order->items as $item) {
+            $item->product->increment('stock', $item->quantity);
+        }
+
+        $order->update(['status' => OrderStatus::Cancelled]);
+
+        return redirect()->route('pedidos.index')
+            ->with('success', 'Pedido cancelado correctamente.');
     }
 }
