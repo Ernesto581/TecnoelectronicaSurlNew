@@ -70,8 +70,8 @@
                 <!-- Customer info -->
                 <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
                     <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Cliente</h2>
-                    <p class="font-semibold text-gray-900">{{ $order->user->name }}</p>
-                    <p class="text-sm text-gray-500">{{ $order->user->email }}</p>
+                    <p class="font-semibold text-gray-900">{{ $order->user?->name ?? 'Usuario eliminado' }}</p>
+                    <p class="text-sm text-gray-500">{{ $order->user?->email ?? '' }}</p>
                 </section>
 
                 <!-- Shipping info -->

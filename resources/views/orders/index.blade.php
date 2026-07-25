@@ -55,8 +55,8 @@
                                 </td>
                                 <td class="py-4 px-6">
                                     <div>
-                                        <p class="font-medium text-gray-900">{{ $order->user->name }}</p>
-                                        <p class="text-xs text-gray-400">{{ $order->user->email }}</p>
+                                        <p class="font-medium text-gray-900">{{ $order->user?->name ?? 'Usuario eliminado' }}</p>
+                                        <p class="text-xs text-gray-400">{{ $order->user?->email ?? '' }}</p>
                                     </div>
                                 </td>
                                 <td class="py-4 px-6 text-gray-500">
