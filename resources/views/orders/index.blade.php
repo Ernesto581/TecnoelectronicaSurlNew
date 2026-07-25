@@ -69,9 +69,6 @@
                                             @case(App\Enums\OrderStatus::Pending)
                                                 bg-amber-50 text-amber-700
                                                 @break
-                                            @case(App\Enums\OrderStatus::Processing)
-                                                bg-blue-50 text-blue-700
-                                                @break
                                             @case(App\Enums\OrderStatus::Shipped)
                                                 bg-purple-50 text-purple-700
                                                 @break
