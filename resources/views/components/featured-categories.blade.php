@@ -8,15 +8,6 @@ if (!isset($categories) || $categories->isEmpty()) {
         ->take(5)
         ->get();
 }
-
-$colorClasses = [
-    'bg-blue-50 text-blue-600',
-    'bg-orange-50 text-orange-600',
-    'bg-yellow-50 text-yellow-600',
-    'bg-pink-50 text-pink-600',
-    'bg-purple-50 text-purple-600',
-    'bg-green-50 text-green-600',
-];
 @endphp
 
 <section id="categorias" class="py-24 bg-white relative">
@@ -36,7 +27,6 @@ $colorClasses = [
             @foreach($categories as $index => $cat)
             @php
                 $spanClass = $index === 0 ? 'md:col-span-2 lg:col-span-2 row-span-2' : 'md:col-span-1 lg:col-span-2';
-                $color = $colorClasses[$index % count($colorClasses)];
             @endphp
             @php
                 $bgStyle = 'background-color: #f3f4f6;';
@@ -53,9 +43,6 @@ $colorClasses = [
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
                 <div class="absolute inset-0 p-8 flex flex-col justify-end">
                     <div class="transform transition-transform duration-500 group-hover:-translate-y-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 {{ $color }} bg-white shadow-lg">
-                            <x-icon name="shopping-basket" class="w-6 h-6" />
-                        </div>
                         <h3 class="text-2xl font-bold text-white mb-2">{{ $cat->name }}</h3>
                         <p class="text-white/80 font-medium mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 h-0 group-hover:h-auto overflow-hidden">Explora productos en {{ $cat->name }}</p>
                     </div>
