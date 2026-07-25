@@ -1,7 +1,7 @@
 @props(['solid' => false])
 
 @php
-    $heroPages = ['/', 'quienes-somos', 'servicio-domicilio', 'tienda', 'servicios'];
+    $heroPages = ['/', 'quienes-somos', 'servicio-domicilio', 'tienda', 'servicios', 'contacto'];
     $isHero = in_array(request()->path(), $heroPages);
     $isScrolled = $solid || !$isHero;
 @endphp
