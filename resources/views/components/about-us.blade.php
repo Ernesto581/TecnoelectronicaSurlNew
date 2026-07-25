@@ -14,47 +14,8 @@
                         a tu alcance
                     </h3>
 
-                    <div class="text-lg text-gray-600 mb-8 leading-relaxed space-y-4">
-                        <p>
-                            Tecnoelectronica SURL es una empresa dedicada a la venta y
-                            reparación de equipos informáticos e impresoras. Además,
-                            ofrece una amplia gama de servicios y productos,
-                            incluyendo:
-                        </p>
-
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-2">
-                                <span class="font-bold text-black">·</span>
-                                <span>Reparación de equipos electrónicos, ordenadores y periféricos.</span>
-                            </li>
-
-                            <li class="flex items-start gap-2">
-                                <span class="font-bold text-black">·</span>
-                                <span>Venta de ordenadores, equipos periféricos, programas informáticos y equipos de telecomunicaciones.</span>
-                            </li>
-
-                            <li class="flex items-start gap-2">
-                                <span class="font-bold text-black">·</span>
-                                <span>Venta de equipos de video y sonido.</span>
-                            </li>
-
-                            <li class="flex items-start gap-2">
-                                <span class="font-bold text-black">·</span>
-                                <span>Instalación y configuración de ordenadores personales.</span>
-                            </li>
-
-                            <li class="flex items-start gap-2">
-                                <span class="font-bold text-black">·</span>
-                                <span>Venta de material escolar y de oficina.</span>
-                            </li>
-                        </ul>
-                    </div>
-
                     <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                        Nuestro compromiso es ser tu proveedor integral,
-                        simplificando tus compras con productos confiables y un
-                        servicio al cliente excepcional respaldado por nuestra
-                        dedicación y experiencia.
+                        Descubre la solución definitiva para todas tus necesidades tecnológicas con TecnoElectrónica SURL. Somos tu aliado confiable en la venta y reparación de equipos de computación. TecnoElectrónica SURL te ofrece diagnósticos precisos, reparaciones eficientes y asesoramiento experto para que vuelvas al trabajo sin demoras. Confía en nosotros para mantener tu tecnología en perfectas condiciones, asegurar tu productividad y proporcionarte la mejor experiencia posible. ¡Tu satisfacción es nuestra prioridad!
                     </p>
 
                     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
