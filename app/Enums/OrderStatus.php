@@ -10,11 +10,8 @@ enum OrderStatus: string
     /** Active shopping cart, not yet confirmed. */
     case Cart = 'cart';
 
-    /** Order confirmed, pending processing. */
+    /** Order confirmed, awaiting shipment. */
     case Pending = 'pending';
-
-    /** Order being prepared. */
-    case Processing = 'processing';
 
     /** Order shipped to the customer. */
     case Shipped = 'shipped';

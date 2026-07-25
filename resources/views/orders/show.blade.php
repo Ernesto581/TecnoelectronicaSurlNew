@@ -91,30 +91,25 @@
                 <!-- Status management -->
                 @if ($order->status !== App\Enums\OrderStatus::Delivered && $order->status !== App\Enums\OrderStatus::Cancelled)
                     <section class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
-                        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Gestionar estado</h2>
+                        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Cambiar estado</h2>
 
                         <form action="{{ route('orders.updateStatus', $order) }}" method="POST" class="space-y-3">
                             @csrf
                             @method('PATCH')
 
-                            <button type="submit" name="action" value="advance"
-                                    class="w-full px-4 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
-                                @switch($order->status)
-                                    @case(App\Enums\OrderStatus::Pending)
-                                        Marcar como Procesando
-                                        @break
-                                    @case(App\Enums\OrderStatus::Processing)
-                                        Marcar como Enviado
-                                        @break
-                                    @case(App\Enums\OrderStatus::Shipped)
-                                        Marcar como Entregado
-                                        @break
-                                @endswitch
-                            </button>
+                            <select name="status"
+                                    class="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040]">
+                                <option value="">Seleccionar estado...</option>
+                                @foreach (App\Enums\OrderStatus::cases() as $s)
+                                    @if ($s !== App\Enums\OrderStatus::Cart && $s !== $order->status)
+                                        <option value="{{ $s->value }}">{{ ucfirst($s->value) }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
 
-                            <button type="submit" name="action" value="cancel"
-                                    class="w-full px-4 py-3 text-sm font-semibold text-red-700 bg-red-50 rounded-xl hover:bg-red-100 transition-colors">
-                                Cancelar pedido
+                            <button type="submit"
+                                    class="w-full px-4 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
+                                Actualizar estado
                             </button>
                         </form>
                     </section>

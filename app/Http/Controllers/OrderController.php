@@ -68,41 +68,33 @@ class OrderController extends Controller
      */
     public function updateStatus(Order $order, Request $request): RedirectResponse
     {
-        $action = $request->input('action');
+        $newStatus = OrderStatus::tryFrom($request->input('status'));
 
-        // Advance to the next status
-        if ($action === 'advance') {
-            $next = match ($order->status) {
-                OrderStatus::Pending => OrderStatus::Processing,
-                OrderStatus::Processing => OrderStatus::Shipped,
-                OrderStatus::Shipped => OrderStatus::Delivered,
-                default => null,
-            };
-
-            if (!$next) {
-                return back()->with('error', 'No se puede avanzar este pedido.');
-            }
-
-            $order->update(['status' => $next]);
-            return back()->with('success', "Pedido #{$order->id} actualizado a {$next->value}.");
+        if (!$newStatus) {
+            return back()->with('error', 'Estado no válido.');
         }
 
-        // Cancel the order and restore stock
-        if ($action === 'cancel') {
-            if ($order->status === OrderStatus::Delivered || $order->status === OrderStatus::Cart) {
-                return back()->with('error', 'No se puede cancelar este pedido.');
-            }
+        if ($newStatus === $order->status) {
+            return back()->with('error', 'El pedido ya está en ese estado.');
+        }
 
-            // Restore product stock
+        // Prevent moving back from delivered
+        if ($order->status === OrderStatus::Delivered) {
+            return back()->with('error', 'No se puede modificar un pedido entregado.');
+        }
+
+        // Restore stock when cancelling
+        if ($newStatus === OrderStatus::Cancelled) {
+            $order->load('items.product');
             foreach ($order->items as $item) {
                 $item->product->increment('stock', $item->quantity);
             }
-
-            $order->update(['status' => OrderStatus::Cancelled]);
-            return back()->with('success', "Pedido #{$order->id} cancelado. Stock restaurado.");
         }
 
-        return back()->with('error', 'Acción no válida.');
+        $oldStatus = $order->status->value;
+        $order->update(['status' => $newStatus]);
+
+        return back()->with('success', "Pedido #{$order->id}: {$oldStatus} → {$newStatus->value}.");
     }
 
     /**
