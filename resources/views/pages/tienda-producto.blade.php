@@ -100,6 +100,17 @@
                 @endif
             </div>
         </div>
+
+        @if ($related->isNotEmpty())
+        <div class="mt-16">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Productos relacionados</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($related as $rel)
+                    <x-product-card :product="$rel" />
+                @endforeach
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

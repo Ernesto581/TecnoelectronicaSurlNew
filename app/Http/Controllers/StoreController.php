@@ -75,7 +75,16 @@ class StoreController extends Controller
             ? round((($product->original_price - $product->price) / $product->original_price) * 100)
             : 0;
 
-        return view('pages.tienda-producto', compact('product', 'discount'));
+        // Related products: same category, active, excluding current product
+        $related = Product::with('category')
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->where('is_active', true)
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('pages.tienda-producto', compact('product', 'discount', 'related'));
     }
 
     /**
