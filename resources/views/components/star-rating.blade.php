@@ -7,18 +7,6 @@
 @endphp
 
 <div class="space-y-4">
-    <!-- Average rating display -->
-    <div class="flex items-center gap-2">
-        <div class="flex items-center gap-0.5">
-            @for ($i = 1; $i <= 5; $i++)
-                <x-icon name="star"
-                        class="w-5 h-5 {{ $avg >= $i ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300' }}" />
-            @endfor
-        </div>
-        <span class="text-sm font-bold text-gray-700">{{ number_format($avg, 1) }}</span>
-        <span class="text-sm text-gray-400">({{ $count }} {{ $count === 1 ? 'reseña' : 'reseñas' }})</span>
-    </div>
-
     <!-- User rating form -->
     @auth
     <form action="{{ route('store.product.review', $product) }}" method="POST" class="space-y-3">

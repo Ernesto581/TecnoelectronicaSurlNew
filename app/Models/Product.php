@@ -59,6 +59,8 @@ class Product extends Model
         'badge',
         'is_active',
         'is_featured',
+        'rating',
+        'reviews_count',
     ];
 
     /**
