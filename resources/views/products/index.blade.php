@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 pt-28">
+<div class="min-h-screen bg-gray-50 pt-28" x-data="{ deleteUrl: '', deleteLabel: '' }">
     <div class="max-w-[1600px] mx-auto px-4 md:px-8 py-10">
         <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
@@ -199,31 +199,11 @@
                                                 Editar
                                             </a>
                                             <button type="button"
-                                                    x-data=""
-                                                    x-on:click.prevent="$dispatch('open-modal', 'confirm-delete-{{ $product->id }}')"
+                                                    x-on:click="deleteUrl = '{{ route('products.destroy', $product) }}'; deleteLabel = '{{ $product->name }}'; $dispatch('open-modal', 'confirm-delete')"
                                                     class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
                                                     <x-icon name="trash" class="w-3.5 h-3.5" />
                                                     Eliminar
                                                 </button>
-
-                                            <x-modal name="confirm-delete-{{ $product->id }}" focusable>
-                                                <form method="post" action="{{ route('products.destroy', $product) }}" class="p-6">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <h2 class="text-lg font-semibold text-gray-900">Eliminar producto</h2>
-                                                    <p class="mt-2 text-sm text-gray-600">¿Estás seguro de que deseas eliminar <strong>{{ $product->name }}</strong>? Puedes restaurarlo después.</p>
-                                                    <div class="mt-6 flex justify-end gap-3">
-                                                        <button type="button" x-on:click="$dispatch('close')"
-                                                                class="px-5 py-3 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-                                                            Cancelar
-                                                        </button>
-                                                        <button type="submit"
-                                                                class="px-5 py-3 text-sm font-semibold text-white bg-red-600 rounded-full hover:bg-red-700 transition-colors">
-                                                            Eliminar
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </x-modal>
                                         @else
                                             <form action="{{ route('products.restore', $product) }}" method="POST" class="inline-flex">
                                                 @csrf
@@ -261,5 +241,24 @@
             @endif
         </section>
     </div>
+
+    <x-modal name="confirm-delete" focusable>
+        <form method="post" x-bind:action="deleteUrl" class="p-6">
+            @csrf
+            @method('DELETE')
+            <h2 class="text-lg font-semibold text-gray-900">Eliminar producto</h2>
+            <p class="mt-2 text-sm text-gray-600">¿Estás seguro de que deseas eliminar <strong x-text="deleteLabel"></strong>? Puedes restaurarlo después.</p>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" x-on:click="$dispatch('close-modal', 'confirm-delete')"
+                        class="px-5 py-3 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                    Cancelar
+                </button>
+                <button type="submit"
+                        class="px-5 py-3 text-sm font-semibold text-white bg-red-600 rounded-full hover:bg-red-700 transition-colors">
+                    Eliminar
+                </button>
+            </div>
+        </form>
+    </x-modal>
 </div>
 @endsection
