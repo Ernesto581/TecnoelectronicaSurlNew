@@ -15,10 +15,10 @@
     x-init="initSticky()"
     x-cloak
 >
-    <div class="relative pt-28 pb-20 bg-gray-900 overflow-hidden">
+    <div class="relative pt-28 pb-20 bg-gray-900 overflow-hidden min-h-[420px] flex items-center">
         <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-        <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8">
+        <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8 w-full">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight mb-4">Nuestra Tienda</h1>
             <p class="text-lg text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">Explora nuestra amplia variedad de productos y encuentra lo que necesitas</p>
             <div class="relative max-w-lg mx-auto">
