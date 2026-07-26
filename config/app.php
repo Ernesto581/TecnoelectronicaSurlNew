@@ -133,6 +133,6 @@ return [
     |
     */
 
-    'cart_enabled' => env('CART_ENABLED', true),
+    'cart_enabled' => filter_var(env('CART_ENABLED', true), FILTER_VALIDATE_BOOLEAN),
 
 ];
