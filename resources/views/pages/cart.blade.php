@@ -31,6 +31,7 @@
                 <div class="divide-y divide-gray-100">
                     @foreach ($cart->items as $item)
                         <div class="flex items-center gap-4 p-5">
+                            @if ($item->product)
                             <a href="{{ route('store.product.show', $item->product) }}" class="shrink-0">
                                 @if ($item->product->image_url)
                                     <img src="{{ Str::startsWith($item->product->image_url, 'http') ? $item->product->image_url : Storage::url($item->product->image_url) }}"
@@ -70,6 +71,22 @@
                                     <x-icon name="x" class="w-5 h-5" />
                                 </button>
                             </form>
+                            @else
+                            <div class="flex-1 min-w-0 py-2">
+                                <p class="text-sm text-gray-400 italic">Producto no disponible</p>
+                                <p class="text-xs text-gray-400">${{ number_format($item->unit_price, 2) }} &times; {{ $item->quantity }}</p>
+                            </div>
+
+                            <span class="text-sm font-bold text-gray-400 w-20 text-right">${{ number_format($item->subtotal, 2) }}</span>
+
+                            <form action="{{ route('cart.destroy', $item) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors p-1">
+                                    <x-icon name="x" class="w-5 h-5" />
+                                </button>
+                            </form>
+                            @endif
                         </div>
                     @endforeach
                 </div>
