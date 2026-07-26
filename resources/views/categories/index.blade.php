@@ -88,16 +88,33 @@
                                                 <x-icon name="edit" class="w-3.5 h-3.5" />
                                                 Editar
                                             </a>
-                                            <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                                                  onsubmit="return confirm('¿Eliminar esta categoría?')" class="inline-flex">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
+                                            <button type="button"
+                                                    x-data=""
+                                                    x-on:click.prevent="$dispatch('open-modal', 'confirm-delete-cat-{{ $category->id }}')"
+                                                    class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
                                                     <x-icon name="trash" class="w-3.5 h-3.5" />
                                                     Eliminar
                                                 </button>
                                             </form>
+
+                                            <x-modal name="confirm-delete-cat-{{ $category->id }}" focusable>
+                                                <form method="post" action="{{ route('categories.destroy', $category) }}" class="p-6">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <h2 class="text-lg font-semibold text-gray-900">Eliminar categoría</h2>
+                                                    <p class="mt-2 text-sm text-gray-600">¿Estás seguro de que deseas eliminar <strong>{{ $category->name }}</strong>? Puedes restaurarla después.</p>
+                                                    <div class="mt-6 flex justify-end gap-3">
+                                                        <button type="button" x-on:click="$dispatch('close')"
+                                                                class="px-5 py-3 text-sm font-semibold text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                                                            Cancelar
+                                                        </button>
+                                                        <button type="submit"
+                                                                class="px-5 py-3 text-sm font-semibold text-white bg-red-600 rounded-full hover:bg-red-700 transition-colors">
+                                                            Eliminar
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </x-modal>
                                         @else
                                             <form action="{{ route('categories.restore', $category) }}" method="POST" class="inline-flex">
                                                 @csrf

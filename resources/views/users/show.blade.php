@@ -41,21 +41,21 @@
                                     <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">
                                         Verificado
                                     </span>
-                                    <span class="text-gray-500 ml-2">{{ $user->email_verified_at->format('d/m/Y') }}</span>
-                                @else
-                                    <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">
-                                        Sin verificar
-                                    </span>
-                                @endif
-                            </dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Fecha de registro</dt>
-                            <dd class="text-gray-900 mt-1">{{ $user->created_at->format('d/m/Y') }}</dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Ultima actualizacion</dt>
-                            <dd class="text-gray-900 mt-1">{{ $user->updated_at->format('d/m/Y') }}</dd>
+                                    <span class="text-gray-500 ml-2">{{ $user->email_verified_at->isoFormat('DD/MM/YYYY') }}</span>
+                                    @else
+                                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">
+                                            Sin verificar
+                                        </span>
+                                    @endif
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Fecha de registro</dt>
+                                <dd class="text-gray-900 mt-1">{{ $user->created_at->isoFormat('LL') }}</dd>
+                            </div>
+                            <div>
+                                <dt class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Ultima actualizacion</dt>
+                                <dd class="text-gray-900 mt-1">{{ $user->updated_at->isoFormat('LL') }}</dd>
                         </div>
                     </dl>
                 </section>
@@ -78,7 +78,7 @@
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                                 <div>
                                     <p class="font-semibold text-gray-900">Pedido #{{ $order->id }}</p>
-                                    <p class="text-xs text-gray-400">{{ $order->created_at->format('d/m/Y') }}</p>
+                                    <p class="text-xs text-gray-400">{{ $order->created_at->isoFormat('DD/MM/YYYY') }}</p>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-600">

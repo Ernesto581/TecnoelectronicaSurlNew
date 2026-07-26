@@ -11,7 +11,7 @@
                     Volver a pedidos
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Pedido #{{ $order->id }}</h1>
-                <p class="text-gray-600 mt-1">{{ $order->created_at->format('d \d\e F, Y \a \l\a\s H:i') }}</p>
+                <p class="text-gray-600 mt-1">{{ $order->created_at->isoFormat('LL [a las] HH:mm') }}</p>
             </div>
             <span class="inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold
                 @switch($order->status)

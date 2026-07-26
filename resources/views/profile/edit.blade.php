@@ -247,7 +247,7 @@
                                     {{ ucfirst($pedido->status->value) }}
                                 </span>
                                 <span class="text-sm text-gray-400 truncate">
-                                    {{ $pedido->created_at->format('d/m/Y') }} &middot; {{ $pedido->items_count }} {{ $pedido->items_count === 1 ? 'item' : 'items' }}
+                                    {{ $pedido->created_at->isoFormat('DD/MM/YYYY') }} &middot; {{ $pedido->items_count }} {{ $pedido->items_count === 1 ? 'item' : 'items' }}
                                 </span>
                             </div>
                             <div class="flex items-center gap-3">

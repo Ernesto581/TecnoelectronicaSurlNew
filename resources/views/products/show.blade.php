@@ -105,12 +105,12 @@
                 </div>
 
                 <div class="mt-4 text-xs text-gray-400">
-                    Creado {{ $product->created_at->format('d/m/Y') }}
+                    Creado {{ $product->created_at->isoFormat('LL') }}
                     @if ($product->updated_at->gt($product->created_at))
-                        &middot; Actualizado {{ $product->updated_at->format('d/m/Y') }}
+                        &middot; Actualizado {{ $product->updated_at->isoFormat('LL') }}
                     @endif
                     @if ($product->trashed())
-                        &middot; Eliminado {{ $product->deleted_at->format('d/m/Y') }}
+                        &middot; Eliminado {{ $product->deleted_at->isoFormat('LL') }}
                     @endif
                 </div>
             </div>

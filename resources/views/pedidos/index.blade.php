@@ -36,7 +36,7 @@
                                 </span>
                             </div>
                             <p class="text-sm text-gray-500">
-                                {{ $order->created_at->format('d \d\e F, Y') }} &middot;
+                                {{ $order->created_at->isoFormat('LL') }} &middot;
                                 {{ $order->items_count }} {{ $order->items_count === 1 ? 'producto' : 'productos' }}
                             </p>
                         </div>

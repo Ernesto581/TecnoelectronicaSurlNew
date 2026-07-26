@@ -71,11 +71,11 @@
                 </div>
                 <div class="bg-gray-50 rounded-xl p-4 text-center">
                     <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Creada</p>
-                    <p class="font-semibold text-sm text-gray-700">{{ $category->created_at->format('d/m/Y') }}</p>
+                    <p class="font-semibold text-sm text-gray-700">{{ $category->created_at->isoFormat('LL') }}</p>
                 </div>
                 <div class="bg-gray-50 rounded-xl p-4 text-center">
                     <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Actualizada</p>
-                    <p class="font-semibold text-sm text-gray-700">{{ $category->updated_at->format('d/m/Y') }}</p>
+                    <p class="font-semibold text-sm text-gray-700">{{ $category->updated_at->isoFormat('LL') }}</p>
                 </div>
             </div>
         </div>

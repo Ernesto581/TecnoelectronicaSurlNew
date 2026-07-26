@@ -50,7 +50,7 @@
                                     @endif
                                 </td>
                                 <td class="py-4 px-6 text-gray-600">{{ $userItem->orders_count }}</td>
-                                <td class="py-4 px-6 text-gray-500">{{ $userItem->created_at->format('d/m/Y') }}</td>
+                                <td class="py-4 px-6 text-gray-500">{{ $userItem->created_at->isoFormat('DD/MM/YYYY') }}</td>
                                 <td class="py-4 px-6">
                                     <div class="flex items-center justify-end">
                                         <a href="{{ route('users.show', $userItem) }}"

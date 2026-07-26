@@ -94,7 +94,7 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-6 text-gray-500">
-                                    {{ $order->created_at->format('d/m/Y') }}
+                                    {{ $order->created_at->isoFormat('DD/MM/YYYY') }}
                                     <span class="text-xs text-gray-400 block">{{ $order->created_at->format('H:i') }}</span>
                                 </td>
                                 <td class="py-4 px-6">
