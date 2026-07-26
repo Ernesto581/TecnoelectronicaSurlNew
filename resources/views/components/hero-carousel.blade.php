@@ -8,7 +8,7 @@ $slides = [
         'imageMobile' => '/linea-blanca-y-electrodomesticos-mobile.webp',
         'cta' => 'Ver Catálogo',
         'badge' => 'Nuevo Ingreso',
-        'link' => '/tienda/electrodomesticos',
+        'link' => '/tienda',
     ],
     (object)[
         'id' => 2,
@@ -18,7 +18,7 @@ $slides = [
         'imageMobile' => '/alimentos-y-viveres-mobile.webp',
         'cta' => 'Comprar Ahora',
         'badge' => 'Ofertas',
-        'link' => '/tienda/hogar',
+        'link' => '/tienda',
     ],
     (object)[
         'id' => 3,
@@ -28,18 +28,18 @@ $slides = [
         'imageMobile' => '/energia-solar-y-renovable-mobile.webp',
         'cta' => 'Solicitar Cotización',
         'badge' => 'Sostenibilidad',
-        'link' => '/tienda/energia-solar',
-    ],
-    (object)[
-        'id' => 4,
-        'title' => 'Sublimación y Personalizados',
-        'description' => 'Tazas, jarras y artículos promocionales personalizados. Diseños únicos para regalos o merchandising empresarial.',
-        'image' => '/sublimacion-y-personalizados.webp',
-        'imageMobile' => '/sublimacion-y-personalizados-mobile.webp',
-        'cta' => 'Personaliza Aquí',
-        'badge' => 'Creatividad',
-        'link' => '/tienda/sublimacion',
-    ],
+            'link' => '/tienda',
+        ],
+        (object)[
+            'id' => 4,
+            'title' => 'Sublimación y Personalizados',
+            'description' => 'Tazas, jarras y artículos promocionales personalizados. Diseños únicos para regalos o merchandising empresarial.',
+            'image' => '/sublimacion-y-personalizados.webp',
+            'imageMobile' => '/sublimacion-y-personalizados-mobile.webp',
+            'cta' => 'Personaliza Aquí',
+            'badge' => 'Creatividad',
+            'link' => '/tienda',
+        ],
     (object)[
         'id' => 5,
         'title' => 'Desarrollo de Software',
@@ -48,7 +48,7 @@ $slides = [
         'imageMobile' => '/software-y-soluciones-mobile.webp',
         'cta' => 'Explorar Soluciones',
         'badge' => 'Tecnología',
-        'link' => '/servicios',
+        'link' => '/tienda',
     ],
 ];
 @endphp
