@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -234,11 +236,25 @@ class ProductController extends Controller
     /**
      * Remove the specified product from storage (soft delete).
      *
+     * Prevents deletion if the product is present in any active shopping cart.
+     *
      * @param  Product  $product
      * @return RedirectResponse
      */
     public function destroy(Product $product): RedirectResponse
     {
+        $cartsWithProduct = Order::where('status', OrderStatus::Cart)
+            ->whereHas('items', fn ($q) => $q->where('product_id', $product->id))
+            ->count();
+
+        if ($cartsWithProduct > 0) {
+            return back()->with('error',
+                "No se puede eliminar «{$product->name}» porque está en {$cartsWithProduct} " .
+                ($cartsWithProduct === 1 ? 'carrito activo' : 'carritos activos') .
+                '. Contacta al cliente o espera a que vacíe su carrito.'
+            );
+        }
+
         $product->delete();
 
         return redirect()

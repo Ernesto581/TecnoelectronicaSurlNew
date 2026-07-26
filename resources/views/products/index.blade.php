@@ -34,6 +34,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 px-6 py-4 text-sm font-medium text-red-800">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Filter bar -->
         <form method="GET" action="{{ route('products.index') }}" class="mb-6 bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
             <div class="flex flex-wrap items-end gap-3">
