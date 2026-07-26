@@ -95,7 +95,6 @@
                                                     <x-icon name="trash" class="w-3.5 h-3.5" />
                                                     Eliminar
                                                 </button>
-                                            </form>
 
                                             <x-modal name="confirm-delete-cat-{{ $category->id }}" focusable>
                                                 <form method="post" action="{{ route('categories.destroy', $category) }}" class="p-6">
