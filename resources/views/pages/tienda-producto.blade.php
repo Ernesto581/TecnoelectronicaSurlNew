@@ -3,6 +3,10 @@
 @section('content')
 <div class="min-h-screen bg-surface">
     <div class="max-w-[1200px] mx-auto px-4 md:px-8 pt-28 pb-16">
+        <a href="{{ route('store.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-4">
+            <x-icon name="chevron-left" class="w-4 h-4" />
+            Volver a la tienda
+        </a>
         <div class="flex items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-wider text-gray-400 mb-8 flex-wrap">
             <a href="/tienda" class="hover:text-[#46A040] transition-colors">Tienda</a>
             <span class="text-gray-300">/</span>
