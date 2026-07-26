@@ -66,7 +66,7 @@ class StoreController extends Controller
      */
     public function show(Product $product): View
     {
-        $product->load('category');
+        $product->load(['category', 'reviews' => fn ($q) => $q->latest()->with('user')]);
 
         if (!$product->is_active) {
             abort(404);
