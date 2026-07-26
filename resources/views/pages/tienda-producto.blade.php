@@ -29,6 +29,16 @@
                     <span class="text-sm text-gray-400">({{ $product->reviews_count }} rese&ntilde;as)</span>
                 </div>
 
+                @if (session('review_success'))
+                    <div class="mt-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">{{ session('review_success') }}</div>
+                @endif
+
+                @if (config('app.reviews_enabled', true))
+                    <div class="mt-6 pt-6 border-t border-gray-100">
+                        <x-star-rating :product="$product" :userReview="$product->reviews()->where('user_id', auth()->id())->first()" />
+                    </div>
+                @endif
+
                 <div class="mt-6 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                     <div class="flex items-baseline gap-3 mb-1">
                         <span class="text-3xl lg:text-4xl font-mono font-bold text-gray-900 tracking-tight">${{ number_format($product->price, 2) }}</span>

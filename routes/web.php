@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
@@ -41,6 +42,10 @@ if (config('app.cart_enabled', true)) {
         Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     });
 }
+
+Route::post('/tienda/producto/{product}/review', [ReviewController::class, 'store'])
+    ->middleware('auth')
+    ->name('store.product.review');
 
 Route::post('/newsletter', function (Request $request) {
     $data = $request->validate([

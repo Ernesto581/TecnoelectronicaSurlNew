@@ -135,4 +135,6 @@ return [
 
     'cart_enabled' => filter_var(env('CART_ENABLED', true), FILTER_VALIDATE_BOOLEAN),
 
+    'reviews_enabled' => filter_var(env('REVIEWS_ENABLED', true), FILTER_VALIDATE_BOOLEAN),
+
 ];
