@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('pages.home', [
         'featuredProducts' => Product::with('category')
             ->where('is_active', true)
+            ->where('is_featured', true)
             ->latest()
             ->take(4)
             ->get(),

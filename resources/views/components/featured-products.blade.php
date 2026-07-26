@@ -4,6 +4,7 @@
 if (!isset($products) || $products->isEmpty()) {
     $products = \App\Models\Product::with('category')
         ->where('is_active', true)
+        ->where('is_featured', true)
         ->latest()
         ->take(4)
         ->get();
