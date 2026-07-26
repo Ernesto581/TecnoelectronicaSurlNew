@@ -31,11 +31,11 @@
                 <div class="flex items-center gap-0.5">
                     @for ($i = 1; $i <= 5; $i++)
                         <button type="submit" name="rating" value="{{ $i }}"
-                                @mouseenter="hover = {{ $i }}" @mouseleave="hover = 0"
+                                x-on:mouseenter="hover = {{ $i }}" x-on:mouseleave="hover = 0"
                                 class="transition-colors">
                             <x-icon name="star"
                                     class="w-6 h-6 cursor-pointer transition-colors"
-                                    :class="($i <= (hover || rating)) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'" />
+                                    x-bind:class="({{ $i }} <= (hover || rating)) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'" />
                         </button>
                     @endfor
                 </div>
