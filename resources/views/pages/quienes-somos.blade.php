@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative pt-32 pb-20 bg-gray-900 overflow-hidden">
+<div class="relative pt-28 pb-20 bg-gray-900 overflow-hidden">
     <img src="https://picsum.photos/seed/companyvision/1920/600" alt="Visión de la Empresa" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40" />
     <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
     <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8">
@@ -25,27 +25,13 @@
             </div>
         </div>
 
-        <div>
-            <h3 class="text-3xl font-display font-bold text-center text-gray-900 mb-12 tracking-tight">Nuestros Pilares</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @php
-                $values = [
-                    (object)['icon' => 'wrench', 'title' => 'Reparación', 'desc' => 'Diagnósticos precisos y reparaciones eficientes para que vuelvas al trabajo sin demoras.'],
-                    (object)['icon' => 'shield-check', 'title' => 'Confiabilidad', 'desc' => 'Equipos de computación de calidad y soporte post-venta que respaldan cada compra.'],
-                    (object)['icon' => 'target', 'title' => 'Asesoría', 'desc' => 'Acompañamiento experto para mantener tu tecnología en perfectas condiciones.'],
-                    (object)['icon' => 'users', 'title' => 'Compromiso', 'desc' => 'Tu satisfacción es nuestra prioridad. Trabajamos para asegurar tu productividad.'],
-                ];
-                @endphp
-                @foreach($values as $value)
-                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-all text-center group">
-                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-gray-100 group-hover:scale-110 transition-transform">
-                        <x-icon name="{{ $value->icon }}" class="w-8 h-8 text-[#46A040]" />
-                    </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-3">{{ $value->title }}</h4>
-                    <p class="text-gray-600">{{ $value->desc }}</p>
-                </div>
-                @endforeach
-            </div>
+        <x-about-us />
+
+        <div class="mt-16 text-center">
+            <a href="{{ route('store.index') }}"
+               class="inline-flex px-8 py-4 bg-[#46A040] text-white font-bold rounded-full hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20">
+                Explorar tienda
+            </a>
         </div>
     </div>
 </section>
