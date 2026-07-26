@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex flex-col">
 
-    <div class="relative pt-32 pb-20 bg-gray-900 overflow-hidden">
+    <div class="relative pt-28 pb-20 bg-gray-900 overflow-hidden">
         <img src="/domicilio.png" alt="Servicio a Domicilio" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40" />
         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
         <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8">
