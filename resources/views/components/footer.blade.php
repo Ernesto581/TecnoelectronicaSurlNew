@@ -52,14 +52,8 @@
                     <li class="flex items-start gap-4">
                         <x-icon name="phone" class="w-5 h-5 text-[#46A040] mt-0.5" />
                         <div class="flex flex-col">
-                            <span class="text-xs text-white/40 uppercase font-bold tracking-widest mb-1">Atención Principal (WhatsApp)</span>
+                            <span class="text-xs text-white/40 uppercase font-bold tracking-widest mb-1">WhatsApp</span>
                             <a href="https://wa.me/5350994365" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-[#46A040] transition-colors text-sm font-medium">+53 50994365</a>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <x-icon name="phone" class="w-5 h-5 text-[#46A040] mt-0.5" />
-                        <div class="flex flex-col">
-                            <span class="text-xs text-white/40 uppercase font-bold tracking-widest mb-1">Soporte Secundario (WhatsApp)</span>
                             <a href="https://wa.me/5350927120" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-[#46A040] transition-colors text-sm font-medium">+53 50927120</a>
                         </div>
                     </li>
