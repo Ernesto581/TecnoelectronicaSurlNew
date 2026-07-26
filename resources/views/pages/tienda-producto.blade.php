@@ -61,7 +61,11 @@
                     @endif
 
                     @auth
-                        @if ($product->stock > 0)
+                        @if (!config('app.cart_enabled', true))
+                            <div class="px-4 py-3 bg-amber-50 border border-amber-200 text-amber-700 rounded-xl text-sm text-center font-medium">
+                                Próximamente estaremos 100% operativos. ¡Gracias por tu paciencia!
+                            </div>
+                        @elseif ($product->stock > 0)
                             <form action="{{ route('cart.add', $product) }}" method="POST" class="flex items-center gap-3">
                                 @csrf
                                 <div class="flex items-center rounded-xl border border-gray-200 bg-white">

@@ -32,13 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-    Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
-    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-});
+if (config('app.cart_enabled', true)) {
+    Route::middleware('auth')->group(function () {
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+        Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('cart.update');
+        Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
+        Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    });
+}
 
 Route::post('/newsletter', function (Request $request) {
     $data = $request->validate([

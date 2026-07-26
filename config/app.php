@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Shopping Cart
+    |--------------------------------------------------------------------------
+    |
+    | When disabled, the add-to-cart buttons are hidden and the cart routes
+    | are inaccessible. Set CART_ENABLED=false in .env to disable purchases.
+    |
+    */
+
+    'cart_enabled' => env('CART_ENABLED', true),
+
 ];
