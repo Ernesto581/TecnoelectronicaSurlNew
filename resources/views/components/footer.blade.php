@@ -23,7 +23,7 @@
             <div>
                 <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-6">Categorías</h3>
                 <ul class="space-y-4">
-                    @foreach(\App\Models\Category::take(5)->get() as $cat)
+                    @foreach(\App\Models\Category::active()->orderBy('name')->take(5)->get() as $cat)
                     <li><a href="/tienda/{{ $cat->slug }}" class="text-white/60 hover:text-[#46A040] transition-colors text-sm font-medium">{{ $cat->name }}</a></li>
                     @endforeach
                 </ul>
