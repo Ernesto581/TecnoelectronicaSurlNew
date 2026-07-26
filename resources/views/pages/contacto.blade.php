@@ -89,26 +89,43 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 bg-white rounded-3xl border border-gray-200 shadow-sm p-8 md:p-10 flex flex-col justify-center">
-                    <div class="text-center py-8">
-                        <div class="w-16 h-16 bg-[#ecf8ef] rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <x-icon name="message-circle" class="w-8 h-8 text-[#46A040]" />
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-900 mb-2">¿Prefieres escribirnos?</h2>
-                        <p class="text-gray-500 mb-6">Contáctanos directamente por WhatsApp y te atenderemos al instante.</p>
-                        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                            <a href="https://wa.me/5350994365" target="_blank"
-                               class="inline-flex items-center gap-2 px-6 py-3 bg-[#46A040] text-white font-semibold rounded-full hover:bg-[#3d8c38] transition-colors shadow-md shadow-[#46A040]/20">
-                                <x-icon name="message-circle" class="w-5 h-5" />
-                                Abrir WhatsApp
-                            </a>
-                            <a href="mailto:tecnoelectronicasurl@gmail.com"
-                               class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-full hover:bg-gray-200 transition-colors">
-                                <x-icon name="mail" class="w-5 h-5" />
-                                Enviar correo
-                            </a>
-                        </div>
+                <div class="lg:col-span-7 bg-white rounded-3xl border border-gray-200 shadow-sm p-8 md:p-10 flex flex-col">
+                    <div class="mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900">Envíanos un mensaje</h2>
+                        <p class="text-sm text-gray-500 mt-1">Te responderemos a tu correo lo antes posible.</p>
                     </div>
+
+                    @if (session('contact_success'))
+                        <div class="rounded-2xl border border-green-200 bg-green-50 px-6 py-4 text-sm font-medium text-green-800 mb-6">
+                            {{ session('contact_success') }}
+                        </div>
+                    @endif
+
+                    <form action="{{ url('/contacto') }}" method="POST" class="space-y-5">
+                        @csrf
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-gray-900 mb-1.5">Nombre <span class="text-red-500">*</span></label>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" required
+                                   class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('name') border-red-300 @enderror" />
+                            @error('name') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-gray-900 mb-1.5">Correo electrónico <span class="text-red-500">*</span></label>
+                            <input type="email" name="email" id="email" value="{{ old('email') }}" required
+                                   class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] @error('email') border-red-300 @enderror" />
+                            @error('email') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-semibold text-gray-900 mb-1.5">Mensaje <span class="text-red-500">*</span></label>
+                            <textarea name="message" id="message" rows="4" required
+                                      class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040] resize-none @error('message') border-red-300 @enderror">{{ old('message') }}</textarea>
+                            @error('message') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
+                        </div>
+                        <button type="submit"
+                                class="w-full px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
+                            Enviar mensaje
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

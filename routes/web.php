@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +56,7 @@ Route::view('/quienes-somos', 'pages.quienes-somos');
 Route::view('/terminos-y-condiciones', 'pages.terminos');
 Route::view('/servicios', 'pages.servicios');
 Route::view('/contacto', 'pages.contacto');
+Route::post('/contacto', [ContactController::class, 'store']);
 Route::view('/condiciones-de-venta', 'pages.condiciones-venta');
 Route::view('/plazos-de-entrega', 'pages.plazos-entrega');
 Route::view('/politica-de-devoluciones', 'pages.politica-devoluciones');
@@ -113,6 +115,11 @@ Route::middleware(['auth', 'admin'])->prefix('order-dashboard')->name('orders.')
     Route::get('/', [OrderController::class, 'index'])->name('index');
     Route::get('/{order}', [OrderController::class, 'show'])->name('show');
     Route::patch('/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('contact-dashboard')->name('contact.')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('index');
+    Route::patch('/{message}/toggle', [ContactController::class, 'toggleResolved'])->name('toggle');
 });
 
 Route::middleware('auth')->prefix('pedidos')->name('pedidos.')->group(function () {
