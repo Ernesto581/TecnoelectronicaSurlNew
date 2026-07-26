@@ -25,7 +25,28 @@
             </div>
         </div>
 
-        <x-about-us />
+        <div>
+            <h3 class="text-3xl font-display font-bold text-center text-gray-900 mb-12 tracking-tight">Nuestros Pilares</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                @php
+                $values = [
+                    (object)['icon' => 'wrench', 'title' => 'Reparación', 'desc' => 'Diagnósticos precisos y reparaciones eficientes para que vuelvas al trabajo sin demoras.'],
+                    (object)['icon' => 'shield-check', 'title' => 'Confiabilidad', 'desc' => 'Equipos de computación de calidad y soporte post-venta que respaldan cada compra.'],
+                    (object)['icon' => 'target', 'title' => 'Asesoría', 'desc' => 'Acompañamiento experto para mantener tu tecnología en perfectas condiciones.'],
+                    (object)['icon' => 'users', 'title' => 'Compromiso', 'desc' => 'Tu satisfacción es nuestra prioridad. Trabajamos para asegurar tu productividad.'],
+                ];
+                @endphp
+                @foreach($values as $value)
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-all text-center group">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-gray-100 group-hover:scale-110 transition-transform">
+                        <x-icon name="{{ $value->icon }}" class="w-8 h-8 text-[#46A040]" />
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">{{ $value->title }}</h4>
+                    <p class="text-gray-600">{{ $value->desc }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
 
         <div class="mt-16 text-center">
             <a href="{{ route('store.index') }}"
