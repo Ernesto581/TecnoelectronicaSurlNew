@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative pt-28 pb-20 bg-gray-900 overflow-hidden min-h-[420px] flex items-center">
+<div class="relative pt-28 pb-20 bg-gray-900 overflow-hidden h-[420px] flex items-center">
     <img src="https://picsum.photos/seed/companyvision/1920/600" alt="Visión de la Empresa" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40" />
     <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
     <div class="relative z-10 max-w-[1600px] mx-auto px-4 md:px-8 text-center pt-8 w-full">
