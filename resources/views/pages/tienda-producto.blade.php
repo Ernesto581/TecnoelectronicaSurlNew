@@ -29,40 +29,6 @@
                     <span class="text-sm text-gray-400">({{ $product->reviews_count }} rese&ntilde;as)</span>
                 </div>
 
-                @if (session('review_success'))
-                    <div class="mt-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">{{ session('review_success') }}</div>
-                @endif
-
-                @if (config('app.reviews_enabled', true))
-                    <div class="mt-6 pt-6 border-t border-gray-100">
-                        <x-star-rating :product="$product" :userReview="$product->reviews()->where('user_id', auth()->id())->first()" />
-                    </div>
-
-                    @if ($product->reviews->isNotEmpty())
-                        <div class="mt-6 space-y-4">
-                            @foreach ($product->reviews as $review)
-                                <div class="bg-white rounded-xl border border-gray-100 p-4">
-                                    <div class="flex items-center justify-between mb-1">
-                                        <div class="flex items-center gap-2">
-                                            <span class="text-sm font-semibold text-gray-900">{{ $review->user->name }}</span>
-                                            <div class="flex items-center gap-0.5">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <x-icon name="star"
-                                                            class="w-3.5 h-3.5 {{ $i <= $review->rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300' }}" />
-                                                @endfor
-                                            </div>
-                                        </div>
-                                        <span class="text-xs text-gray-400">{{ $review->created_at->diffForHumans() }}</span>
-                                    </div>
-                                    @if ($review->comment)
-                                        <p class="text-sm text-gray-600 mt-1">{{ $review->comment }}</p>
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-                @endif
-
                 <div class="mt-6 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                     <div class="flex items-baseline gap-3 mb-1">
                         <span class="text-3xl lg:text-4xl font-mono font-bold text-gray-900 tracking-tight">${{ number_format($product->price, 2) }}</span>
@@ -131,6 +97,40 @@
                     <h3 class="text-sm font-mono font-semibold text-gray-400 uppercase tracking-wider mb-3">Descripci&oacute;n</h3>
                     <p class="text-gray-600 leading-relaxed">{{ $product->description }}</p>
                 </div>
+                @endif
+
+                @if (session('review_success'))
+                    <div class="mt-6 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">{{ session('review_success') }}</div>
+                @endif
+
+                @if (config('app.reviews_enabled', true))
+                    <div class="mt-6 pt-6 border-t border-gray-100">
+                        <x-star-rating :product="$product" :userReview="$product->reviews()->where('user_id', auth()->id())->first()" />
+                    </div>
+
+                    @if ($product->reviews->isNotEmpty())
+                        <div class="mt-6 space-y-4">
+                            @foreach ($product->reviews as $review)
+                                <div class="bg-white rounded-xl border border-gray-100 p-4">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-sm font-semibold text-gray-900">{{ $review->user->name }}</span>
+                                            <div class="flex items-center gap-0.5">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <x-icon name="star"
+                                                            class="w-3.5 h-3.5 {{ $i <= $review->rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300' }}" />
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <span class="text-xs text-gray-400">{{ $review->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    @if ($review->comment)
+                                        <p class="text-sm text-gray-600 mt-1">{{ $review->comment }}</p>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>
