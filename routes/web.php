@@ -46,16 +46,6 @@ Route::post('/tienda/producto/{product}/review', [ReviewController::class, 'stor
     ->middleware('auth')
     ->name('store.product.review');
 
-Route::post('/newsletter', function (Request $request) {
-    $data = $request->validate([
-        'email' => 'required|email|unique:newsletter_subscriptions,email',
-    ]);
-
-    \App\Models\NewsletterSubscription::create($data);
-
-    return back()->with('newsletter_success', '¡Gracias por suscribirte!');
-})->middleware('throttle:3,60');
-
 Route::get('/tienda', [StoreController::class, 'index'])->name('store.index');
 Route::get('/tienda/producto/{product}', [StoreController::class, 'show'])->name('store.product.show');
 Route::get('/tienda/{category:slug}', [StoreController::class, 'category'])->name('store.category.show');

@@ -108,6 +108,17 @@
                             @enderror
                         </div>
 
+                        <div class="flex items-center justify-between pt-2">
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="hidden" name="newsletter" value="0" />
+                                <input type="checkbox" name="newsletter" value="1" @checked(old('newsletter', $user->newsletter)) class="rounded border-gray-300 text-[#46A040] focus:ring-[#46A040]" />
+                                <div>
+                                    <span class="text-sm font-medium text-gray-700">Recibir novedades por correo</span>
+                                    <p class="text-xs text-gray-400">Ofertas, nuevos productos y actualizaciones.</p>
+                                </div>
+                            </label>
+                        </div>
+
                         <div class="flex items-center gap-4 pt-2">
                             <button type="submit"
                                     class="px-6 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors">
