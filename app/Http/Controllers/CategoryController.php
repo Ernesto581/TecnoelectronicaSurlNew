@@ -28,7 +28,10 @@ class CategoryController extends Controller
             ->latest()
             ->paginate(20);
 
-        return view('categories.index', compact('categories'));
+        $totalActive = Category::where('is_active', true)->count();
+        $trashed = Category::onlyTrashed()->count();
+
+        return view('categories.index', compact('categories', 'totalActive', 'trashed'));
     }
 
     /**

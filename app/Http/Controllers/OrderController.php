@@ -29,6 +29,14 @@ class OrderController extends Controller
             ->whereNot('status', OrderStatus::Cart)
             ->latest();
 
+        // Text search by order ID or customer name
+        if ($search = $request->query('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('id', 'like', "%{$search}%")
+                  ->orWhereHas('user', fn ($uq) => $uq->where('name', 'like', "%{$search}%"));
+            });
+        }
+
         // Filter by status
         if ($request->filled('status')) {
             $status = OrderStatus::tryFrom($request->query('status'));
@@ -41,7 +49,16 @@ class OrderController extends Controller
 
         $statuses = collect(OrderStatus::cases())->filter(fn ($s) => $s !== OrderStatus::Cart);
 
-        return view('orders.index', compact('orders', 'statuses'));
+        // Counters for header badges
+        $counters = [
+            'total' => Order::whereNot('status', OrderStatus::Cart)->count(),
+            'pending' => Order::where('status', OrderStatus::Pending)->count(),
+            'shipped' => Order::where('status', OrderStatus::Shipped)->count(),
+            'delivered' => Order::where('status', OrderStatus::Delivered)->count(),
+            'cancelled' => Order::where('status', OrderStatus::Cancelled)->count(),
+        ];
+
+        return view('orders.index', compact('orders', 'statuses', 'counters'));
     }
 
     /**
@@ -87,13 +104,20 @@ class OrderController extends Controller
         // Restore stock when cancelling
         if ($newStatus === OrderStatus::Cancelled) {
             $order->load('items.product');
+            $restored = [];
             foreach ($order->items as $item) {
                 $item->product->increment('stock', $item->quantity);
+                $restored[] = "{$item->quantity}x {$item->product->name}";
             }
+            $restoredList = implode(', ', $restored);
         }
 
         $oldStatus = $order->status->value;
         $order->update(['status' => $newStatus]);
+
+        if ($newStatus === OrderStatus::Cancelled && !empty($restoredList)) {
+            return back()->with('success', "Pedido #{$order->id} cancelado. Stock restaurado: {$restoredList}.");
+        }
 
         return back()->with('success', "Pedido #{$order->id}: {$oldStatus} → {$newStatus->value}.");
     }

@@ -10,6 +10,12 @@
                     Volver al perfil
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Categorías</h1>
+                <div class="flex flex-wrap items-center gap-2 mt-2">
+                    <span class="text-sm text-gray-500">{{ $categories->total() }} categorías</span>
+                    @if ($trashed > 0)
+                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">{{ $trashed }} eliminadas</span>
+                    @endif
+                </div>
                 <p class="text-gray-600 mt-1">{{ $categories->total() }} categorías registradas</p>
             </div>
             <a href="{{ route('categories.create') }}"

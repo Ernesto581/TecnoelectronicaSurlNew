@@ -5,14 +5,13 @@
     <div class="max-w-[1600px] mx-auto px-4 md:px-8 py-10">
         <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
+                <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-2">
+                    <x-icon name="chevron-left" class="w-4 h-4" />
+                    Volver al perfil
+                </a>
                 <h1 class="text-3xl font-bold text-gray-900">Usuarios</h1>
                 <p class="text-gray-600 mt-1">{{ $users->total() }} usuarios registrados</p>
             </div>
-            <a href="{{ route('profile.edit') }}"
-               class="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-[#46A040] bg-[#ecf8ef] rounded-full hover:bg-[#d9f2da] transition-colors">
-                <x-icon name="chevron-left" class="w-4 h-4" />
-                Volver al perfil
-            </a>
         </div>
 
         <section class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">

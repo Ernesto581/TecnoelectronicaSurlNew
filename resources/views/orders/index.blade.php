@@ -10,8 +10,38 @@
                     Volver al perfil
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Pedidos</h1>
-                <p class="text-gray-600 mt-1">{{ $orders->total() }} pedidos registrados</p>
+                <div class="flex flex-wrap items-center gap-2 mt-2">
+                    <span class="text-sm text-gray-500">{{ $orders->total() }} pedidos</span>
+                    @if ($counters['pending'] > 0)
+                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">pendientes</span>
+                    @endif
+                    @if ($counters['cancelled'] > 0)
+                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">cancelados</span>
+                    @endif
+                </div>
             </div>
+        </div>
+
+        <!-- Search + status filter -->
+        <div class="mb-6 flex flex-col sm:flex-row gap-3">
+            <form method="GET" action="{{ route('orders.index') }}" class="flex-1 flex gap-3">
+                @if (request('status'))
+                    <input type="hidden" name="status" value="{{ request('status') }}">
+                @endif
+                <input type="text" name="search" value="{{ request('search') }}"
+                       placeholder="Buscar por #ID o nombre de cliente..."
+                       class="flex-1 rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040]" />
+                <button type="submit"
+                        class="px-4 py-2 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
+                    Buscar
+                </button>
+                @if (request('search'))
+                    <a href="{{ route('orders.index', request()->only('status')) }}"
+                       class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
+                        Limpiar
+                    </a>
+                @endif
+            </form>
         </div>
 
         <!-- Status filter -->

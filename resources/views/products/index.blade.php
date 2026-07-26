@@ -10,6 +10,15 @@
                     Volver al perfil
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Productos</h1>
+                <div class="flex flex-wrap items-center gap-2 mt-2">
+                    <span class="text-sm text-gray-500">{{ $products->total() }} productos</span>
+                    @if ($lowStock > 0)
+                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">{{ $lowStock }} stock bajo</span>
+                    @endif
+                    @if ($trashed > 0)
+                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">{{ $trashed }} eliminados</span>
+                    @endif
+                </div>
                 <p class="text-gray-600 mt-1">{{ $products->total() }} productos registrados</p>
             </div>
             <a href="{{ route('products.create') }}"
