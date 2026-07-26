@@ -33,15 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-if (config('app.cart_enabled', true)) {
-    Route::middleware('auth')->group(function () {
-        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-        Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-        Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('cart.update');
-        Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
-        Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-    });
-}
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+    Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+});
 
 Route::post('/tienda/producto/{product}/review', [ReviewController::class, 'store'])
     ->middleware('auth')

@@ -43,6 +43,10 @@ class CartController extends Controller
      */
     public function add(Product $product, Request $request): RedirectResponse
     {
+        if (!config('app.cart_enabled', true)) {
+            return back()->with('cart_error', 'Las compras estarán disponibles próximamente.');
+        }
+
         $quantity = max(1, (int) $request->input('quantity', 1));
 
         if ($product->stock <= 0) {
@@ -91,6 +95,10 @@ class CartController extends Controller
      */
     public function update(OrderItem $item, Request $request): RedirectResponse
     {
+        if (!config('app.cart_enabled', true)) {
+            return back()->with('cart_error', 'Las compras estarán disponibles próximamente.');
+        }
+
         $quantity = max(1, (int) $request->input('quantity', 1));
         $product = $item->product;
 
@@ -141,6 +149,10 @@ class CartController extends Controller
      */
     public function checkout(): RedirectResponse
     {
+        if (!config('app.cart_enabled', true)) {
+            return redirect()->route('cart.index')->with('cart_error', 'Las compras estarán disponibles próximamente.');
+        }
+
         $cart = Auth::user()->cart();
 
         if (!$cart || $cart->items()->count() === 0) {
