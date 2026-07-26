@@ -78,12 +78,14 @@
                                 <td class="py-4 px-6">
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('categories.show', $category) }}"
-                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors">
+                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-800 transition-colors">
+                                            <x-icon name="eye" class="w-3.5 h-3.5" />
                                             Ver
                                         </a>
                                         @unless ($category->trashed())
                                             <a href="{{ route('categories.edit', $category) }}"
                                                class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors">
+                                                <x-icon name="edit" class="w-3.5 h-3.5" />
                                                 Editar
                                             </a>
                                             <form action="{{ route('categories.destroy', $category) }}" method="POST"
@@ -92,6 +94,7 @@
                                                 @method('DELETE')
                                                 <button type="submit"
                                                         class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
+                                                    <x-icon name="trash" class="w-3.5 h-3.5" />
                                                     Eliminar
                                                 </button>
                                             </form>
@@ -100,6 +103,7 @@
                                                 @csrf
                                                 <button type="submit"
                                                         class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
+                                                    <x-icon name="refresh-cw" class="w-3.5 h-3.5" />
                                                     Restaurar
                                                 </button>
                                             </form>

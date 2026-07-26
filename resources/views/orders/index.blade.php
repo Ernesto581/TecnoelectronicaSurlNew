@@ -125,7 +125,8 @@
                                 <td class="py-4 px-6">
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('orders.show', $order) }}"
-                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors">
+                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-800 transition-colors">
+                                            <x-icon name="eye" class="w-3.5 h-3.5" />
                                             Ver
                                         </a>
                                     </div>
