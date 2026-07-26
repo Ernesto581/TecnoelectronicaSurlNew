@@ -5,6 +5,10 @@
     <div class="max-w-[900px] mx-auto px-4 md:px-8 py-10">
 
         <div class="mb-8">
+            <a href="{{ route('store.index') }}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#46A040] transition-colors mb-2">
+                <x-icon name="chevron-left" class="w-4 h-4" />
+                Volver a la tienda
+            </a>
             <h1 class="text-3xl font-bold text-gray-900">Carrito</h1>
             <p class="text-gray-600 mt-1">
                 @if ($cart && $cart->items->isNotEmpty())

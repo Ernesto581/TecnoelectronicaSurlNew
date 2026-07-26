@@ -4,10 +4,17 @@
     $heroPages = ['/', 'quienes-somos', 'servicio-domicilio', 'tienda', 'servicios', 'contacto'];
     $isHero = in_array(request()->path(), $heroPages);
     $isScrolled = $solid || !$isHero;
+
+    // Count items in the user's active cart
+    $cartCount = 0;
+    if (auth()->check()) {
+        $cart = auth()->user()->cart();
+        $cartCount = $cart ? $cart->items()->count() : 0;
+    }
 @endphp
 
 <header
-    x-data="{ mobileOpen: false, scrolled: {{ $isScrolled ? 'true' : 'false' }}, cartCount: 0, searchOpen: false, searchQuery: '' }"
+    x-data="{ mobileOpen: false, scrolled: {{ $isScrolled ? 'true' : 'false' }}, cartCount: {{ $cartCount }}, searchOpen: false, searchQuery: '' }"
     x-init="if (!{{ $isScrolled ? 'true' : 'false' }}) {
         window.addEventListener('scroll', () => { scrolled = window.scrollY > 10; });
     }"
