@@ -104,6 +104,7 @@ Route::middleware(['auth', 'admin'])->prefix('product-dashboard')->name('product
     Route::patch('/{product}', [ProductController::class, 'update'])->name('update');
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
     Route::post('/{product}/restaurar', [ProductController::class, 'restore'])->withTrashed()->name('restore');
+    Route::post('/{product}/activar', [ProductController::class, 'activate'])->name('activate');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('profile-dashboard')->name('users.')->group(function () {

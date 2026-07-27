@@ -204,16 +204,27 @@
                                                 <x-icon name="edit" class="w-3.5 h-3.5" />
                                                 Editar
                                             </a>
-                                            <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                                  onsubmit="return confirm('¿Eliminar este producto?')" class="inline-flex">
-                                                @csrf
-                                                @method('DELETE')
-                                            <button type="submit"
-                                                    class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
-                                                    <x-icon name="trash" class="w-3.5 h-3.5" />
-                                                    Inactivar
-                                                </button>
-                                            </form>
+                                            @if ($product->is_active)
+                                                <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                                      onsubmit="return confirm('¿Inactivar este producto?')" class="inline-flex">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                            class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
+                                                        <x-icon name="trash" class="w-3.5 h-3.5" />
+                                                        Inactivar
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('products.activate', $product) }}" method="POST" class="inline-flex">
+                                                    @csrf
+                                                    <button type="submit"
+                                                            class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
+                                                        <x-icon name="check-circle" class="w-3.5 h-3.5" />
+                                                        Activar
+                                                    </button>
+                                                </form>
+                                            @endif
                                         @else
                                             <form action="{{ route('products.restore', $product) }}" method="POST" class="inline-flex">
                                                 @csrf

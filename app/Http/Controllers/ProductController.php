@@ -292,4 +292,19 @@ class ProductController extends Controller
             ->route('products.index')
             ->with('success', 'Producto restaurado correctamente.');
     }
+
+    /**
+     * Activate a previously inactivated product (sets is_active = true).
+     *
+     * @param  Product  $product
+     * @return RedirectResponse
+     */
+    public function activate(Product $product): RedirectResponse
+    {
+        $product->update(['is_active' => true]);
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Producto activado correctamente.');
+    }
 }
