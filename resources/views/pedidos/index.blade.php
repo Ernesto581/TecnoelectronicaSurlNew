@@ -32,7 +32,7 @@
                                         @default bg-gray-50 text-gray-700
                                     @endswitch
                                 ">
-                                    {{ ucfirst($order->status->value) }}
+                                    {{ $order->status->label() }}
                                 </span>
                             </div>
                             <p class="text-sm text-gray-500">

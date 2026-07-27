@@ -21,4 +21,18 @@ enum OrderStatus: string
 
     /** Order cancelled. */
     case Cancelled = 'cancelled';
+
+    /**
+     * Human-readable Spanish label.
+     */
+    public function label(): string
+    {
+        return match ($this) {
+            self::Cart => 'Carrito',
+            self::Pending => 'Pendiente',
+            self::Shipped => 'Enviado',
+            self::Delivered => 'Entregado',
+            self::Cancelled => 'Cancelado',
+        };
+    }
 }

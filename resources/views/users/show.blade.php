@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-600">
-                                        {{ $order->status->value }}
+                                        {{ $order->status->label() }}
                                     </span>
                                     <span class="font-semibold text-[#046b22]">${{ number_format($order->total, 2) }}</span>
                                 </div>

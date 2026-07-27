@@ -55,7 +55,7 @@
                 <a href="{{ route('orders.index', ['status' => $status->value]) }}"
                    class="px-4 py-2 rounded-full text-sm font-semibold transition-colors
                           {{ request('status') === $status->value ? 'bg-[#46A040] text-white' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50' }}">
-                    {{ ucfirst($status->value) }}
+                    {{ $status->label() }}
                 </a>
             @endforeach
         </div>
@@ -116,7 +116,7 @@
                                                 bg-gray-50 text-gray-700
                                         @endswitch
                                     ">
-                                        {{ $order->status->value }}
+                                        {{ $order->status->label() }}
                                     </span>
                                 </td>
                                 <td class="py-4 px-6">

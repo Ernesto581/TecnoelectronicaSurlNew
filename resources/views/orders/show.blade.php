@@ -22,7 +22,7 @@
                     @default bg-gray-50 text-gray-700
                 @endswitch
             ">
-                {{ ucfirst($order->status->value) }}
+                {{ $order->status->label() }}
             </span>
         </div>
 
@@ -101,7 +101,7 @@
                                 <option value="">Seleccionar estado...</option>
                                 @foreach (App\Enums\OrderStatus::cases() as $s)
                                     @if ($s !== App\Enums\OrderStatus::Cart && $s !== $order->status)
-                                        <option value="{{ $s->value }}">{{ ucfirst($s->value) }}</option>
+                                        <option value="{{ $s->value }}">{{ $s->label() }}</option>
                                     @endif
                                 @endforeach
                             </select>

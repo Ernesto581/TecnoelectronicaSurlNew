@@ -267,7 +267,7 @@
                                         @default bg-gray-50 text-gray-700
                                     @endswitch
                                 ">
-                                    {{ ucfirst($pedido->status->value) }}
+                                    {{ $pedido->status->label() }}
                                 </span>
                                 <span class="text-sm text-gray-400 truncate">
                                     {{ $pedido->created_at->isoFormat('DD/MM/YYYY') }} &middot; {{ $pedido->items_count }} {{ $pedido->items_count === 1 ? 'item' : 'items' }}
