@@ -41,6 +41,7 @@
                     <div class="divide-y divide-gray-100">
                         @foreach ($order->items as $item)
                             <div class="flex items-center gap-4 py-4">
+                                @if ($item->product)
                                 @if ($item->product->image_url)
                                     <img src="{{ Str::startsWith($item->product->image_url, 'http') ? $item->product->image_url : Storage::url($item->product->image_url) }}"
                                          alt="{{ $item->product->name }}" class="w-14 h-14 rounded-xl object-cover border border-gray-200" />
@@ -53,6 +54,15 @@
                                     <p class="font-semibold text-gray-900 text-sm">{{ $item->product->name }}</p>
                                     <p class="text-xs text-gray-400">{{ $item->quantity }} x ${{ number_format($item->unit_price, 2) }}</p>
                                 </div>
+                                @else
+                                <div class="w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center shrink-0">
+                                    <x-icon name="package" class="w-6 h-6 text-gray-300" />
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-400 italic">Producto no disponible</p>
+                                    <p class="text-xs text-gray-400">{{ $item->quantity }} x ${{ number_format($item->unit_price, 2) }}</p>
+                                </div>
+                                @endif
                                 <span class="text-sm font-bold text-gray-900">${{ number_format($item->subtotal, 2) }}</span>
                             </div>
                         @endforeach
