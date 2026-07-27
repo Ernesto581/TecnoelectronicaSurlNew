@@ -33,14 +33,15 @@
             </select>
             <select name="status"
                     class="w-36 py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none">
-                <option value="active" {{ request('status', 'active') === 'active' ? 'selected' : '' }}>Activos</option>
+                <option value="">Todos</option>
+                <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Activos</option>
                 <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactivos</option>
             </select>
             <button type="submit"
                     class="px-4 py-2 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
                 Filtrar
             </button>
-            @if (request('search') || request('rol') || request('status') === 'inactive')
+            @if (request('search') || request('rol') || request('status'))
                 <a href="{{ route('users.index') }}"
                    class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
                     Limpiar

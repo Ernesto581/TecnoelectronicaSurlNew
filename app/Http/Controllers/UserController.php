@@ -27,9 +27,11 @@ class UserController extends Controller
     {
         $query = User::withCount(['orders' => fn ($q) => $q->placed()]);
 
-        // Show only active users by default
-        if ($request->query('status') !== 'inactive') {
+        // Status filter: show all by default, filter only when explicitly selected
+        if ($request->query('status') === 'active') {
             $query->where('is_active', true);
+        } elseif ($request->query('status') === 'inactive') {
+            $query->where('is_active', false);
         }
 
         // Text search by name or email
