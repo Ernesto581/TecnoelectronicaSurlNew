@@ -7,9 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\Product;
-use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -59,9 +57,7 @@ class ProductController extends Controller
         }
 
         // Status filter
-        if ($request->query('status') === 'trashed') {
-            $query->onlyTrashed();
-        } elseif ($request->query('status') === 'inactive') {
+        if ($request->query('status') === 'inactive') {
             $query->where('is_active', false);
         } else {
             // Show only active products by default
@@ -73,12 +69,9 @@ class ProductController extends Controller
         $categories = Category::active()->orderBy('name')->get();
 
         // Counters for header badges
-        $totalActive = Product::where('is_active', true)->count();
-        $totalInactive = Product::where('is_active', false)->count();
-        $trashed = Product::onlyTrashed()->count();
         $lowStock = Product::where('is_active', true)->where('stock', '<=', 5)->where('stock', '>', 0)->count();
 
-        return view('products.index', compact('products', 'categories', 'totalActive', 'totalInactive', 'trashed', 'lowStock'));
+        return view('products.index', compact('products', 'categories', 'lowStock'));
     }
 
     /**
@@ -236,11 +229,10 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove or inactivate a product.
+     * Inactivate a product (sets is_active = false).
      *
-     * Products with order or review history are inactivated instead of deleted
-     * to preserve historical data. Products without history are soft-deleted.
-     * Products in active carts cannot be removed at all.
+     * Does not delete — products are kept for historical records.
+     * Products in active carts cannot be inactivated.
      *
      * @param  Product  $product
      * @return RedirectResponse
@@ -253,44 +245,17 @@ class ProductController extends Controller
 
         if ($cartsWithProduct > 0) {
             return back()->with('error',
-                "No se puede eliminar «{$product->name}» porque está en {$cartsWithProduct} " .
+                "No se puede inactivar «{$product->name}» porque está en {$cartsWithProduct} " .
                 ($cartsWithProduct === 1 ? 'carrito activo' : 'carritos activos') .
                 '. Contacta al cliente o espera a que vacíe su carrito.'
             );
         }
 
-        $hasHistory = OrderItem::where('product_id', $product->id)->exists()
-            || Review::where('product_id', $product->id)->exists();
-
-        if ($hasHistory) {
-            $product->update(['is_active' => false]);
-            return redirect()
-                ->route('products.index')
-                ->with('success', 'Producto inactivado correctamente.');
-        }
-
-        $product->delete();
+        $product->update(['is_active' => false]);
 
         return redirect()
             ->route('products.index')
-            ->with('success', 'Producto eliminado correctamente.');
-    }
-
-    /**
-     * Restore a soft-deleted product.
-     *
-     * The route uses withTrashed() so the model is resolved including trashed records.
-     *
-     * @param  Product  $product
-     * @return RedirectResponse
-     */
-    public function restore(Product $product): RedirectResponse
-    {
-        $product->restore();
-
-        return redirect()
-            ->route('products.index')
-            ->with('success', 'Producto restaurado correctamente.');
+            ->with('success', 'Producto inactivado correctamente.');
     }
 
     /**

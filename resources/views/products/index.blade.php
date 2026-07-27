@@ -15,9 +15,6 @@
                     @if ($lowStock > 0)
                         <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">{{ $lowStock }} stock bajo</span>
                     @endif
-                    @if ($trashed > 0)
-                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">{{ $trashed }} eliminados</span>
-                    @endif
                 </div>
                 <p class="text-gray-600 mt-1">{{ $products->total() }} productos registrados</p>
             </div>
@@ -72,7 +69,6 @@
                             class="w-full py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none">
                         <option value="active" {{ request('status', 'active') === 'active' ? 'selected' : '' }}>Activos</option>
                         <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactivos</option>
-                        <option value="trashed" {{ request('status') === 'trashed' ? 'selected' : '' }}>Eliminados</option>
                     </select>
                 </div>
 
@@ -183,9 +179,7 @@
                                     @endif
                                 </td>
                                 <td class="py-4 px-6">
-                                    @if ($product->trashed())
-                                        <span class="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">Eliminado</span>
-                                    @elseif ($product->is_active)
+                                    @if ($product->is_active)
                                         <span class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Activo</span>
                                     @else
                                         <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600">Inactivo</span>
@@ -198,43 +192,32 @@
                                             <x-icon name="eye" class="w-3.5 h-3.5" />
                                             Ver
                                         </a>
-                                        @unless ($product->trashed())
-                                            <a href="{{ route('products.edit', $product) }}"
-                                               class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors">
-                                                <x-icon name="edit" class="w-3.5 h-3.5" />
-                                                Editar
-                                            </a>
-                                            @if ($product->is_active)
-                                                <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                                      onsubmit="return confirm('¿Inactivar este producto?')" class="inline-flex">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                            class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
-                                                        <x-icon name="trash" class="w-3.5 h-3.5" />
-                                                        Inactivar
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('products.activate', $product) }}" method="POST" class="inline-flex">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
-                                                        <x-icon name="check-circle" class="w-3.5 h-3.5" />
-                                                        Activar
-                                                    </button>
-                                                </form>
-                                            @endif
+                                        <a href="{{ route('products.edit', $product) }}"
+                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors">
+                                            <x-icon name="edit" class="w-3.5 h-3.5" />
+                                            Editar
+                                        </a>
+                                        @if ($product->is_active)
+                                            <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                                  onsubmit="return confirm('¿Inactivar este producto?')" class="inline-flex">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
+                                                    <x-icon name="trash" class="w-3.5 h-3.5" />
+                                                    Inactivar
+                                                </button>
+                                            </form>
                                         @else
-                                            <form action="{{ route('products.restore', $product) }}" method="POST" class="inline-flex">
+                                            <form action="{{ route('products.activate', $product) }}" method="POST" class="inline-flex">
                                                 @csrf
                                                 <button type="submit"
                                                         class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
-                                                    <x-icon name="refresh-cw" class="w-3.5 h-3.5" />
-                                                    Restaurar
+                                                    <x-icon name="check-circle" class="w-3.5 h-3.5" />
+                                                    Activar
                                                 </button>
                                             </form>
-                                        @endunless
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
