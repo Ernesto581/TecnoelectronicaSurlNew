@@ -11,12 +11,12 @@
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Productos</h1>
                 <div class="flex flex-wrap items-center gap-2 mt-2">
-                    <span class="text-sm text-gray-500">{{ $products->total() }} productos</span>
+                    <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">{{ $totalActive }} activos</span>
+                    <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-600">{{ $totalInactive }} inactivos</span>
                     @if ($lowStock > 0)
                         <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">{{ $lowStock }} stock bajo</span>
                     @endif
                 </div>
-                <p class="text-gray-600 mt-1">{{ $products->total() }} productos registrados</p>
             </div>
             <a href="{{ route('products.create') }}"
                class="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors">

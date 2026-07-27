@@ -69,9 +69,11 @@ class ProductController extends Controller
         $categories = Category::active()->orderBy('name')->get();
 
         // Counters for header badges
+        $totalActive = Product::where('is_active', true)->count();
+        $totalInactive = Product::where('is_active', false)->count();
         $lowStock = Product::where('is_active', true)->where('stock', '<=', 5)->where('stock', '>', 0)->count();
 
-        return view('products.index', compact('products', 'categories', 'lowStock'));
+        return view('products.index', compact('products', 'categories', 'totalActive', 'totalInactive', 'lowStock'));
     }
 
     /**
