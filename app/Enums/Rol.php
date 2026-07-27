@@ -12,4 +12,15 @@ enum Rol: string
 
     /** Customer who purchases from the store. */
     case Customer = 'customer';
+
+    /**
+     * Human-readable Spanish label.
+     */
+    public function label(): string
+    {
+        return match ($this) {
+            self::Admin => 'Administrador',
+            self::Customer => 'Cliente',
+        };
+    }
 }

@@ -109,6 +109,7 @@ Route::middleware(['auth', 'admin'])->prefix('product-dashboard')->name('product
 Route::middleware(['auth', 'admin'])->prefix('profile-dashboard')->name('users.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/{user}', [UserController::class, 'show'])->name('show');
+    Route::patch('/{user}/role', [UserController::class, 'toggleRole'])->name('toggleRole');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('order-dashboard')->name('orders.')->group(function () {

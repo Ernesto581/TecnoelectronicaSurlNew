@@ -10,9 +10,40 @@
                     Volver al perfil
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Usuarios</h1>
-                <p class="text-gray-600 mt-1">{{ $users->total() }} usuarios registrados</p>
+                <div class="flex flex-wrap items-center gap-2 mt-2">
+                    <span class="text-sm text-gray-500">{{ $users->total() }} usuarios</span>
+                    <span class="inline-flex items-center rounded-full bg-[#ecf8ef] px-2.5 py-0.5 text-xs font-semibold text-[#23612d]">{{ $totalAdmins }} admin</span>
+                    <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-600">{{ $totalCustomers }} clientes</span>
+                </div>
             </div>
         </div>
+
+        <!-- Search + role filter -->
+        <form method="GET" action="{{ route('users.index') }}" class="mb-6 flex flex-col sm:flex-row gap-3">
+            <input type="text" name="search" value="{{ request('search') }}"
+                   placeholder="Buscar por nombre o email..."
+                   class="flex-1 rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#46A040]/30 focus:border-[#46A040]" />
+            <select name="rol"
+                    class="w-36 py-2 px-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#46A040] focus:border-transparent outline-none">
+                <option value="">Todos los roles</option>
+                <option value="admin" {{ request('rol') === 'admin' ? 'selected' : '' }}>Administrador</option>
+                <option value="customer" {{ request('rol') === 'customer' ? 'selected' : '' }}>Cliente</option>
+            </select>
+            <button type="submit"
+                    class="px-4 py-2 text-sm font-semibold text-white bg-[#46A040] rounded-xl hover:bg-[#3d8c38] transition-colors">
+                Filtrar
+            </button>
+            @if (request('search') || request('rol'))
+                <a href="{{ route('users.index') }}"
+                   class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
+                    Limpiar
+                </a>
+            @endif
+        </form>
+
+        @if (session('success'))
+            <div class="mb-6 rounded-2xl border border-green-200 bg-green-50 px-6 py-4 text-sm font-medium text-green-800">{{ session('success') }}</div>
+        @endif
 
         <section class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
@@ -52,12 +83,20 @@
                                 <td class="py-4 px-6 text-gray-600">{{ $userItem->orders_count }}</td>
                                 <td class="py-4 px-6 text-gray-500">{{ $userItem->created_at->isoFormat('DD/MM/YYYY') }}</td>
                                 <td class="py-4 px-6">
-                                    <div class="flex items-center justify-end">
+                                    <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('users.show', $userItem) }}"
                                            class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-800 transition-colors">
                                             <x-icon name="eye" class="w-3.5 h-3.5" />
                                             Ver
                                         </a>
+                                        <form action="{{ route('users.toggleRole', $userItem) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit"
+                                                    class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold {{ $userItem->isAdmin() ? 'text-amber-700 bg-amber-50 hover:bg-amber-100' : 'text-green-700 bg-green-50 hover:bg-green-100' }} transition-colors">
+                                                {{ $userItem->isAdmin() ? 'Quitar admin' : 'Hacer admin' }}
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
