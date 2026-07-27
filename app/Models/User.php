@@ -38,6 +38,7 @@ class User extends Authenticatable
         'password',
         'rol',
         'newsletter',
+        'is_active',
     ];
 
     protected $hidden = [
@@ -55,6 +56,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'rol' => Rol::class,
             'newsletter' => 'boolean',
+            'is_active' => 'boolean',
         ];
     }
 

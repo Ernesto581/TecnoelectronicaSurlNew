@@ -6,6 +6,7 @@ use App\Enums\Rol;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -26,6 +27,11 @@ class UserController extends Controller
     {
         $query = User::withCount(['orders' => fn ($q) => $q->placed()]);
 
+        // Show only active users by default
+        if ($request->query('status') !== 'inactive') {
+            $query->where('is_active', true);
+        }
+
         // Text search by name or email
         if ($search = $request->query('search')) {
             $query->where(function ($q) use ($search) {
@@ -42,10 +48,11 @@ class UserController extends Controller
         $users = $query->latest()->paginate(20)->withQueryString();
 
         // Counters
-        $totalAdmins = User::where('rol', Rol::Admin)->count();
-        $totalCustomers = User::where('rol', Rol::Customer)->count();
+        $totalAdmins = User::where('rol', Rol::Admin)->where('is_active', true)->count();
+        $totalCustomers = User::where('rol', Rol::Customer)->where('is_active', true)->count();
+        $totalInactive = User::where('is_active', false)->count();
 
-        return view('users.index', compact('users', 'totalAdmins', 'totalCustomers'));
+        return view('users.index', compact('users', 'totalAdmins', 'totalCustomers', 'totalInactive'));
     }
 
     /**
@@ -69,11 +76,34 @@ class UserController extends Controller
      */
     public function toggleRole(User $user): RedirectResponse
     {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'No puedes cambiar tu propio rol.');
+        }
+
         $newRole = $user->isAdmin() ? Rol::Customer : Rol::Admin;
         $user->update(['rol' => $newRole]);
 
         return back()->with('success',
             "Rol de {$user->name} cambiado a " . $newRole->label() . "."
         );
+    }
+
+    /**
+     * Toggle the user's active status.
+     *
+     * @param  User  $user
+     * @return RedirectResponse
+     */
+    public function toggleActive(User $user): RedirectResponse
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'No puedes desactivar tu propia cuenta.');
+        }
+
+        $user->update(['is_active' => !$user->is_active]);
+
+        $action = $user->is_active ? 'activado' : 'desactivado';
+
+        return back()->with('success', "Cuenta de {$user->name} {$action} correctamente.");
     }
 }

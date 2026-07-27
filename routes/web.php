@@ -110,6 +110,7 @@ Route::middleware(['auth', 'admin'])->prefix('profile-dashboard')->name('users.'
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/{user}', [UserController::class, 'show'])->name('show');
     Route::patch('/{user}/role', [UserController::class, 'toggleRole'])->name('toggleRole');
+    Route::patch('/{user}/active', [UserController::class, 'toggleActive'])->name('toggleActive');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('order-dashboard')->name('orders.')->group(function () {
