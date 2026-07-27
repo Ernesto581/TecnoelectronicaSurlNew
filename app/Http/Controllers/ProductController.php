@@ -236,9 +236,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove or deactivate a product.
+     * Remove or inactivate a product.
      *
-     * Products with order or review history are deactivated instead of deleted
+     * Products with order or review history are inactivated instead of deleted
      * to preserve historical data. Products without history are soft-deleted.
      * Products in active carts cannot be removed at all.
      *
@@ -266,7 +266,7 @@ class ProductController extends Controller
             $product->update(['is_active' => false]);
             return redirect()
                 ->route('products.index')
-                ->with('success', 'Producto desactivado correctamente.');
+                ->with('success', 'Producto inactivado correctamente.');
         }
 
         $product->delete();
