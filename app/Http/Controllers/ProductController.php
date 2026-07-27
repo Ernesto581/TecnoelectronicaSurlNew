@@ -7,7 +7,9 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -234,9 +236,11 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified product from storage (soft delete).
+     * Remove or deactivate a product.
      *
-     * Prevents deletion if the product is present in any active shopping cart.
+     * Products with order or review history are deactivated instead of deleted
+     * to preserve historical data. Products without history are soft-deleted.
+     * Products in active carts cannot be removed at all.
      *
      * @param  Product  $product
      * @return RedirectResponse
@@ -253,6 +257,16 @@ class ProductController extends Controller
                 ($cartsWithProduct === 1 ? 'carrito activo' : 'carritos activos') .
                 '. Contacta al cliente o espera a que vacíe su carrito.'
             );
+        }
+
+        $hasHistory = OrderItem::where('product_id', $product->id)->exists()
+            || Review::where('product_id', $product->id)->exists();
+
+        if ($hasHistory) {
+            $product->update(['is_active' => false]);
+            return redirect()
+                ->route('products.index')
+                ->with('success', 'Producto desactivado correctamente.');
         }
 
         $product->delete();

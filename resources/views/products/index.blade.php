@@ -211,7 +211,7 @@
                                             <button type="submit"
                                                     class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
                                                     <x-icon name="trash" class="w-3.5 h-3.5" />
-                                                    Eliminar
+                                                    Desactivar
                                                 </button>
                                             </form>
                                         @else
