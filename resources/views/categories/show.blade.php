@@ -61,8 +61,8 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-gray-50 rounded-xl p-4 text-center">
                     <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Estado</p>
-                    <p class="font-semibold text-sm {{ $category->trashed() ? 'text-red-600' : ($category->is_active ? 'text-green-600' : 'text-gray-500') }}">
-                        {{ $category->trashed() ? 'Eliminada' : ($category->is_active ? 'Activa' : 'Inactiva') }}
+                    <p class="font-semibold text-sm {{ $category->is_active ? 'text-green-600' : 'text-gray-500' }}">
+                        {{ $category->is_active ? 'Activa' : 'Inactiva' }}
                     </p>
                 </div>
                 <div class="bg-gray-50 rounded-xl p-4 text-center">

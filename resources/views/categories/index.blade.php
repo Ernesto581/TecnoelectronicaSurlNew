@@ -11,12 +11,9 @@
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Categorías</h1>
                 <div class="flex flex-wrap items-center gap-2 mt-2">
-                    <span class="text-sm text-gray-500">{{ $categories->total() }} categorías</span>
-                    @if ($trashed > 0)
-                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">{{ $trashed }} eliminadas</span>
-                    @endif
+                    <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">{{ $totalActive }} activas</span>
+                    <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-600">{{ $totalInactive }} inactivas</span>
                 </div>
-                <p class="text-gray-600 mt-1">{{ $categories->total() }} categorías registradas</p>
             </div>
             <a href="{{ route('categories.create') }}"
                class="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#46A040] rounded-full hover:bg-[#3d8c38] transition-colors">
@@ -67,9 +64,7 @@
                                     <span class="font-medium text-gray-700">{{ $category->products_count }}</span>
                                 </td>
                                 <td class="py-4 px-6">
-                                    @if ($category->trashed())
-                                        <span class="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">Eliminada</span>
-                                    @elseif ($category->is_active)
+                                    @if ($category->is_active)
                                         <span class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Activa</span>
                                     @else
                                         <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600">Inactiva</span>
@@ -82,41 +77,40 @@
                                             <x-icon name="eye" class="w-3.5 h-3.5" />
                                             Ver
                                         </a>
-                                        @unless ($category->trashed())
-                                            <a href="{{ route('categories.edit', $category) }}"
-                                               class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors">
-                                                <x-icon name="edit" class="w-3.5 h-3.5" />
-                                                Editar
-                                            </a>
+                                        <a href="{{ route('categories.edit', $category) }}"
+                                           class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors">
+                                            <x-icon name="edit" class="w-3.5 h-3.5" />
+                                            Editar
+                                        </a>
+                                        @if ($category->is_active)
                                             <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                                                  onsubmit="return confirm('¿Eliminar esta categoría?')" class="inline-flex">
+                                                  onsubmit="return confirm('¿Inactivar esta categoría?')" class="inline-flex">
                                                 @csrf
                                                 @method('DELETE')
-                                            <button type="submit"
-                                                    class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
+                                                <button type="submit"
+                                                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition-colors">
                                                     <x-icon name="trash" class="w-3.5 h-3.5" />
-                                                    Eliminar
+                                                    Inactivar
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ route('categories.restore', $category) }}" method="POST" class="inline-flex">
+                                            <form action="{{ route('categories.activate', $category) }}" method="POST" class="inline-flex">
                                                 @csrf
                                                 <button type="submit"
                                                         class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
-                                                    <x-icon name="refresh-cw" class="w-3.5 h-3.5" />
-                                                    Restaurar
+                                                    <x-icon name="check-circle" class="w-3.5 h-3.5" />
+                                                    Activar
                                                 </button>
                                             </form>
-                                        @endunless
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="5" class="py-16 text-center text-gray-400">
-                                    <x-icon name="folder" class="w-10 h-10 mx-auto mb-3 text-gray-300" />
+                                    <x-icon name="shopping-basket" class="w-10 h-10 mx-auto mb-3 text-gray-300" />
                                     <p class="font-medium">No hay categorías registradas</p>
-                                    <p class="text-sm mt-1">Crea la primera categoría para empezar.</p>
                                 </td>
                             </tr>
                         @endforelse

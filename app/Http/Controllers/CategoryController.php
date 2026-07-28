@@ -29,9 +29,9 @@ class CategoryController extends Controller
             ->paginate(20);
 
         $totalActive = Category::where('is_active', true)->count();
-        $trashed = Category::onlyTrashed()->count();
+        $totalInactive = Category::where('is_active', false)->count();
 
-        return view('categories.index', compact('categories', 'totalActive', 'trashed'));
+        return view('categories.index', compact('categories', 'totalActive', 'totalInactive'));
     }
 
     /**
@@ -55,7 +55,6 @@ class CategoryController extends Controller
         $data = $request->validated();
         $data['slug'] = $this->generateUniqueSlug($data['name']);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
             $data['image_url'] = $request->file('image')->store('categories', 'public');
         }
@@ -108,7 +107,6 @@ class CategoryController extends Controller
             $data['slug'] = $this->generateUniqueSlug($data['name'], $category->id);
         }
 
-        // Handle image upload
         if ($request->hasFile('image')) {
             if ($category->image_url) {
                 Storage::disk('public')->delete($category->image_url);
@@ -126,43 +124,37 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified category (soft delete).
+     * Inactivate a category (sets is_active = false).
      *
      * @param  Category  $category
      * @return RedirectResponse
      */
     public function destroy(Category $category): RedirectResponse
     {
-        $category->delete();
+        $category->update(['is_active' => false]);
 
         return redirect()
             ->route('categories.index')
-            ->with('success', 'Categoría eliminada correctamente.');
+            ->with('success', 'Categoría inactivada correctamente.');
     }
 
     /**
-     * Restore a soft-deleted category.
-     *
-     * The route uses withTrashed() so the model is resolved including trashed records.
+     * Activate a previously inactivated category.
      *
      * @param  Category  $category
      * @return RedirectResponse
      */
-    public function restore(Category $category): RedirectResponse
+    public function activate(Category $category): RedirectResponse
     {
-        $category->restore();
+        $category->update(['is_active' => true]);
 
         return redirect()
             ->route('categories.index')
-            ->with('success', 'Categoría restaurada correctamente.');
+            ->with('success', 'Categoría activada correctamente.');
     }
 
     /**
      * Generate a unique slug from the category name.
-     *
-     * @param  string    $name
-     * @param  int|null  $excludeId
-     * @return string
      */
     private function generateUniqueSlug(string $name, ?int $excludeId = null): string
     {
@@ -170,14 +162,14 @@ class CategoryController extends Controller
         $originalSlug = $slug;
         $counter = 1;
 
-        $query = Category::withTrashed()->where('slug', $slug);
+        $query = Category::where('slug', $slug);
         if ($excludeId) {
             $query->where('id', '!=', $excludeId);
         }
 
         while ($query->exists()) {
             $slug = $originalSlug . '-' . ++$counter;
-            $query = Category::withTrashed()->where('slug', $slug);
+            $query = Category::where('slug', $slug);
             if ($excludeId) {
                 $query->where('id', '!=', $excludeId);
             }

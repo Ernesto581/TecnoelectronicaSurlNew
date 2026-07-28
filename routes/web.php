@@ -133,7 +133,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('category-dashboard')->
     Route::get('/{category}/editar', [CategoryController::class, 'edit'])->name('edit');
     Route::patch('/{category}', [CategoryController::class, 'update'])->name('update');
     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
-    Route::post('/{category}/restaurar', [CategoryController::class, 'restore'])->withTrashed()->name('restore');
+    Route::post('/{category}/activar', [CategoryController::class, 'activate'])->name('activate');
 });
 
 require __DIR__.'/auth.php';
