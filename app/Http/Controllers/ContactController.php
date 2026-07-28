@@ -40,7 +40,10 @@ class ContactController extends Controller
     {
         $messages = ContactMessage::latest()->paginate(20);
 
-        return view('contact-messages.index', compact('messages'));
+        $pending = ContactMessage::where('is_resolved', false)->count();
+        $resolved = ContactMessage::where('is_resolved', true)->count();
+
+        return view('contact-messages.index', compact('messages', 'pending', 'resolved'));
     }
 
     /**

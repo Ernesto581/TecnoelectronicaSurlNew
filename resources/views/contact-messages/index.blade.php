@@ -11,7 +11,15 @@
                     Volver al perfil
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Consultas</h1>
-                <p class="text-sm text-gray-500 mt-1">{{ $messages->total() }} mensajes recibidos</p>
+                <div class="flex flex-wrap items-center gap-2 mt-2">
+                    <span class="text-sm text-gray-500">{{ $messages->total() }} mensajes</span>
+                    @if ($pending > 0)
+                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">{{ $pending }} pendientes</span>
+                    @endif
+                    @if ($resolved > 0)
+                        <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">{{ $resolved }} resueltos</span>
+                    @endif
+                </div>
             </div>
         </div>
 
@@ -58,14 +66,19 @@
                                         <button type="button"
                                                 x-data=""
                                                 x-on:click="$dispatch('open-modal', 'view-message-{{ $msg->id }}')"
-                                                class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors">
+                                                class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-800 transition-colors">
+                                            <x-icon name="eye" class="w-3.5 h-3.5" />
                                             Ver
                                         </button>
                                         <form action="{{ route('contact.toggle', $msg) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit"
-                                                    class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold {{ $msg->is_resolved ? 'text-amber-700 bg-amber-50 hover:bg-amber-100' : 'text-green-700 bg-green-50 hover:bg-green-100' }} transition-colors">
+                                                    class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors
+                                                    {{ $msg->is_resolved
+                                                        ? 'text-amber-700 bg-amber-50 hover:bg-amber-100'
+                                                        : 'text-green-700 bg-green-50 hover:bg-green-100' }}">
+                                                <x-icon name="{{ $msg->is_resolved ? 'refresh-cw' : 'check-circle' }}" class="w-3.5 h-3.5" />
                                                 {{ $msg->is_resolved ? 'Reabrir' : 'Resolver' }}
                                             </button>
                                         </form>
