@@ -26,23 +26,27 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware('auth')->group(function () {
+// Authenticated + verified customer routes
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
     Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-});
 
-Route::post('/tienda/producto/{product}/review', [ReviewController::class, 'store'])
-    ->middleware('auth')
-    ->name('store.product.review');
+    Route::prefix('pedidos')->name('pedidos.')->group(function () {
+        Route::get('/', [OrderController::class, 'customerOrders'])->name('index');
+        Route::get('/{order}', [OrderController::class, 'customerShow'])->name('show');
+        Route::post('/{order}/cancelar', [OrderController::class, 'customerCancel'])->name('cancel');
+    });
+
+    Route::post('/tienda/producto/{product}/review', [ReviewController::class, 'store'])
+        ->name('store.product.review');
+});
 
 Route::get('/tienda', [StoreController::class, 'index'])->name('store.index');
 Route::get('/tienda/producto/{product}', [StoreController::class, 'show'])->name('store.product.show');
@@ -92,7 +96,7 @@ Route::get('/sitemap.xml', function () {
     return response($xml)->header('Content-Type', 'application/xml');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('product-dashboard')->name('products.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('product-dashboard')->name('products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
     Route::get('/crear', [ProductController::class, 'create'])->name('create');
     Route::post('/', [ProductController::class, 'store'])->name('store');
@@ -103,31 +107,25 @@ Route::middleware(['auth', 'admin'])->prefix('product-dashboard')->name('product
     Route::post('/{product}/activar', [ProductController::class, 'activate'])->name('activate');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('profile-dashboard')->name('users.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('profile-dashboard')->name('users.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/{user}', [UserController::class, 'show'])->name('show');
     Route::patch('/{user}/role', [UserController::class, 'toggleRole'])->name('toggleRole');
     Route::patch('/{user}/active', [UserController::class, 'toggleActive'])->name('toggleActive');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('order-dashboard')->name('orders.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('order-dashboard')->name('orders.')->group(function () {
     Route::get('/', [OrderController::class, 'index'])->name('index');
     Route::get('/{order}', [OrderController::class, 'show'])->name('show');
     Route::patch('/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('contact-dashboard')->name('contact.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('contact-dashboard')->name('contact.')->group(function () {
     Route::get('/', [ContactController::class, 'index'])->name('index');
     Route::patch('/{message}/toggle', [ContactController::class, 'toggleResolved'])->name('toggle');
 });
 
-Route::middleware('auth')->prefix('pedidos')->name('pedidos.')->group(function () {
-    Route::get('/', [OrderController::class, 'customerOrders'])->name('index');
-    Route::get('/{order}', [OrderController::class, 'customerShow'])->name('show');
-    Route::post('/{order}/cancelar', [OrderController::class, 'customerCancel'])->name('cancel');
-});
-
-Route::middleware(['auth', 'admin'])->prefix('category-dashboard')->name('categories.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('category-dashboard')->name('categories.')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('index');
     Route::get('/crear', [CategoryController::class, 'create'])->name('create');
     Route::post('/', [CategoryController::class, 'store'])->name('store');
