@@ -11,12 +11,9 @@
                 </a>
                 <h1 class="text-3xl font-bold text-gray-900">Pedidos</h1>
                 <div class="flex flex-wrap items-center gap-2 mt-2">
-                    <span class="text-sm text-gray-500">{{ $orders->total() }} pedidos</span>
-                    @if ($counters['pending'] > 0)
-                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">pendientes</span>
-                    @endif
-                    @if ($counters['cancelled'] > 0)
-                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">cancelados</span>
+                    <span class="text-sm text-gray-500">{{ $totalOrders }} pedidos</span>
+                    @if ($pending > 0)
+                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700">{{ $pending }} pendientes</span>
                     @endif
                 </div>
             </div>

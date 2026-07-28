@@ -50,15 +50,10 @@ class OrderController extends Controller
         $statuses = collect(OrderStatus::cases())->filter(fn ($s) => $s !== OrderStatus::Cart);
 
         // Counters for header badges
-        $counters = [
-            'total' => Order::whereNot('status', OrderStatus::Cart)->count(),
-            'pending' => Order::where('status', OrderStatus::Pending)->count(),
-            'shipped' => Order::where('status', OrderStatus::Shipped)->count(),
-            'delivered' => Order::where('status', OrderStatus::Delivered)->count(),
-            'cancelled' => Order::where('status', OrderStatus::Cancelled)->count(),
-        ];
+        $totalOrders = Order::whereNot('status', OrderStatus::Cart)->count();
+        $pending = Order::where('status', OrderStatus::Pending)->count();
 
-        return view('orders.index', compact('orders', 'statuses', 'counters'));
+        return view('orders.index', compact('orders', 'statuses', 'totalOrders', 'pending'));
     }
 
     /**
