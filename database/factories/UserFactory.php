@@ -31,36 +31,28 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'rol' => Rol::Customer->value,
             'remember_token' => Str::random(10),
+            'newsletter' => fake()->boolean(70),
+            'is_active' => true,
         ];
     }
 
-    /**
-     * Set the user's role to admin.
-     */
     public function admin(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'rol' => Rol::Admin->value,
-        ]);
+        return $this->state(fn () => ['rol' => Rol::Admin->value]);
     }
 
-    /**
-     * Set the user's role to customer.
-     */
     public function customer(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'rol' => Rol::Customer->value,
-        ]);
+        return $this->state(fn () => ['rol' => Rol::Customer->value]);
     }
 
-    /**
-     * Indicate that the user's email address should be unverified.
-     */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(fn () => ['email_verified_at' => null]);
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(fn () => ['is_active' => false]);
     }
 }
