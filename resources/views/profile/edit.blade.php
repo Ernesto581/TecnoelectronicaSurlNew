@@ -79,6 +79,18 @@
                         <h2 class="text-sm font-semibold text-gray-900">Consultas</h2>
                         <p class="text-xs text-gray-500">Mensajes de clientes</p>
                     </div>
+                        <x-icon name="chevron-right" class="w-4 h-4 text-[#46A040] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+
+                <a href="{{ route('statistics.index') }}"
+                   class="bg-gradient-to-r from-[#ecf8ef] to-[#d9f2da] rounded-2xl border border-[#46A040]/20 shadow-sm p-4 flex items-center gap-4 hover:shadow-md transition-shadow group">
+                    <div class="w-10 h-10 rounded-full bg-[#46A040] flex items-center justify-center shrink-0">
+                        <x-icon name="zap" class="w-5 h-5 text-white" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-sm font-semibold text-gray-900">Estadísticas</h2>
+                        <p class="text-xs text-gray-500">KPIs y métricas</p>
+                    </div>
                     <x-icon name="chevron-right" class="w-4 h-4 text-[#46A040] shrink-0 group-hover:translate-x-0.5 transition-transform" />
                 </a>
             </div>

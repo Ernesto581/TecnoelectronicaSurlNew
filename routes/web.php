@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
@@ -134,6 +135,10 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('category-dashboard')->
     Route::patch('/{category}', [CategoryController::class, 'update'])->name('update');
     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     Route::post('/{category}/activar', [CategoryController::class, 'activate'])->name('activate');
+});
+
+Route::middleware(['auth', 'verified', 'admin'])->prefix('statistics')->name('statistics.')->group(function () {
+    Route::get('/', [StatisticsController::class, 'index'])->name('index');
 });
 
 require __DIR__.'/auth.php';
